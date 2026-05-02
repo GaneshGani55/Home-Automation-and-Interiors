@@ -22,6 +22,11 @@
 | Screen LED halo driver | 24V LED driver | Inside screen recess cavity | With screen socket | B2 | No | Powers amber halo strip |
 | Foyer shelf LED strip | 24V LED strip under shelf | Under walnut shelf, full 6ft width | 900mm (shelf height) | B1 | Via smart switch | Warm 2700K, under-shelf wash |
 | Speaker point | 2-core 1.5mm² speaker wire | Ceiling, above foyer centre | Ceiling | B2 | Via server | Terminate in ceiling rose |
+| Screen-bezel camera | USB camera module or tiny RTSP/PoE pinhole camera | Top-centre of screen recess/bezel | 1600–1650mm | Screen cavity / LV | Via server/RPi | Secondary face verification when person looks at welcome screen |
+| Primary face-capture camera | PoE IP camera | Outside main door, latch-side wall/jamb | 1600–1700mm | PoE / network | Via HA/Frigate | Main face-recognition camera; keep face-level, not ceiling height |
+| Porch overview camera | PoE IP camera | Porch ceiling/soffit corner | 2400–2700mm | PoE / network | Via HA/Frigate | Security/context view only; not reliable for face ID |
+| Video doorbell/intercom | Doorbell / video phone point | Latch side of main door | 1400–1450mm | LV / PoE | Smart | Pull Cat6 + 2-core LV cable for flexibility |
+| Main-door contact sensor | Concealed wired reed sensor | Top of main door frame | Door head | LV | Via HA | Screen wake + door-open automation trigger |
 | DB panel | 40-way flush-mount DB | W wall, right of foyer (behind door) | Bottom of DB at 1500mm | — | — | See db-layout.md |
 | Switch board 1 | 4-gang modular (Schneider Unica or similar) | W wall, left of door, 1200mm | 1200mm | B1/B2 | Smart (2 gangs) | Gangs: foyer lights, screen, spare, spare |
 
@@ -32,6 +37,13 @@
 **Conduits from staircase niche → foyer cavity:**
 - 25mm: Cat6 (server → screen RPi)
 - 25mm: spare (future)
+
+**Conduits from staircase niche → entrance/door points:**
+- 25mm LV: Cat6 to primary face-capture camera outside main door
+- 25mm LV: Cat6 to porch overview camera
+- 16mm LV: Cat6 + 2-core LV cable to doorbell/intercom point
+- 16mm LV: 2-core cable to concealed main-door contact sensor
+- 16mm LV sleeve: screen cavity → screen-bezel camera point
 
 ---
 
@@ -131,19 +143,20 @@
 ---
 
 ### 8. Common Bathroom (GF)
-**Circuit:** A1 (lights+exhaust), A2 (geyser)
-**Door opens from West. Layout: Sink · Toilet · Shower (N→S along W wall)**
+**Circuit:** A1 (lights + exhaust fan) · A2 (geyser 15L)
+**Full detail → [gf-bathroom-electrical.md](gf-bathroom-electrical.md)**
 
-| Point | Type | Location | Height | Circuit | Smart? | Notes |
-|---|---|---|---|---|---|---|
-| Ceiling light | IP44 rated LED, 9W | Ceiling | — | A1 | PIR switch (outside door) | Auto-off PIR |
-| Mirror light | IP44 LED strip or bar | Above mirror / sink | 1900mm | A1 | PIR | |
-| Exhaust fan | 4" exhaust, IP44 | Top of wall, shower zone | ~2300mm | A1 | Runs with light | Wire to same PIR switch |
-| Geyser | **15L** | Wall above shower/toilet | ~1800mm | A2 | No (manual switch outside) | Dedicated 20A circuit; switch OUTSIDE bathroom |
-| PIR switch board | 1-gang PIR switch | Outside bathroom door, W side | 1200mm | A1 | PIR auto-off | Controls light + exhaust; 5-min delay |
-| Geyser switch | 1-gang 20A switch with indicator | Outside bathroom, below PIR | 1200mm | A2 | No | MUST be outside bathroom (safety) |
+> Layout corrected 2026-05-01: door on **East wall** (left corner, 2.5ft); all fixtures on **North wall** (E→W: Vanity → WC → Glass partition → Shower); ceiling **8ft** (attic above lintel); **no false ceiling**; switch board on east wall right of door.
 
-> **Safety rule:** Geyser switch is ALWAYS outside the bathroom. Never inside.
+| Point | Type | x from East | Height | Circuit | Notes |
+|---|---|---|---|---|---|
+| L1 LED mirror | IP44, 15W, backlit | x=1.0ft, north wall | 1.35m centre | A1 via PIR | Conduit stub behind mirror |
+| L2 Downlight — dry zone | IP44, 7W, 3000K recessed | x=3.0ft, ceiling | 8ft ceiling | A1 via PIR | Core drill ø75mm from attic |
+| L3 Downlight — shower | **IP65**, 7W, 3000K recessed | x=7.25ft, ceiling | 8ft ceiling | A1 via PIR | Zone 1 — IP65 mandatory |
+| L4 Niche LED strip | **IP65**, 3000K, 24V | x=7.25ft, south wall | 1.4m centre | A1 via PIR | Inside shower — IP65 mandatory |
+| EF Exhaust fan | **IP65**, 150mm, ceiling | x=8.0ft, ceiling | 8ft ceiling | A1 manual switch | Duct through attic to external wall |
+| SW Switch board | 4-module: PIR + exhaust + geyser | East wall, right of door | 1.35m | A1 + A2 | y=3.25ft from south wall |
+| GY Geyser 15L | 2000W | Attic above bathroom | attic | A2 (16A RCBO) | 16A switch + neon in SW board |
 
 ---
 
