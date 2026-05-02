@@ -74,7 +74,7 @@
 | 1 | **Bedroom 1 (E side, top-left)** | bay roughly 13' wide × ~13' deep including toilet **(verify)** | Bed against the W wall. Window on top (S). |
 | 2 | **Toilet 1** | 8'0" × 5'0" | Layout (E→W): SINK · TOILET · SHOWER. Door from Bedroom 1. |
 | 3 | **Bedroom 2 (W side, top-right)** | bay roughly 13' wide × ~13' deep | Bed against E wall. Window on top (S). |
-| 4 | **Toilet 2** | 8'0" × 5'0" | Layout (W→E): SHOWER · TOILET · SINK. Door from Bedroom 2. |
+| 4 | **Toilet 2** | 8'0" × 5'0" | Layout (W→E): SINK · TOILET · SHOWER. Door from Bedroom 2. |
 | 5 | **Wardrobe (W wall)** | 3'0" deep, runs along part of W edge of Bedroom 2 | Built-in. |
 | 6 | **Balcony (W, top)** | **3'0" projection** from the last column (user considering expanding) | Off Bedroom 2 / passage. Projection measured from last column, not from wall face. |
 | 7 | **FF Living** | central / lower-left zone | 9'8" measured between bedroom doors at the partition, 8'6" measured on the W side passage. Doors in pairs at centre (entry to each bedroom). |

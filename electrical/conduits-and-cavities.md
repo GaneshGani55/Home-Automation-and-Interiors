@@ -112,6 +112,60 @@ Panel dimensions (without stand):
 | Conduit 3 (speaker) | 16mm · Staircase niche → ceiling → ceiling rose above foyer centre |
 | Cavity entry height | 1250mm from FFL (enters at cavity bottom edge) |
 
+#### Staircase Niche to Entrance Face Detection / Doorbell (Low Voltage)
+| Item | Value |
+|---|---|
+| Primary face-capture camera | LV-25 · staircase/server niche → outside main-door latch-side wall/jamb; pull 1× Cat6 + draw wire |
+| Primary camera termination | Weatherproof 4×4" back box at **1600–1700mm FFL**, 150–250mm from latch-side door frame, protected under porch/eave |
+| Primary camera aim | Aim at a capture line **1000–1800mm outside the threshold**; keep vertical tilt within ~15–20° and horizontal angle within ~30° |
+| Porch overview camera | LV-25 · staircase/server niche → porch ceiling/soffit corner; pull 1× Cat6 + draw wire |
+| Porch overview termination | Weatherproof camera box at **2400–2700mm FFL**; wide 2.8mm lens is OK here because this camera is for context, not face ID |
+| Video doorbell/intercom | LV-16 · staircase/server niche/low-voltage PSU → latch-side doorbell box; pull 1× Cat6 + 2-core bell/12V cable |
+| Doorbell termination | Modular/doorbell box at **1400–1450mm FFL**, 150–200mm from latch-side frame |
+| Door contact sensor | LV-16 · staircase/server niche → top of main-door frame; pull 2-core sensor cable |
+| Screen-bezel camera (CAM-0) | LV-16 sleeve · screen cavity back wall → top-centre of screen bezel; **Raspberry Pi Camera Module 3 via CSI ribbon cable** — no PoE, powered by RPi Zero 2W; streams RTSP over existing Cat6 in cavity |
+| Screen camera height | **1600–1650mm FFL** lens height, facing into foyer; secondary face verification when person stands at welcome screen |
+
+> **Face recognition rule:** do not rely on the high porch CCTV camera for identity. It will see the top of heads. The face-recognition camera must be close to face level and view people front-on as they approach or pause at the door.
+
+#### Additional CCTV Camera Conduit Stubs (CAM-3, CAM-4, CAM-5)
+
+> These three stubs must be chased and terminated **before plastering closes the walls**. All run LV-25 (25mm PVC grey), pull 1× Cat6 + draw wire each. All terminate in a weatherproof IP67 outdoor camera back-box.
+
+**CAM-3 — FF Front Balcony Bird's-Eye**
+| Item | Value |
+|---|---|
+| Camera type | Hikvision ColorVu 4MP, 2.8mm, IP67, PoE |
+| Purpose | Elevated overview of compound, gate, driveway, full N-side approach |
+| Mount position | NW corner of front balcony (11'9" × 7') soffit/underside or parapet inner face |
+| Mount height | ~200–300mm below balcony soffit (approx 5500mm from ground) |
+| Conduit route | Staircase niche (GF) → vertical up staircase W wall (join existing FF conduit bundle) → at FF slab level branch horizontally along FF corridor ceiling (N direction) → into front balcony ceiling/soffit → terminate at NW corner weatherproof back-box |
+| Conduit size | 25mm LV-PVC |
+| Termination | Weatherproof back-box IP67, 4×4", fixed to balcony soffit or parapet inner face at NW corner |
+
+**CAM-4 — East-Side Exterior (Kitchen / Utility Zone)**
+| Item | Value |
+|---|---|
+| Camera type | Hikvision ColorVu 4MP, 2.8mm, IP67, PoE |
+| Purpose | Covers E-side approach, kitchen windows, utility back area; critical if utility has external door |
+| Mount position | E-wall exterior, at kitchen–utility junction (N corner of E wall) |
+| Mount height | 2400–2600mm FFL |
+| Conduit route | Staircase niche (GF) → horizontal ceiling-level run east (above kitchen/dining ceiling, 150mm below GF slab soffit) → exit through E wall at kitchen–utility zone → terminate at weatherproof back-box |
+| Conduit size | 25mm LV-PVC |
+| Termination | Weatherproof back-box IP67, E-wall exterior at NE kitchen–utility corner |
+| ⚠️ Confirm | Does utility room have an external door to outside? If yes, this camera is mandatory; if E-side is fully enclosed compound, it becomes optional perimeter cover |
+
+**CAM-5 — Terrace Staircase Exit**
+| Item | Value |
+|---|---|
+| Camera type | Hikvision ColorVu 4MP, 2.8mm, IP67, PoE |
+| Purpose | Monitors terrace access (prevents unauthorized entry); elevated neighbourhood overview |
+| Mount position | Parapet wall beside FF→terrace staircase opening, facing the terrace |
+| Mount height | ~2500mm from terrace floor level |
+| Conduit route | Staircase niche (GF) → vertical up staircase W wall (with existing FF bundle) → continue up FF staircase wall to terrace level → exit near terrace door/opening → terminate at parapet wall back-box |
+| Conduit size | 25mm LV-PVC (UV-resistant at terrace level — fully exposed) |
+| Termination | Weatherproof back-box IP67, fully exposed to rain and UV; use UV-rated conduit for the last 500mm above roof line |
+
 #### DB to Foyer False Ceiling Cove (Circuit B10)
 | Item | Value |
 |---|---|
@@ -346,6 +400,9 @@ Living area has two zones: **solid slab zone** (left/west) and **double-height v
 | Geyser switches (all) | **1050mm from FFL** | Directly below PIR switch or alongside |
 | PIR bathroom switches | **1200mm from FFL** | Outside bathroom door, handle side |
 | Foyer DB panel | Bottom edge at **1500mm from FFL** | Behind door swing — min 100mm from door frame |
+| Primary face-capture camera | **1600–1700mm from FFL** | Outside main door, latch-side jamb/wall; face-level, front-on view |
+| Video doorbell | **1400–1450mm from FFL** | Latch side of main door, 150–200mm from frame |
+| Porch overview camera | **2400–2700mm from FFL** | Porch ceiling/soffit corner; context/security only, not face ID |
 | Outdoor / balcony switches | **1200mm from FFL** | Inside of door before going out |
 | AC socket | **1850mm from FFL** | On wall closest to outdoor unit (check AC manual) |
 | Kitchen socket (counter) | **1100mm from FFL** | Above counter level |
@@ -360,8 +417,16 @@ Before plastering, verify each cavity is:
 
 - [ ] Screen cavity: 540W × 340H × 100D mm, bottom at 1280mm FFL, centred on foyer wall
 - [ ] 2× 25mm conduit stubs visible inside cavity bottom-left corner (power + data)
+- [ ] LV-16 sleeve from screen cavity to top-centre screen camera point at 1600–1650mm FFL
 - [ ] Inside cavity painted **matte black** before stone cladding is done
 - [ ] VESA backing board (12mm ply, 600×400mm) fixed to cavity back wall, centred, with rawl plugs for VESA bracket
 - [ ] DB recess: 400W × 600H × 100D mm at 1500mm FFL, W wall foyer, behind door swing
+- [ ] **CAM-1** LV-25 stub: primary face-capture camera outside main door, latch-side, **1600–1700mm FFL** — Cat6 + draw wire, weatherproof 4×4" back-box
+- [ ] **CAM-2** LV-25 stub: porch overview camera, porch ceiling/soffit corner, **2400–2700mm FFL** — Cat6 + draw wire, weatherproof back-box
+- [ ] **CAM-3** LV-25 stub: FF front balcony NW corner soffit — route up staircase wall → FF corridor ceiling → balcony soffit — Cat6 + draw wire, IP67 back-box
+- [ ] **CAM-4** LV-25 stub: E-wall exterior at kitchen–utility junction, **2400–2600mm FFL** — horizontal run through GF ceiling — Cat6 + draw wire, IP67 back-box
+- [ ] **CAM-5** LV-25 stub: terrace level near staircase exit parapet, **~2500mm from terrace floor** — extend staircase vertical run to terrace — Cat6 + draw wire, IP67 UV-rated back-box
+- [ ] LV-16 stub to doorbell/intercom point at 1400–1450mm FFL
+- [ ] LV-16 stub to concealed main-door contact sensor at top of frame
 - [ ] All conduit entry/exit points in walls are sleeved and labelled before plastering
 - [ ] Staircase niche: shelving or back panel fixed, all conduit stubs labelled

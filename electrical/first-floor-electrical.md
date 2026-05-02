@@ -80,7 +80,7 @@
 
 ### 5. Toilet 2 (Bedroom 2 Attached)
 **Circuit:** D7 (lights+exhaust), D8 (geyser)
-**Layout:** SHOWER · TOILET · SINK (W→E)
+**Layout:** SINK · TOILET · SHOWER (W→E)
 
 | Point | Type | Location | Height | Circuit | Smart? | Notes |
 |---|---|---|---|---|---|---|

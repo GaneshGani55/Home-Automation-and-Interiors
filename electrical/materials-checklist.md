@@ -142,22 +142,32 @@ Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneid
 | 8.1 | **Beelink EQ12 Mini PC** (Intel N100, 8GB RAM, 256GB SSD) | 1 | 18,000 | 18,000 | Search "Beelink EQ12" on Amazon India | ☐ |
 | 8.2 | **1TB SSD (SATA or USB 3.0)** for Home Assistant storage + NVR | 1 | 6,500 | 6,500 | Search "Samsung 870 EVO 1TB SSD" or "WD Blue 1TB" | ☐ |
 | 8.3 | **APC BX1100C-IN UPS** (1100VA, 4 sockets) | 1 | 5,500 | 5,500 | Search "APC BX1100C-IN" on Amazon India | ☐ |
-| 8.4 | **TP-Link TL-SG108E** (8-port smart managed switch, PoE on 4 ports) | 1 | 3,200 | 3,200 | Search "TP-Link TL-SG108E" on Amazon India | ☐ |
+| 8.4 | **TP-Link TL-SG1210P** (10-port gigabit switch, **8× PoE**, 65W budget) — upgraded from TL-SG1008P; 5 outdoor PoE cameras require 8 PoE ports | 1 | 6,500 | 6,500 | Search "TP-Link TL-SG1210P PoE switch" on Amazon India | ☐ |
 | 8.5 | **Sonoff Zigbee 3.0 USB Dongle Plus** (already in Section 5, don't double-count) | — | — | — | — | ☐ |
-| 8.6 | **Google Coral USB Accelerator** (optional — speeds up Frigate AI face detection) | 1 | 3,500 | 3,500 | Search "Google Coral USB accelerator" on Amazon | ☐ |
-| | **Section 8 Total** | | | **~₹36,700** | | |
+| 8.6 | **AI accelerator for Frigate** (optional; for object detection scale-up, not required for first 1–2 face cameras) | Optional | — | Not counted | Start with Intel N100/OpenVINO; add Hailo/Coral later only if needed | ☐ |
+| | **Section 8 Total** | | | **~₹36,500** | | |
 
 ---
 
 ## SECTION 9 — Entrance / Doorbell / Cameras
 
+> **Camera model note (2026-05-02):** Camera brand/model is provisionally locked to Hikvision ColorVu. Final model confirmation to be done at time of purchase — user may re-evaluate before buying. Buy from **I Secure India, Chitradurga** (confirmed Hikvision authorised dealer).
+>
+> **Why ColorVu over AcuSense:** Frigate NVR bypasses on-camera AI entirely; it uses the Beelink EQ12's Intel N100 OpenVINO for detection. ColorVu (full-colour night vision via built-in warm-white light) gives far better face-recognition accuracy at night vs IR (black-and-white) cameras. AcuSense features are wasted in a Frigate pipeline.
+
 | # | Item | Qty | Unit Price (₹) | Total (₹) | Search / Buy | Status |
 |---|---|---|---|---|---|---|
-| 9.1 | **Godrej video doorbell + smart lock** (for aesthetics + door access) | 1 set | 15,000 | 15,000 | Visit Godrej Locks dealer or search "Godrej video door phone" | ☐ |
-| 9.2 | **PoE IP camera** (entrance porch, for face recognition — Reolink RLC-810A or Dahua equivalent) | 1 | 5,000 | 5,000 | Search "Reolink RLC-810A" on Amazon India | ☐ |
-| 9.3 | **PoE injector** (if switch above doesn't have PoE on that port) | 1 | 900 | 900 | Search "TP-Link PoE injector TL-POE150S" | ☐ |
-| 9.4 | **Weatherproof outdoor camera enclosure** (if camera needs extra protection) | 1 | 600 | 600 | Search "outdoor IP camera housing junction box" | ☐ |
-| | **Section 9 Total** | | | **~₹21,500** | | |
+| 9.1 | **Godrej video doorbell + smart lock** (aesthetics + door access) | 1 set | 15,000 | 15,000 | Visit Godrej Locks dealer or search "Godrej video door phone" | ☐ |
+| 9.2 | **CAM-1 — Primary face-capture camera** · Hikvision DS-2CD2143G2-LU (ColorVu, 4MP, **4mm**, IP67, PoE) · outside main door, latch-side, 1650mm FFL, aimed front-on at visitors 1–1.8m from door | 1 | 7,000 | 7,000 | Ask I Secure India, Chitradurga — confirm **LU suffix** (ColorVu), not IS (AcuSense) | ☐ |
+| 9.3 | **CAM-2 — Porch overview camera** · Hikvision DS-2CD2347G2-LU (ColorVu, 4MP, **2.8mm**, IP67, PoE) · porch ceiling/soffit, 2400–2700mm FFL, wide angle context | 1 | 6,000 | 6,000 | Same — I Secure India, Chitradurga | ☐ |
+| 9.4 | **CAM-3 — FF front balcony bird's-eye camera** · Hikvision DS-2CD2347G2-LU (ColorVu, 4MP, 2.8mm, IP67, PoE) · NW corner of front balcony soffit, ~5500mm from ground, covers compound/gate/driveway | 1 | 6,000 | 6,000 | Same series — I Secure India or Amazon India | ☐ |
+| 9.5 | **CAM-4 — East-side exterior camera** · Hikvision 4MP ColorVu turret, 2.8mm, IP67, PoE · E-wall exterior at kitchen–utility zone, 2400–2600mm FFL, covers E-side approach and utility/back area | 1 | 6,000 | 6,000 | Same series | ☐ |
+| 9.6 | **CAM-5 — Terrace staircase exit camera** · Hikvision 4MP ColorVu dome or bullet, 2.8mm, IP67, PoE · parapet wall near FF→terrace staircase exit, ~2500mm from terrace floor | 1 | 6,000 | 6,000 | Same series | ☐ |
+| 9.7 | **CAM-0 — Screen-bezel camera** · Raspberry Pi Camera Module 3 (CSI ribbon cable → RPi Zero 2W) · inside foyer screen cavity, top-centre, 1600–1650mm FFL · **no PoE needed** — powered by RPi; streams RTSP over existing Cat6 | 1 | 1,800 | 1,800 | Search "Raspberry Pi Camera Module 3" on Robu.in / Evelta.in | ☐ |
+| 9.8 | **Weatherproof outdoor camera junction/back box** (for CAM-1 through CAM-5) | 5 | 600 | 3,000 | Search "IP camera junction box waterproof IP67" on Amazon India | ☐ |
+| 9.9 | **Wired magnetic reed door contact** (concealed main-door open/close sensor) | 1 | 500 | 500 | Search "wired magnetic door contact sensor concealed" | ☐ |
+| 9.10 | **2-core low-voltage cable** (doorbell/lock/contact sensor runs) | 20m | 20/m | 400 | Electrical shop — 0.75mm² or 1.0mm² 2-core cable | ☐ |
+| | **Section 9 Total** | | | **~₹51,700** | | |
 
 ---
 
@@ -182,12 +192,12 @@ Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneid
 | 5 | Smart switches (Aqara Zigbee system) | 51,800 |
 | 6 | All lighting fittings + LED strips + drivers | 48,030 |
 | 7 | Foyer screen + RPi + mounts | 12,750 |
-| 8 | Server + UPS + network switch | 36,700 |
-| 9 | Doorbell + entrance camera | 21,500 |
+| 8 | Server + UPS + PoE network switch (upgraded to TL-SG1210P) | 36,500 |
+| 9 | Doorbell + 5 outdoor cameras + screen-bezel camera + sensors | 51,700 |
 | 10 | Foyer speaker | 2,100 |
-| **TOTAL MATERIALS** | | **~₹2,79,125** |
+| **TOTAL MATERIALS** | | **~₹3,07,825** |
 | Labour estimate (electrician for 2-floor home) | Not included — get 3 quotes | ~₹30,000–60,000 |
-| **GRAND TOTAL (materials + labour)** | | **~₹3,10,000–3,40,000** |
+| **GRAND TOTAL (materials + labour)** | | **~₹3,38,000–3,68,000** |
 
 > **This is materials only.** Plastering, false ceiling (civil), stone cladding, furniture, and paint are separate budgets.
 > Prices are approximate as of April 2026. Actual prices may vary ±15% depending on city and supplier.
