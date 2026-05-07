@@ -14,7 +14,7 @@
 
 ## DB Location
 - **Floor:** Ground Floor
-- **Wall:** West wall, foyer (behind door swing when door opens inward)
+- **Wall:** East wall, foyer (behind door swing — door swings anticlockwise/left when entering, so door panel covers east wall)
 - **Height:** Bottom of DB at 1500mm from floor (comfortable working height)
 - **DB size:** 40-way flush-mount (confirmed — 34 circuits + 6 spare)
 
