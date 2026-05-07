@@ -17,11 +17,11 @@ Ganesh is designing the **interiors and home-automation system** for a two-store
 - **First Floor:** Two Bedrooms (each ~13'-wide bay with attached toilet 8' × 5') along the south side, with right-side wardrobe (3' deep) and a Balcony on W → FF Living in the centre/lower-left → Stair continues to terrace → Cut-out double-height (16'9" × 11', no slab) on the lower-right → Front Balcony (11'9" × 7') on the lower-left. See [floor-plans/floor-plans-decoded.md](floor-plans/floor-plans-decoded.md).
 
 ## Workstreams (each has its own subfolder)
-1. **Interior design** — style direction, palettes, room-by-room visual treatment. Image renders via `/banana` skill, saved to `interior-design/generated-images/`.
-2. **Electrical layout** — switch/socket placement, lighting plan, circuiting, DB, conduits. Must be locked in **before** plastering/false-ceiling.
+1. **Interior design** — style direction, palettes, room-by-room visual treatment. Image renders via `/banana` skill, saved to `interior-design/generated-images/`. **Master brief**: [interior-design/master-interior-spec.md](interior-design/master-interior-spec.md).
+2. **Electrical layout** — switch/socket placement, lighting plan, circuiting, DB, conduits. Must be locked in **before** plastering/false-ceiling. **Field reference**: [electrical/conduits-and-cavities.md](electrical/conduits-and-cavities.md) and [pdfs/ELECTRICIAN_REFERENCE.pdf](pdfs/ELECTRICIAN_REFERENCE.pdf) (12-page printable handout).
 3. **Furniture layout** — built-ins (wardrobes, TV unit, kitchen, pooja, dining), loose furniture, sizes.
-4. **Home automation / IoT** — protocol (Matter / Zigbee / Wi-Fi / KNX), hubs, devices, scenes, network plan.
-5. **Materials & finishes** — tiles, paint, wood, hardware, sanitaryware brand/SKU selection.
+4. **Home automation / IoT** — protocol (Matter / Zigbee / Wi-Fi / KNX), hubs, devices, scenes, network plan. **Wi-Fi backbone**: GF main router (staircase niche) + FF AP (FF Living wall, 2400mm) wired with Cat6 backhaul.
+5. **Materials & finishes** — tiles, paint, wood, hardware, sanitaryware brand/SKU selection. **Master palette**: [materials-finishes/master-color-palette.md](materials-finishes/master-color-palette.md). **Printable interior brief**: [pdfs/INTERIOR_SUGGESTIONS.pdf](pdfs/INTERIOR_SUGGESTIONS.pdf) (24 pages with hex swatches).
 
 ## Tooling conventions
 - **Image generation:** `/banana` skill only. Outputs → `interior-design/generated-images/`. Filename pattern: `<room>-<mood/style>-v<N>.png` (e.g. `living-warm-minimal-v2.png`).

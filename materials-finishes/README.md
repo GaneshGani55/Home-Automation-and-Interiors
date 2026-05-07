@@ -2,15 +2,19 @@
 
 Brand/SKU choices for everything you can touch: tiles, paint, wood, hardware, sanitaryware, kitchen, electrical fittings.
 
-## Files (to add as we go)
-- `flooring.md` — tile / vitrified / wood / marble per room, with size and grout
-- `wall-finishes.md` — paint codes, wallpaper, panelling, textures
-- `ceiling.md` — false ceiling spec, POP profiles, cove details
-- `doors-and-windows.md` — door types, sizes, hardware; window type, glazing, mesh
-- `sanitaryware.md` — WC, basin, faucet, shower, geyser per bathroom (3 bathrooms total: 2 attached on FF + 1 common on GF)
+## ★ Start here
+
+- **[master-color-palette.md](master-color-palette.md)** — complete colour palette for the whole house (hex + Asian Paints SKU). Hand to the painter, tile vendor, carpenter, and curtain tailor.
+- **[../interior-design/master-interior-spec.md](../interior-design/master-interior-spec.md)** — A-to-Z whole-house interior brief.
+
+## Existing files
+- [flooring.md](flooring.md) — tile direction for living/dining/foyer
+- [wall-finishes.md](wall-finishes.md) — paint direction for living
+- [gf-bathroom-budget.md](gf-bathroom-budget.md) — full bathroom budget breakdown
+
+## Files to add (as decisions land)
 - `kitchen.md` — counter, cabinet, hardware, chimney, hob, sink, appliances
 - `wardrobes-and-built-ins.md` — board grade, shutter finish, handles, internals
-- `hardware.md` — hinges, channels, locks, handles (Hettich/Hafele/Ebco/etc.)
 - `electrical-fittings.md` — switch series, sockets, fans, lights brand/model
 
 ## Per-item template

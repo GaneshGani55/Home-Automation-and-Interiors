@@ -6,6 +6,119 @@
 
 ---
 
+## PART 0 — ELECTRICIAN ONE-PAGE CHEAT SHEET
+
+> **Read this first. If you only read one section of this document, read this.** Everything below is detail and exception cases.
+
+### 0.1 The Five Rules That Apply Everywhere
+
+| # | Rule | Why |
+|---|---|---|
+| 1 | **Every switch board gets a NEUTRAL wire** — no exceptions | Smart relay modules (Sonoff/Aqara) need neutral. Without it the smart switch goes dead. |
+| 2 | **All switch boxes are 65mm deep minimum** (Indian standard is 50mm — too shallow) | Sonoff/Aqara relay module sits behind the switch plate. 50mm is too tight; 65mm gives wire-bending room. |
+| 3 | **All switch boards at 1200mm FFL** (centre of plate); geyser switches 1050mm; sockets 300mm; bedside 600mm; counter sockets 1100mm; AC 1850mm | Standard Indian heights — used everywhere in this house. |
+| 4 | **Earth wire (green/yellow) reaches every switch, socket, AND every metal fitting** | Life safety. Test continuity before plastering. |
+| 5 | **No power and low-voltage cables in the same conduit, ever** | Cat6 picks up interference from 230V. Always separate conduits. |
+
+### 0.2 Conduit Colour Code (Use Coloured PVC Where Possible)
+
+| Conduit colour | Size | Carries | Found at |
+|---|---|---|---|
+| 🔴 **RED** | 25mm PVC | Lighting circuit power (1.5mm² wire) | Ceiling runs to lights, switch board feeds |
+| 🔵 **BLUE** | 25mm PVC | Heavy-load power (sockets, AC, geyser, hob — 2.5mm² and 4mm²) | Wall chases at 300mm and 1850mm |
+| ⚫ **GREY** | 25mm PVC | Cat6 / network / camera data — LV-25 | Staircase niche to all data points |
+| ⚫ **GREY** | 16mm PVC | Speaker / sensor / 2-core LV — LV-16 | Doorbell, niche LED drivers, contact sensors |
+
+> **If colour-coded conduit is not available locally**, label conduit ends with paint marker or insulation tape **before** plastering covers them. The colour code stays on paper. **DO NOT** rely on memory.
+
+### 0.3 Wire Colour Code (Indian Standard — Mandatory)
+
+| Wire colour | Function |
+|---|---|
+| 🔴 RED | LIVE (Phase) — 230V hot |
+| ⚫ BLACK | NEUTRAL — return |
+| 🟡 GREEN/YELLOW | EARTH — green-with-yellow stripe |
+| 🟦 BLUE | LIVE (switch leg / "loop wire") — between switch and load |
+
+> Rule: a **black** wire with current is always a NEUTRAL. A **blue** wire is a switched-live leg. Never confuse them.
+
+### 0.4 Switch Box Cavity Depth — THIS IS NEW (Sonoff Compatibility)
+
+```
+            STANDARD SWITCH BOX               SONOFF-READY SWITCH BOX
+            (DO NOT USE)                      (USE THIS EVERYWHERE)
+            ┌──────────────┐                  ┌────────────────┐
+            │              │                  │                │
+            │   50mm deep  │                  │   65mm deep    │
+            │              │                  │                │
+            │   ✗ too      │                  │   ✓ Sonoff R2  │
+            │   shallow    │                  │     fits + wire│
+            │   for relay  │                  │     bending    │
+            └──────────────┘                  │     headroom   │
+                                              └────────────────┘
+```
+
+| Switch type | Box depth | Box size (mm) | Where used |
+|---|---|---|---|
+| **Smart switch + Sonoff relay (hidden)** | **65mm** GI MS | 75 × 75 × 65 (1-gang) · 130 × 75 × 65 (2-gang) · 175 × 75 × 65 (3-gang) · 230 × 75 × 65 (4-gang) | Living, Bedrooms, Foyer, Dining, Pooja, FF Living, Balconies, Staircase |
+| **Dumb switch (no relay)** | 50mm GI MS | Standard 75 × 75 × 50 | Kitchen, Utility, Store room |
+| **PIR switch** | 50mm GI MS | Standard | Outside all 3 bathrooms |
+| **Geyser switch (20A DP)** | 50mm GI MS | 1-module | Outside each bathroom, 1050mm FFL |
+| **Sockets (5A / 16A)** | 50mm GI MS | Standard 2-module / 3-module | All sockets |
+| **AC socket (20A)** | 50mm GI MS | Standard 3-module | 1850mm FFL |
+
+> **Sonoff/Aqara module dimensions (for reference):**
+> - Sonoff ZBMINI R2 (Zigbee): 39.5 × 39.5 × 18.4 mm
+> - Sonoff MINIR4 (Wi-Fi backup option): 39.5 × 39.5 × 20 mm
+> - Aqara Relay T1 (no neutral): 42 × 42 × 22 mm
+> - Module sits in the back of the box; switch plate seals the front. **65mm depth = module + neutral block + bent earth wire + switch terminals all fit comfortably.**
+
+### 0.5 Universal Switch-Board Wiring Diagram (apply at every smart switch)
+
+```
+                        BOX (75 × 75 × 65 mm GI)
+                       ┌──────────────────────┐
+   FROM CEILING ───────│  L  N  E             │  ← 3 wires arrive (Live, Neutral, Earth)
+   (light wire down)   │   ↓                  │
+                       │  ┌──────────────┐    │
+                       │  │  SONOFF R2   │    │  ← Sonoff sits at the back, wired to:
+                       │  │  Zigbee Relay│    │     L IN  : Live from ceiling
+                       │  │              │    │     N IN  : Neutral from ceiling
+                       │  └──┬──────┬────┘    │     L OUT : to physical switch terminal
+                       │     │      │         │     S1/S2 : physical switch (push-button or rocker)
+                       │  ┌──┴──┐   │         │
+                       │  │SWITCH│  │         │
+                       │  │ rocker│ │         │
+                       │  └──────┘  │         │
+                       │           ─┴─        │
+                       │           LOAD →     │  ← Wire returns to ceiling light
+                       └──────────────────────┘
+                              ↓
+                        FRONT PLATE
+                        (modular cover)
+```
+
+> **For the electrician:** at every smart-switch location, leave a **300mm tail** of L/N/E wires inside the box. The Sonoff module is inserted later by the homeowner — you do not need to install it. Just pull the wires, label them, and cap them.
+
+### 0.6 What goes where — quick lookup
+
+| Need | Conduit | Wire | Box Depth | MCB |
+|---|---|---|---|---|
+| Smart light point | 25mm RED | 1.5mm² 3-core | 65mm | 6A |
+| Smart switch (with Sonoff) | 25mm RED | 1.5mm² + neutral | **65mm** | 6A |
+| Dumb light point | 25mm RED | 1.5mm² 3-core | 50mm | 6A |
+| 5A socket | 25mm BLUE | 2.5mm² 3-core | 50mm | 16A |
+| 16A socket | 25mm BLUE | 2.5mm² 3-core | 50mm | 16A |
+| AC point (20A) | 25mm BLUE | 4mm² 3-core | 50mm | 20A RCBO |
+| Geyser (20A) | 25mm BLUE | 2.5mm² 3-core | 50mm | 20A RCBO |
+| Hob 25A | 25mm BLUE | 4mm² 3-core | direct hardwire | 25A |
+| Cat6 / network | 25mm GREY | Cat6 UTP | 50mm wall plate box | — |
+| Camera (PoE) | 25mm GREY | Cat6 UTP | weatherproof IP67 | — |
+| Speaker / doorbell LV | 16mm GREY | 2-core 0.75mm² | 50mm | — |
+| LED strip 24V DC | 16mm GREY | 2-core 0.75mm² | driver-side only | — |
+
+---
+
 ## PART 1 — FOYER SCREEN CAVITY (Most Critical — Do First)
 
 ### Monitor: Samsung LS22F350 (21.5" IPS)
@@ -75,10 +188,11 @@ Panel dimensions (without stand):
 ### Conduit Key
 | Label | Size | Colour (if using colour-coded) | Contents |
 |---|---|---|---|
-| P-25 | 25mm PVC | Red | Power — lighting circuits |
-| P-25H | 25mm PVC | Blue | Power — heavy (sockets, ACs, geysers) |
-| LV-25 | 25mm PVC | Grey | Low voltage — Cat6 |
-| LV-16 | 16mm PVC | Grey | Low voltage — speaker / small LV |
+| P-25 | 25mm PVC | 🔴 Red | Power — lighting circuits (1.5mm²) |
+| P-25H | 25mm PVC | 🔵 Blue | Power — heavy (sockets, ACs, geysers — 2.5mm² / 4mm²) |
+| LV-25 | 25mm PVC | ⚫ Grey | Low voltage — Cat6 / network / camera data |
+| LV-16 | 16mm PVC | ⚫ Grey | Low voltage — speaker, sensor, doorbell, contact, LED 24V DC |
+| LV-25-AP | 25mm PVC | ⚫ Grey | **NEW** — Cat6 to Wi-Fi access points (router runs to FF + GF AP positions) |
 
 ### Rule: Conduit Heights in Walls
 | Conduit type | Chase height (from FFL) | Rationale |
@@ -267,6 +381,78 @@ DB (GF, 1500mm)
 
 ---
 
+### 🆕 FF ROUTER / WI-FI ACCESS POINT — NEW CONDUIT RUNS
+
+> **Why this is needed:** A single GF router (in staircase niche) cannot give reliable 5GHz / Wi-Fi 6 coverage to the FF bedrooms — the FF slab + walls attenuate the signal too much. Plan a **second access point on FF**, wired-backhauled via Cat6 from the staircase niche. This is best done with conduit *now*, before plastering closes the walls.
+
+#### Run R-FF-1: Staircase Niche → FF Living Wall (Primary FF Router/AP)
+
+| Item | Value |
+|---|---|
+| Conduit size | **25mm LV-25 (grey)** |
+| Pull cables | **2× Cat6 UTP** (1 for router uplink to GF switch, 1 spare for future AP daisy-chain) + draw wire |
+| Route | Staircase niche (GF) → vertical up the staircase W wall (join the existing FF conduit bundle) → at FF slab level **branch east** along the FF Living ceiling/wall → terminate on **FF Living wall, central position** between Bedroom 1 and Bedroom 2 doors |
+| Termination | Modular wall plate box, 50mm depth — Cat6 keystone (×2) + 5A power socket beside it on a separate 16mm conduit (lighting circuit D9 feed) |
+| Termination height | **2400mm FFL** (high mount — best for AP signal coverage; clear of furniture) |
+| Power for AP | 5A socket on D9 circuit, located **300mm to the side of** the Cat6 plate, **same height (2400mm)** so PoE injector or AP power adapter sits clean. PoE-capable APs (Ubiquiti UniFi U6-Lite, TP-Link EAP610) need only Cat6 — no socket required. |
+| Mount surface | Wall (NOT ceiling) — central FF Living wall, on the partition between BR1 and BR2 doors. Equidistant from both bedrooms gives the most balanced 5GHz coverage. |
+
+#### Run R-FF-2: Staircase Niche → FF Bedroom 2 Wall (Secondary AP / Wired Drop)
+
+| Item | Value |
+|---|---|
+| Conduit size | **25mm LV-25 (grey)** |
+| Pull cables | **1× Cat6 UTP** + draw wire |
+| Route | Staircase niche (GF) → vertical → at FF slab level branch west → into BR2 wall → terminate on N wall of BR2, near the wardrobe end |
+| Termination | Cat6 keystone wall plate, 700mm FFL (study desk height) |
+| Purpose | Wired internet drop for BR2 study desk, AND a fallback AP mount point if the central FF Living AP underperforms in BR2 corner |
+
+#### Run R-FF-3: Staircase Niche → FF Bedroom 1 Wall (Mirror of R-FF-2)
+
+| Item | Value |
+|---|---|
+| Conduit size | **25mm LV-25 (grey)** |
+| Pull cables | **1× Cat6 UTP** + draw wire |
+| Route | Staircase niche (GF) → vertical → at FF slab level branch east → into BR1 wall → terminate on study wall |
+| Termination | Cat6 keystone wall plate, 700mm FFL |
+| Purpose | Wired internet drop for BR1 study desk |
+
+#### Run R-FF-4 (optional): FF Living AP → Front Balcony / W Balcony Outdoor AP
+
+| Item | Value |
+|---|---|
+| Conduit size | 16mm LV-16 (grey) |
+| Pull cables | 1× Cat6 UTP outdoor-rated (UV jacket) |
+| Route | FF Living AP wall plate → through partition wall → onto front balcony soffit |
+| Termination | Outdoor IP67 keystone box at balcony soffit corner |
+| Purpose | **Future option:** outdoor mesh AP for terrace/balcony Wi-Fi if needed. Pull draw wire only now; install AP later. |
+
+#### FF Router/AP Mount Box Detail
+
+```
+     FF LIVING WALL — central position between BR1 and BR2 doors
+     (on the partition wall, equidistant from both bedrooms)
+
+           ←──── 300mm ────→
+        ┌─────────────┐  ┌─────────────┐
+        │  Cat6 ×2    │  │   5A power  │  ← ROUTER/AP MOUNT ZONE
+        │  keystone   │  │   socket    │      (height: 2400mm FFL)
+        │  wall plate │  │             │
+        │  (50mm box) │  │  (50mm box) │
+        └─────────────┘  └─────────────┘
+              ↑                  ↑
+         LV-25 grey          16mm conduit
+         from staircase      from D9 lighting/socket
+         niche               circuit
+
+        ROUTER/AP itself sits ON the wall here, wall-mounted,
+        plugged into both Cat6 keystones (or Cat6 + PoE injector).
+```
+
+> **Cable count update — staircase niche to FF:** Previous bundle was 5 conduits + 1 LV. With these new runs the niche-to-FF total is now: 5× P-25/P-25H + **3× LV-25 (grey, dedicated to network/router) + 1× LV-16** (existing CAM-3, CAM-5 reuse the original LV-25). Add a **dedicated chase channel ~150mm wide** in the staircase wall to keep these bundles tidy.
+
+---
+
 ## PART 3 — LIGHTING EXACT POSITIONS
 
 > All positions given as (distance from Wall-A × distance from Wall-B) measured from **inside face of finished wall**. Ceiling heights: GF = 11ft (3353mm), FF = 10ft (3048mm). False ceiling drops to: Living/Dining/Foyer ~9ft (2743mm) · Bedrooms ~9ft (2743mm).
@@ -430,3 +616,11 @@ Before plastering, verify each cavity is:
 - [ ] LV-16 stub to concealed main-door contact sensor at top of frame
 - [ ] All conduit entry/exit points in walls are sleeved and labelled before plastering
 - [ ] Staircase niche: shelving or back panel fixed, all conduit stubs labelled
+- [ ] **🆕 R-FF-1** LV-25 stub: FF Living central wall (between BR1/BR2 doors) at **2400mm FFL** — pull 2× Cat6 + draw wire; 50mm wall plate box; 5A power socket 300mm beside on D9
+- [ ] **🆕 R-FF-2** LV-25 stub: FF BR2 study wall, **700mm FFL** — pull 1× Cat6 + draw wire; 50mm wall plate box
+- [ ] **🆕 R-FF-3** LV-25 stub: FF BR1 study wall, **700mm FFL** — pull 1× Cat6 + draw wire; 50mm wall plate box
+- [ ] **🆕 R-FF-4** LV-16 stub (optional): FF Front Balcony soffit — pull 1× Cat6 outdoor + draw wire only; cap until needed
+- [ ] **🆕 SONOFF-READY SWITCH BOXES** — every smart-switch location uses **65mm-deep GI MS box** (NOT 50mm). Verify before plastering: Foyer SB, Living SB×2, Dining SB, MBR SB, FF Living SB, BR1 SB, BR2 SB, Pooja SB, Staircase SB×2, Front balcony SB, W balcony SB, Foyer 2-way SB
+- [ ] **🆕 NEUTRAL WIRE** present at every smart-switch box (visual inspection — black wire visible in tail bundle)
+- [ ] **🆕 EARTH WIRE** present at every switch + socket box (green/yellow visible in tail bundle)
+- [ ] **🆕 LABEL EVERY CABLE TAIL** with masking tape + permanent marker before plastering — circuit ID (e.g. "B1", "D9", "R-FF-1 Cat6")

@@ -104,4 +104,5 @@
 | Date | Change | Who |
 |---|---|---|
 | 2026-04-27 | Initial circuit list created from floor plan + confirmed decisions | Claude |
+| 2026-05-06 | **Sonoff cavity depth standard added — 65mm GI MS boxes at every smart-switch location**; FF router conduit runs added (R-FF-1, R-FF-2, R-FF-3, R-FF-4); FF Wi-Fi AP point added on D9 circuit at FF Living wall 2400mm FFL; staircase niche patch panel upgraded from 6-port to 12-port for new Cat6 home-runs | Claude |
 
