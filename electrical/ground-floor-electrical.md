@@ -2,7 +2,13 @@
 
 > Cross-reference: [../floor-plans/floor-plans-decoded.md](../floor-plans/floor-plans-decoded.md) for room dimensions.
 > Circuit IDs here match [db-layout.md](db-layout.md).
+> Cavity depth + Sonoff fitting rules: see [conduits-and-cavities.md § PART 0](conduits-and-cavities.md#part-0--electrician-one-page-cheat-sheet).
 > **Status key:** ✅ CONFIRMED · 🔲 TBD · ⚠️ PENDING DECISION
+
+> **🆕 ELECTRICIAN HEADS-UP for GF:**
+> 1. **All smart-switch boxes use 65mm-deep GI MS boxes** (Sonoff/Aqara relay sits behind plate). Dumb 50mm boxes only at: Kitchen, Utility, Store, geyser switches, all sockets, AC sockets.
+> 2. **Staircase niche** is the data hub — it terminates: all Cat6 from cameras, all Cat6 from FF (router uplink + 2 study drops), Cat6 from foyer screen, foyer speaker, doorbell, contact sensor. Plan a **6-port + 6-port keystone patch panel** at 700mm FFL on niche side wall.
+> 3. **Every smart-switch board needs neutral** — black wire visible in tail bundle.
 
 ---
 
@@ -173,16 +179,16 @@
 ---
 
 ### 10. Staircase Niche (Server Room)
-**Circuit:** E5 (UPS), E6 (server sockets)
+**Circuit:** E5/E7 (UPS), E6/E8 (server sockets)
 **Location:** Under stairs, W wall, GF
 
-| Point | Type | Location | Height | Circuit | Smart? | Notes |
-|---|---|---|---|---|---|---|
-| UPS socket | 16A 3-pin | Niche back wall | 300mm | E5 | No | Powers UPS (which powers mini PC) |
-| Server sockets | 4× 5A sockets (2 doubles) | Niche back wall | 300mm | E6 | No | Mini PC, network switch, patch panel |
-| Niche light | 1× 5W LED | Niche ceiling/top | — | B7 (share stair) | Dumb toggle | Working light for maintenance |
-| Cat6 patch point | Keystone wall plate (6-port) | Niche side wall | 600mm | — | — | All Cat6 home-runs terminate here |
-| Speaker terminal | 2-port speaker terminal strip | Niche wall | 600mm | — | — | Foyer speaker wire terminates here |
+| Point | Type | Location | Height | Circuit | Box depth | Smart? | Notes |
+|---|---|---|---|---|---|---|---|
+| UPS socket | 16A 3-pin | Niche back wall | 300mm | E7 | 50mm | No | Powers UPS (which powers mini PC) |
+| Server sockets | 4× 5A sockets (2 doubles) | Niche back wall | 400mm | E8 | 50mm | No | Mini PC, network switch, patch panel |
+| Niche light | 1× 5W LED | Niche ceiling/top | — | B7 (share stair) | 50mm | Dumb toggle | Working light for maintenance |
+| **🆕 Cat6 patch point — UPGRADED** | **Keystone wall plate (12-port)** | Niche side wall | 700mm | — | 50mm wall plate | — | All Cat6 home-runs terminate here. **12 ports** to handle: CAM-1, CAM-2, CAM-3, CAM-4, CAM-5, CAM-0 RPi, foyer screen, FF router (R-FF-1 ×2), BR1 study (R-FF-3), BR2 study (R-FF-2), spare |
+| Speaker terminal | 2-port speaker terminal strip | Niche wall | 700mm | — | 50mm | — | Foyer speaker wire terminates here |
 
 ---
 
@@ -200,37 +206,41 @@
 
 ## GF Switch Board Summary
 
-| Location | Board type | Gang count | Smart gangs |
-|---|---|---|---|
-| Foyer (W wall, near door) | Modular | 4 | 2 smart + 2 dumb |
-| Living Area (W wall) | Modular | 4 | 3 smart |
-| Living Area 2-way (stair side) | Modular | 2 | 2 smart |
-| Dining | Modular | 2 | 1 smart |
-| Kitchen | Modular (dumb only) | 4 | 0 |
-| Utility | Modular | 1 | 0 |
-| MBR door | Modular | 4 | 3 smart |
-| Bathroom (outside) | PIR switch + geyser | 2 | PIR auto |
-| Staircase base | Modular | 1 | Smart 2-way |
-| Pooja (outside entry) | Modular | 2 | 2 smart |
+| Location | Board type | Gang count | **Box depth** | Smart gangs |
+|---|---|---|---|---|
+| Foyer (W wall, near door) | Modular | 4 | **65mm** | 2 smart + 2 dumb |
+| Living Area (W wall) | Modular | 4 | **65mm** | 3 smart |
+| Living Area 2-way (stair side) | Modular | 2 | **65mm** | 2 smart |
+| Dining | Modular | 2 | **65mm** | 1 smart |
+| Kitchen | Modular (dumb only) | 4 | 50mm | 0 |
+| Utility | Modular | 1 | 50mm | 0 |
+| Store room | Modular | 1 | 50mm | 0 |
+| MBR door | Modular | 4 | **65mm** | 3 smart |
+| Bathroom (outside) | PIR switch + geyser | 2 | 50mm | PIR auto |
+| Staircase base | Modular | 1 | **65mm** | Smart 2-way |
+| Pooja (outside entry) | Modular | 2 | **65mm** | 2 smart |
+
+> **Cavity-depth rule for the mason:** wherever a smart switch is planned (anything that says "Smart" in the table above), the GI MS box must be **65mm deep, not 50mm**. The wall plate is the same modular size — only the back box is deeper. **Buy 65mm GI boxes from your hardware shop and check the depth before sending to site.**
 
 ---
 
 ## GF Conduit Route Summary
 
-| Run | Route | Size | Contents |
-|---|---|---|---|
-| DB → Foyer ceiling | W wall up, along ceiling | 25mm | B1 lighting |
-| DB → Screen cavity | W wall up, across foyer | 25mm | B2 screen+speaker |
-| DB → Living ceiling | W wall, ceiling | 25mm | B3 lighting |
-| DB → Living sockets | Wall chase, skirting level | 25mm | B5 power |
-| DB → Kitchen ceiling | Ceiling run E direction | 25mm | A3 kitchen lights |
-| DB → Kitchen counter | Wall chase | 25mm | A4 counter sockets |
-| DB → Hob | Direct short run | 25mm | A6 hob |
-| DB → Geyser (GF bath) | Through bathroom wall | 25mm | A2 geyser |
-| DB → Fridge niche | Along E wall | 25mm | A8 fridge |
-| DB → Washing machine | Through utility wall | 25mm | A7 |
-| DB → MBR | Chase through W wall | 25mm | C1+C2 |
-| DB → Staircase niche | Short run (niche is near DB) | 25mm | E5+E6 |
-| Staircase niche → Foyer | Chase wall/ceiling | 25mm×2 | Cat6 + spare LV |
-| Staircase niche → Foyer ceiling | Ceiling | 16mm | Speaker wire |
-| DB → all ACs | Individual chases | 25mm | E1-E4 (1 per AC) |
+| Run | Route | Size | Colour | Contents |
+|---|---|---|---|---|
+| DB → Foyer ceiling | W wall up, along ceiling | 25mm | 🔴 Red | B1 lighting |
+| DB → Screen cavity | W wall up, across foyer | 25mm | 🔴 Red | B2 screen+speaker |
+| DB → Living ceiling | W wall, ceiling | 25mm | 🔴 Red | B3 lighting |
+| DB → Living sockets | Wall chase, skirting level | 25mm | 🔵 Blue | B5 power |
+| DB → Kitchen ceiling | Ceiling run E direction | 25mm | 🔴 Red | A3 kitchen lights |
+| DB → Kitchen counter | Wall chase | 25mm | 🔵 Blue | A4 counter sockets |
+| DB → Hob | Direct short run | 25mm | 🔵 Blue | A6 hob |
+| DB → Geyser (GF bath) | Through bathroom wall | 25mm | 🔵 Blue | A2 geyser |
+| DB → Fridge niche | Along E wall | 25mm | 🔵 Blue | A8 fridge |
+| DB → Washing machine | Through utility wall | 25mm | 🔵 Blue | A7 |
+| DB → MBR | Chase through W wall | 25mm | 🔴 Red / 🔵 Blue | C1 (lights) + C2 (sockets) |
+| DB → Staircase niche | Short run (niche is near DB) | 25mm | 🔵 Blue | E7+E8 server sockets |
+| Staircase niche → Foyer | Chase wall/ceiling | 25mm×2 | ⚫ Grey | Cat6 + spare LV |
+| Staircase niche → Foyer ceiling | Ceiling | 16mm | ⚫ Grey | Speaker wire |
+| DB → all ACs | Individual chases | 25mm | 🔵 Blue | E1-E4 (1 per AC) |
+| **🆕 Staircase niche → FF** (vertical bundle, see FF doc) | Through staircase wall | 5× 25mm + 3× 25mm + 1× 16mm | Mixed | Power circuits + 3× Cat6 LV-25 + LV-16 |

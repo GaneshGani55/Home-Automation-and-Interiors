@@ -24,14 +24,17 @@ Complete electrical plan for the 2-floor home. Start with the DB layout, then di
 | Decision | Value |
 |---|---|
 | DB location | West wall, foyer, behind door swing |
-| DB size | 40-way (Schneider Acti9 IEF40) |
+| DB size | 48-way (Schneider Acti9 IEF48) |
 | DB brand | Schneider Acti9 (MCBs + RCCBs) |
-| Smart switch zones | Foyer, Living, Dining, Bedrooms × 3, Staircase, Balconies, Pooja |
+| Smart switch zones | Foyer, Living, Dining, Bedrooms × 3, Staircase, Balconies, Pooja, FF Living |
 | Dumb switch zones | Kitchen, Utility, Store |
 | Bathroom switches | PIR auto-off (standalone Legrand / Schneider PIR switch) |
 | Wire brand | Finolex or Havells, FR-LSH |
-| Server niche | Under staircase, GF, W wall — UPS + mini PC + network switch |
+| Server niche | Under staircase, GF, W wall — UPS + mini PC + network switch + 12-port Cat6 patch panel |
 | Foyer screen | 6A socket + Cat6 in wall cavity; 2× ceiling spotlight circuit |
+| **🆕 Switch-box depth** | **65mm GI MS box at every smart-switch board** (Sonoff/Aqara relay sits behind plate) — 50mm only for dumb switches, sockets, geyser switches, AC sockets |
+| **🆕 Wi-Fi backbone** | Main router in staircase niche (GF) + secondary AP on FF Living central wall (2400mm FFL) — wired Cat6 backhaul (run R-FF-1) |
+| **🆕 Cat6 home-runs** | All Cat6 terminate at staircase niche 12-port patch panel: 5 cameras + foyer screen + 2× FF router + BR1/BR2 study drops |
 
 ---
 

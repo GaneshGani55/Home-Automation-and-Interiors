@@ -38,7 +38,7 @@
 | 2.7 | **4mm² FR-LSH wire — Red** | 40m | ₹55/m | 2,200 | Same (for ACs + hob + server UPS) | ☐ |
 | 2.8 | **4mm² FR-LSH wire — Black** | 40m | ₹55/m | 2,200 | Same | ☐ |
 | 2.9 | **4mm² FR-LSH wire — Green/Yellow** | 25m | ₹55/m | 1,375 | Same | ☐ |
-| 2.10 | **Cat6 UTP cable — 305m box** | 1 box | 3,200 | 3,200 | Search "D-Link Cat6 305m box" on Amazon India | ☐ |
+| 2.10 | **Cat6 UTP cable — 305m box** (now adequate: 5 cameras + foyer screen + 2× FF router + 2 study drops + spare = ~10 runs avg 25m = 250m) | 1 box | 3,200 | 3,200 | Search "D-Link Cat6 305m box" on Amazon India | ☐ |
 | 2.11 | **2-core 1.5mm² speaker wire** (for foyer speaker) | 15m | ₹30/m | 450 | Search "speaker wire 1.5mm 2 core" on Amazon | ☐ |
 | | **Section 2 Total** | | | **~₹28,285** | | |
 
@@ -73,12 +73,15 @@ Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneid
 | 4.5 | **4-gang modular plate + frame** | 8 | 350 | 2,800 | Same series | ☐ |
 | 4.6 | **2-gang modular plate + frame** | 6 | 250 | 1,500 | Same series | ☐ |
 | 4.7 | **1-gang modular plate + frame** | 8 | 180 | 1,440 | Same series | ☐ |
-| 4.8 | **Flush mounting boxes** (GI, 3-module / 4-module) | 22 | 80 | 1,760 | Hardware store — GI MS box | ☐ |
+| 4.8 | **Flush mounting boxes — 50mm GI MS** (3-module / 4-module — for dumb switches, sockets, geyser switches, AC sockets, PIR) | 30 | 80 | 2,400 | Hardware store — GI MS box, **standard 50mm depth** | ☐ |
+| 4.8b | **🆕 Flush mounting boxes — 65mm DEEP GI MS** (for ALL smart-switch boards — Sonoff/Aqara relay sits behind plate) | 14 | 110 | 1,540 | Hardware store — **specify 65mm DEEP**, sizes: 1-mod 75×75×65, 2-mod 130×75×65, 3-mod 175×75×65, 4-mod 230×75×65 | ☐ |
 | 4.9 | **PIR occupancy switch** (standalone, for 3 bathrooms) | 3 | 1,800 | 5,400 | Search "Legrand Myrius PIR switch" or "Schneider PIR occupancy switch" | ☐ |
-| 4.10 | **Cat6 keystone jack** | 10 | 120 | 1,200 | Search "D-Link Cat6 keystone" on Amazon | ☐ |
-| 4.11 | **Cat6 wall plate** (1-port + 2-port) | 6 | 150 | 900 | Amazon — "Cat6 wall plate" | ☐ |
-| 4.12 | **RJ45 patch cable 0.5m** (for patch panel) | 10 | 150 | 1,500 | Amazon | ☐ |
-| | **Section 4 Total** | | | **~₹27,940** | | |
+| 4.10 | **Cat6 keystone jack** — UPGRADED from 10 to **18** (added FF router ×2, BR1 study, BR2 study, FF balcony cap, niche patch panel 12-port) | 18 | 120 | 2,160 | Search "D-Link Cat6 keystone" on Amazon | ☐ |
+| 4.11 | **Cat6 wall plate** (1-port + 2-port) — UPGRADED from 6 to 9 | 9 | 150 | 1,350 | Amazon — "Cat6 wall plate" | ☐ |
+| 4.12 | **RJ45 patch cable 0.5m** (for patch panel) | 12 | 150 | 1,800 | Amazon | ☐ |
+| 4.13 | **🆕 12-port Cat6 keystone patch panel** (for staircase niche) — replaces 6-port wall plate | 1 | 1,200 | 1,200 | Search "12 port Cat6 keystone patch panel wall mount" on Amazon | ☐ |
+| 4.14 | **🆕 Cat6 outdoor UV-rated cable** (for CAM-3, CAM-5 terrace runs + R-FF-4 balcony future) | 30m | 50/m | 1,500 | Search "Cat6 outdoor UV LSZH" on Amazon India | ☐ |
+| | **Section 4 Total** | | | **~₹35,540** | | |
 
 ---
 
@@ -92,7 +95,10 @@ Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneid
 | 5.2 | **Aqara H1 EU Smart Wall Switch (2-gang, with neutral)** | 8 | 2,800 | 22,400 | Same | ☐ |
 | 5.3 | **Sonoff Zigbee 3.0 USB Dongle Plus** (plugs into mini PC — replaces hub) | 1 | 2,000 | 2,000 | Search "Sonoff Zigbee 3.0 USB Dongle Plus" on Amazon | ☐ |
 | 5.4 | **Aqara Motion Sensor P1** (for bathrooms — replaces PIR switch OR supplements) | 3 | 1,800 | 5,400 | Search "Aqara motion sensor P1" on Amazon India | ☐ |
-| | **Section 5 Total** | | | **~₹51,800** | | |
+| 5.5 | **🆕 Sonoff ZBMINI R2 Zigbee Relay** (hidden behind dumb switch — alternative to full smart switches; uses neutral; 65mm box) — for areas where you'd rather keep the existing rocker switch + add smarts | 8 | 950 | 7,600 | Search "Sonoff ZBMINI R2" on Amazon India / Aliexpress | ☐ |
+| 5.6 | **🆕 Wi-Fi Access Point — FF (primary)** · TP-Link EAP610 / Ubiquiti UniFi U6-Lite (Wi-Fi 6, PoE, ceiling/wall mount) | 1 | 6,500 | 6,500 | Search "TP-Link EAP610" or "UniFi U6-Lite" on Amazon India | ☐ |
+| 5.7 | **🆕 Wi-Fi Router — main (GF, in staircase niche)** · TP-Link Archer AX55 / Asus RT-AX55 (Wi-Fi 6, dual-band, gigabit) | 1 | 7,500 | 7,500 | Search "TP-Link Archer AX55" on Amazon India | ☐ |
+| | **Section 5 Total** | | | **~₹73,400** | | |
 
 > **Note:** Smart switches require a **neutral wire** at every switch board. This is already planned in the conduit layout. Tell your electrician explicitly before chasing.
 
@@ -188,16 +194,24 @@ Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneid
 | 1 | DB + MCBs + RCCBs + RCBOs | 40,220 |
 | 2 | All wires + Cat6 | 28,285 |
 | 3 | Conduits + boxes + accessories | 9,800 |
-| 4 | Sockets + dumb switches + frames + PIR | 27,940 |
-| 5 | Smart switches (Aqara Zigbee system) | 51,800 |
+| 4 | Sockets + dumb switches + frames + PIR + **65mm GI MS boxes + 12-port patch panel + outdoor Cat6** | 35,540 |
+| 5 | Smart switches + **Sonoff ZBMINI relays + Wi-Fi router + FF AP** | 73,400 |
 | 6 | All lighting fittings + LED strips + drivers | 48,030 |
 | 7 | Foyer screen + RPi + mounts | 12,750 |
 | 8 | Server + UPS + PoE network switch (upgraded to TL-SG1210P) | 36,500 |
 | 9 | Doorbell + 5 outdoor cameras + screen-bezel camera + sensors | 51,700 |
 | 10 | Foyer speaker | 2,100 |
-| **TOTAL MATERIALS** | | **~₹3,07,825** |
-| Labour estimate (electrician for 2-floor home) | Not included — get 3 quotes | ~₹30,000–60,000 |
-| **GRAND TOTAL (materials + labour)** | | **~₹3,38,000–3,68,000** |
+| **TOTAL MATERIALS** | | **~₹3,38,325** |
+| Labour estimate (electrician for 2-floor home) | Not included — get 3 quotes | ~₹35,000–65,000 |
+| **GRAND TOTAL (materials + labour)** | | **~₹3,73,000–4,03,000** |
+
+> **Why cost rose ₹30,500 from previous total:**
+> - 65mm-deep GI MS boxes for smart-switch boards: +₹1,540
+> - Upgraded Cat6 keystones (10 → 18) + 12-port patch panel + outdoor Cat6: +₹4,910
+> - **Sonoff ZBMINI R2 ×8 modules**: +₹7,600 (gives smart control behind regular switches in spare/optional spots)
+> - **TP-Link AX55 router** (GF, staircase niche): +₹7,500
+> - **TP-Link EAP610 / UniFi U6-Lite AP** (FF): +₹6,500
+> - Updated Section 4 totals: +₹3,000 (extra mounting boxes, Cat6 cables)
 
 > **This is materials only.** Plastering, false ceiling (civil), stone cladding, furniture, and paint are separate budgets.
 > Prices are approximate as of April 2026. Actual prices may vary ±15% depending on city and supplier.

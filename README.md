@@ -9,13 +9,14 @@ This folder is the **single source of truth** for Ganesh's home interior + home-
 | Folder | Purpose |
 |---|---|
 | [floor-plans/](floor-plans/) | Floor plans (images + decoded markdown). Start here for any spatial question. |
-| [electrical/](electrical/) | Electrical layout: switch points, sockets, lighting circuits, DB, conduits. |
+| [electrical/](electrical/) | Electrical layout: switch points, sockets, lighting circuits, DB, conduits. **Hand-out: [pdfs/ELECTRICIAN_REFERENCE.pdf](pdfs/ELECTRICIAN_REFERENCE.pdf).** |
 | [furniture/](furniture/) | Furniture layout per room: sizes, placement, built-ins. |
 | [automation-iot/](automation-iot/) | Home automation: protocol choice, devices, hubs, scenes, network. |
-| [interior-design/](interior-design/) | Style direction, mood, palettes, room-by-room interior decisions. |
+| [interior-design/](interior-design/) | Style direction, mood, palettes, room-by-room interior decisions. **Master: [master-interior-spec.md](interior-design/master-interior-spec.md).** |
 | [interior-design/generated-images/](interior-design/generated-images/) | Output dump for `/banana` skill renders. |
-| [materials-finishes/](materials-finishes/) | Tiles, paints, wood, hardware, sanitaryware, brand/SKU choices. |
+| [materials-finishes/](materials-finishes/) | Tiles, paints, wood, hardware, sanitaryware. **Master palette: [master-color-palette.md](materials-finishes/master-color-palette.md).** |
 | [decisions/](decisions/) | Chronological decision log — *what* was chosen and *why*. |
+| [pdfs/](pdfs/) | Ready-to-share PDFs: [ELECTRICIAN_REFERENCE.pdf](pdfs/ELECTRICIAN_REFERENCE.pdf) (12 pages, hand to electrician+mason) and [INTERIOR_SUGGESTIONS.pdf](pdfs/INTERIOR_SUGGESTIONS.pdf) (24 pages, hand to interior contractor). |
 
 ## Working agreement (for any agent reading this)
 
@@ -31,3 +32,8 @@ This folder is the **single source of truth** for Ganesh's home interior + home-
 - [Project context & current status](PROJECT_CONTEXT.md)
 - [Decoded floor plans](floor-plans/floor-plans-decoded.md)
 - [Decision log](decisions/decision-log.md)
+- [Master interior spec (A-Z)](interior-design/master-interior-spec.md)
+- [Master colour palette (hex codes)](materials-finishes/master-color-palette.md)
+- [Conduits & cavities — electrician cheat sheet](electrical/conduits-and-cavities.md)
+- 📄 [Electrician PDF](pdfs/ELECTRICIAN_REFERENCE.pdf) — 12 pages
+- 📄 [Interior Suggestions PDF](pdfs/INTERIOR_SUGGESTIONS.pdf) — 24 pages

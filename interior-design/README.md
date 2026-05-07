@@ -2,12 +2,15 @@
 
 Style direction, mood, palette, and room-by-room interior decisions. Image renders generated via the **`/banana`** skill.
 
-## Files (to add as we go)
-- `style-direction.md` — overall style (e.g. warm minimal, contemporary Indian, Japandi, etc.), keywords, references
-- `palette.md` — colour palette per zone (with hex/RAL/Asian Paints codes)
-- `mood-board.md` — links to inspiration + generated reference images
-- `living-area.md`, `dining.md`, `kitchen.md`, `master-bedroom.md`, `bedroom-1.md`, `bedroom-2.md`, `pooja.md`, `bathrooms.md`, `staircase-and-double-height.md`, `balconies.md`
-- `lighting-design.md` — lighting layers (ambient / task / accent / decorative) per room — links to electrical
+## ★ Start here
+
+- **[master-interior-spec.md](master-interior-spec.md)** — A-to-Z whole-house interior brief. Use this as the contractor brief for everything (paint, tile, wood, hardware, lighting, sanitaryware, furniture).
+- **[../materials-finishes/master-color-palette.md](../materials-finishes/master-color-palette.md)** — colour palette (hex codes + Asian Paints SKUs) for every zone.
+
+## Per-room files (existing)
+- [living-area.md](living-area.md) — full design proposal, layout, palette, lighting
+- [gf-common-bathroom.md](gf-common-bathroom.md) — locked light luxury spa direction
+- (more rooms to be added as decisions land)
 
 ## Image generation workflow
 1. Use the `/banana` skill for every render (text-to-image, edits, variations).
