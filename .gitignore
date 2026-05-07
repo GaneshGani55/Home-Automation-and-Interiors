@@ -1,0 +1,45 @@
+# Large binary files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Images
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.webp
+*.heic
+
+# Documents
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+
+# Videos/Audio
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.mp3
+*.wav
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Claude Extension Folders
+.claude/
+.claude-plugin/
