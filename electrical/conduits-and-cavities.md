@@ -116,6 +116,13 @@
 | Camera (PoE) | 25mm GREY | Cat6 UTP | weatherproof IP67 | — |
 | Speaker / doorbell LV | 16mm GREY | 2-core 0.75mm² | 50mm | — |
 | LED strip 24V DC | 16mm GREY | 2-core 0.75mm² | driver-side only | — |
+| Water automation — sensor (PoE) | 20mm GREY | Cat6 outdoor LSZH | JB 200×200×100 IP65 | — |
+| Water automation — float (220V) | 16mm GREY | 2-core 1.5mm² double-insulated | DB cupboard terminal block | series with motor coil |
+| Motor power (P1 / P2 to outside) | 25mm BLUE | 4mm²/2.5mm² armoured/PVC | DB cupboard | 16A Type C |
+
+### 0.7 Water Automation — see dedicated schedule
+
+> **Water automation conduits are listed separately in [water-automation-conduits.md](water-automation-conduits.md).** That doc has the full 7-conduit schedule (sensors to terrace Sintex and outside sump, motor power, float failsafes), JB specs, DB cupboard requirements, and electrician acceptance checklist. Both starters (P1 borewell, P2 booster) live INSIDE the home in a lockable cupboard adjacent to the DB — no outdoor starter enclosures.
 
 ---
 
@@ -624,3 +631,16 @@ Before plastering, verify each cavity is:
 - [ ] **🆕 NEUTRAL WIRE** present at every smart-switch box (visual inspection — black wire visible in tail bundle)
 - [ ] **🆕 EARTH WIRE** present at every switch + socket box (green/yellow visible in tail bundle)
 - [ ] **🆕 LABEL EVERY CABLE TAIL** with masking tape + permanent marker before plastering — circuit ID (e.g. "B1", "D9", "R-FF-1 Cat6")
+
+### Water automation conduits (see [water-automation-conduits.md](water-automation-conduits.md) for full spec)
+
+- [ ] **C-Sintex-1** — 20mm grey from server niche to Sintex JB on terrace SW parapet (~42 ft); through staircase shaft + embedded under terrace screed before tiling
+- [ ] **C-Sintex-2** — 16mm parallel to C-Sintex-1, ≥50mm separation, terminating at DB cupboard for Sintex float (~45 ft)
+- [ ] **C-Sump-1** — 20mm grey from server niche to Sump JB on east external wall above manhole (~25 ft); sleeved through east wall, slope outward
+- [ ] **C-Sump-2** — 16mm parallel to C-Sump-1, ≥50mm separation, terminating at DB cupboard for sump float (~25 ft)
+- [ ] **C-DB-Backup** — 20mm empty with pull string only, server niche to DB cupboard (~12 ft); both ends capped and labelled "WATER AUTOMATION — FUTURE Cat6"
+- [ ] **C-Motor-P1** — 25mm blue from DB cupboard to borewell head outside; **confirm existing run can be repurposed**
+- [ ] **C-Motor-P2** — 25mm blue from DB cupboard to P2 cage on east outside wall (~5 ft)
+- [ ] **DB cupboard** built (lockable, ventilated, ≥600×400×250mm internal) adjacent to existing DB; houses both Magnum Pradhaan starters + Sonoff DUALR3 + float terminal blocks
+- [ ] Pull string in EVERY water-automation conduit
+- [ ] Both ends of each conduit labelled with conduit ID (C-Sintex-1, etc.) using paint marker on permanent tag
