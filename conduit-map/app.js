@@ -48,32 +48,32 @@ const CONDUITS = [
  {ref:"H9",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"MBR AC socket at 1850mm FFL on N wall above door",contents:"4sqmm L + N + E (20A RCBO)",note:"Confirm AC manual for socket position relative to outdoor unit."},
  {ref:"H10",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Bath geyser outlet at 1850mm FFL inside bathroom",contents:"2.5sqmm L + N + E (20A RCBO)",note:"Geyser SWITCH (DP) outside door at 1050mm FFL."},
 
- {ref:"D1",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Foyer screen cavity (back wall, bottom-RIGHT)",contents:"1x indoor Cat6 (UTP)",note:"FLOOR route under screed (not ceiling). ~12m. Drops Cat6 to RPi behind foyer monitor."},
- {ref:"D2",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Main-door outside face (Hikvision DS-KV6113-WPE1(C) video doorbell, PoE)",contents:"1x outdoor LSZH UV-rated Cat6 (PoE)",note:"Doorbell at 1450mm FFL, latch side. Shared floor route with D1+D3. Updated 2026-05-22: Hikvision DS-KV6113-WPE1(C) replaces the earlier Reolink TC541."},
- {ref:"D3",floor:"GF",service:"data",size:"25mm",status:"provision",from:"Niche",to:"Porch W wall (future face-detection camera, CAM-1)",contents:"PULL STRING ONLY - capped IP67 back-box, 1650mm FFL",note:"DROPPED from base install (doorbell handles face capture)."},
- {ref:"D4",floor:"GF",service:"data",size:"25mm",status:"provision",from:"Niche",to:"Porch ceiling NE corner (future overview camera, CAM-2)",contents:"PULL STRING ONLY",note:"False-ceiling route only - soffit not reachable via floor."},
- {ref:"D5",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Staircase S wall, 1500mm FFL (Waveshare 10.1in panel)",contents:"1x HDMI 2.0 (3m) + 1x USB-A->micro-USB (3m) + existing Cat6 spare",note:"CUSTOM 280x195x80mm masonry cavity (not modular). Above existing 2M switch with ~200mm gap."},
- {ref:"D6",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Dining E wall (Waveshare dining panel)",contents:"1x indoor Cat6 + 1x pull string",note:"~12m / 35-40ft. Pi-at-screen pattern. Position TBD by interior designer."},
- {ref:"D7",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Ceiling JB above future dining table (mono speaker)",contents:"1x indoor Cat6 (PoE-capable) + 1x pull string",note:"Pi + PAM8403 + 3in ceiling speaker. ~10m."},
- {ref:"D8",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"E-wall exterior at kitchen-utility junction, 2400-2600mm FFL (CAM-4)",contents:"1x outdoor LSZH UV Cat6 (PoE) + draw wire",note:"Horizontal run 150mm below GF slab soffit. Confirm utility external door."},
- {ref:"D9",floor:"GF",service:"data",size:"25mm x 3",status:"live",from:"Niche",to:"Vertical riser up staircase W wall -> FF (3 bundles)",contents:"3x LV-25 conduits: (a) R-FF-1 2x Cat6, (b) R-FF-2 1x Cat6, (c) R-FF-3 1x Cat6. CAM-3+CAM-5 continue up.",note:"Dedicated 150mm-wide chase channel."},
- {ref:"D10",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"GF false-ceiling AP, central JB above dining/living junction (R-GF-1)",contents:"1x Cat6 UTP (PoE) + draw wire",note:"LOCKED 2026-05-29. Ubiquiti UniFi U6-Lite or equiv. PoE only - no socket. Primary GF Wi-Fi 6."},
+ {ref:"D1",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Foyer screen cavity (back wall, bottom-RIGHT)",contents:"1x indoor Cat6 (UTP)",note:"FLOOR route under screed (not ceiling). ~12m.",explain:"Cat6 (floor route under the screed) from the niche to the foyer screen cavity. It powers (PoE) and feeds the Raspberry Pi behind the welcome monitor. Shares one floor chase with D2 + D3 - no separate break."},
+ {ref:"D2",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Main-door outside face (Hikvision DS-KV6113-WPE1(C) video doorbell, PoE)",contents:"1x outdoor LSZH UV-rated Cat6 (PoE)",note:"Doorbell at 1450mm FFL, latch side. Shared floor route with D1+D3. Updated 2026-05-22: Hikvision DS-KV6113-WPE1(C) replaces the earlier Reolink TC541.",explain:"Outdoor Cat6 (PoE) to the video doorbell. ONE cable both powers the doorbell and carries its video back to the server for face detection - no power needed at the door."},
+ {ref:"D3",floor:"GF",service:"data",size:"25mm",status:"provision",from:"Niche",to:"Porch W wall (future face-detection camera, CAM-1)",contents:"PULL STRING ONLY - capped IP67 back-box, 1650mm FFL",note:"DROPPED from base install (doorbell handles face capture).",explain:"Spare conduit for a future dedicated face camera if the doorbell's face detection ever proves unreliable. Pull-string only now; a Cat6 can be drawn later - no wall break."},
+ {ref:"D4",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Living Hall N wall, MIDDLE (overview camera, CAM-2)",contents:"1x outdoor Cat6 (PoE) - conduit route chosen on site",note:"Moved 2026-05-30: was porch ceiling NE corner; now mid of the Living Hall NORTH wall. Technician picks the conduit route.",explain:"Overview camera relocated to the middle of the Living Hall north (entrance-facing) wall - it watches the porch / main approach. Conduit route is left to the technician: pull from the niche, or tap the nearest data run, whatever is cleanest on site."},
+ {ref:"D5",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Staircase S wall, 1500mm FFL (Waveshare 10.1in panel)",contents:"1x HDMI 2.0 (3m) + 1x USB-A->micro-USB (3m) + existing Cat6 spare",note:"CUSTOM 280x195x80mm masonry cavity (not modular). Above existing 2M switch with ~200mm gap.",explain:"Two cables (HDMI + USB) from the Beelink in the niche carry picture + touch straight to the staircase panel - no computer at the screen. The old Cat6 in this conduit is kept as a labelled spare."},
+ {ref:"D6",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Dining E wall (Waveshare dining panel)",contents:"1x indoor Cat6 + 1x pull string",note:"~12m / 35-40ft. Pi-at-screen pattern.",explain:"Cat6 from the niche to the dining wall panel. A small Pi behind the screen gets PoE power + data on this ONE cable and renders the Home Assistant dashboard. The interior designer will try to fit this screen into the cantilevered kitchen shelves, so box height/position is kept flexible (500mm slack)."},
+ {ref:"D7",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Dining ceiling JB (mono speaker)",contents:"1x indoor Cat6 (PoE-capable) + 1x pull string",note:"Pi + PAM8403 + 3in ceiling speaker. ~10m. This is the LOW-voltage speaker run via the niche.",explain:"Cat6 from the niche to a ceiling junction box above the dining table for a mono ceiling speaker. PoE-capable, so a small Pi/amp can sit at the ceiling - or the dining panel's Pi can drive it (see D11)."},
+ {ref:"D9",floor:"GF",service:"data",size:"25mm x 3",status:"live",from:"Niche",to:"Vertical riser -> FF -> Terrace (3 bundles)",contents:"3x LV-25: R-FF-1 (2x Cat6), R-FF-2, R-FF-3. CAM-3, CAM-5 and the Sintex run continue UP to terrace.",note:"Dedicated 150mm-wide chase channel up the staircase wall.",explain:"The vertical data spine. 3 grey conduits up the staircase wall carry ALL First-Floor and Terrace data - FF APs, the two study drops, the balcony + terrace cameras, and the Sintex tank sensor run all continue up here. See the Riser and Terrace tabs for what reaches the top."},
+ {ref:"D10",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"GF false-ceiling AP, central JB above dining/living junction (R-GF-1)",contents:"1x Cat6 UTP (PoE) + draw wire",note:"Ubiquiti UniFi U6-Lite or equiv. PoE only - no socket. Primary GF Wi-Fi 6.",explain:"Cat6 (PoE) from the niche to the GF ceiling Wi-Fi AP above the dining/living junction. One cable powers the AP and backhauls it - no socket needed in the ceiling."},
+ {ref:"D11",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Dining panel (Pi)",to:"Dining ceiling speaker JB",contents:"Short AV / control link (2-core or 3.5mm)",note:"NEW 2026-05-30.",explain:"Lets the dining panel's Raspberry Pi play and control audio on the dining ceiling speaker. Short hop - can be pulled through the false-ceiling void between the panel and the speaker JB, so no wall break is needed."},
 
- {ref:"L1",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Cove LED driver in false ceiling",contents:"24V DC 2-core",note:"Driver in false ceiling perimeter. Accessible via inspection hatch."},
- {ref:"L2",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Halo driver above false ceiling near cavity top",contents:"24V DC 2-core",note:"Halo strip wraps cavity reveal. Amber 2200K."},
- {ref:"L3",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Walnut shelf 24V driver",contents:"24V DC 2-core",note:"Shelf strip 6W/m, warm white."},
- {ref:"L4",floor:"GF",service:"lv16",size:"16mm",status:"provision",from:"Cavity TOP wall",to:"Future ceiling speaker in foyer false ceiling",contents:"PULL STRING ONLY",note:"Conduit exits cavity TOP inner wall going up."},
- {ref:"L5",floor:"GF",service:"lv16",size:"16mm",status:"provision",from:"Niche",to:"Main door frame TOP (concealed door contact sensor)",contents:"PULL STRING ONLY",note:"Future provision."},
- {ref:"L6",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"MBR ceiling JB",to:"S-wall wardrobe top rail LED driver",contents:"24V DC 2-core",note:"Door-activated sensor on each leaf."},
- {ref:"L7",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"MBR ceiling JB",to:"W-wall wardrobe tail LED driver",contents:"24V DC 2-core",note:"Tail of L-shaped wardrobe."},
+ {ref:"L1",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Cove LED driver in false ceiling",contents:"24V DC 2-core",note:"Driver in false ceiling perimeter. Accessible via inspection hatch.",explain:"24V DC from the foyer panel (Gang 2) to the cove LED driver hidden in the false ceiling. The driver converts 230V->24V; this 2-core only carries the low-voltage OUTPUT to the strip. Runs inside the foyer panel's existing ceiling chase - no extra wall break."},
+ {ref:"L2",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Halo driver above false ceiling near cavity top",contents:"24V DC 2-core",note:"Halo strip wraps cavity reveal. Amber 2200K.",explain:"24V to the amber halo strip that frames the screen cavity. Driven from the same panel gang as the cove; the driver sits above the false ceiling near the cavity top."},
+ {ref:"L3",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Walnut shelf 24V driver",contents:"24V DC 2-core",note:"Shelf strip 6W/m, warm white.",explain:"24V DC to the under-strip driver of the walnut floating shelf, switched by foyer panel Gang 3. Floor route preferred so the shelf gets a hidden feed."},
+ {ref:"L4",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer screen cavity (amp)",to:"Foyer ceiling speaker (centre, between the 2 spotlights)",contents:"2-core speaker wire",note:"FIXED - not future. Speaker sits in the MIDDLE of the foyer ceiling, between the two GU10 spotlights.",explain:"Carries audio from the PAM8403 amp INSIDE the screen cavity up to the foyer ceiling speaker. The cavity Pi plays sound -> amp -> this 2-core -> ceiling speaker. Pull it up through the cavity's TOP conduit into the false ceiling, then across to the centre point between the two spotlights."},
+ {ref:"L5",floor:"GF",service:"lv16",size:"16mm",status:"provision",from:"Niche",to:"Main door frame TOP (concealed door-contact sensor)",contents:"PULL STRING ONLY",note:"Future provision - pull-string now.",explain:"For a FUTURE hidden magnetic door-contact sensor at the top of the main-door frame. It simply tells Home Assistant whether the door is OPEN or SHUT - two thin wires, one reed switch on the frame + a magnet on the door leaf. HA uses it for the 'Away' alarm and the welcome logic (e.g. only greet when the door actually opens). Just a pull-string today; a thin 2-core can be drawn later through THIS 16mm conduit, or piggy-backed on the adjacent doorbell conduit, so no wall-breaking later."},
+ {ref:"L6",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"MBR ceiling JB",to:"S-wall wardrobe top rail LED driver",contents:"24V DC 2-core",note:"Door-activated sensor on each leaf.",explain:"24V to the master-bedroom S-wall wardrobe top-rail LED. A small door sensor on each leaf turns the strip on when the wardrobe opens."},
+ {ref:"L7",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"MBR ceiling JB",to:"W-wall wardrobe tail LED driver",contents:"24V DC 2-core",note:"Tail of L-shaped wardrobe.",explain:"24V to the W-wall wardrobe tail LED (the short return of the L-shaped wardrobe). Same door-sensor idea as L6."},
 
- {ref:"W1",floor:"GF",service:"water",size:"20mm",status:"live",from:"Niche",to:"Terrace SW parapet Sintex JB (~42ft)",contents:"1x outdoor LSZH Cat6 (PoE for Sintex water-level sensor)",note:"Embedded under terrace screed BEFORE tiling. IP65 JB 200x200x100mm."},
- {ref:"W2",floor:"GF",service:"water",size:"16mm",status:"live",from:"Niche",to:"Terrace Sintex float -> DB cupboard (~45ft)",contents:"2-core 1.5mm2 double-insulated",note:"Parallel to W1, MIN 50mm separation."},
- {ref:"W3",floor:"GF",service:"water",size:"20mm",status:"live",from:"Niche",to:"Sump JB on porch W wall, 300mm AGL (~25ft)",contents:"1x outdoor LSZH Cat6 (PoE)",note:"Sleeve through wall, slope outward. JB beside manhole (cover hinges W)."},
- {ref:"W4",floor:"GF",service:"water",size:"16mm",status:"live",from:"Niche",to:"Sump float -> DB cupboard (~25ft)",contents:"2-core 1.5mm2",note:"Parallel to W3, MIN 50mm separation."},
- {ref:"W5",floor:"GF",service:"water",size:"20mm",status:"provision",from:"Niche",to:"DB cupboard (~12ft, future backup link)",contents:"PULL STRING ONLY",note:"Both ends capped + labelled WATER AUTOMATION - FUTURE Cat6."},
- {ref:"W6",floor:"GF",service:"water",size:"25mm",status:"live",from:"DB cupboard",to:"Borewell head outside",contents:"4sqmm armoured (16A Type C)",note:"CONFIRM existing run can be repurposed."},
- {ref:"W7",floor:"GF",service:"water",size:"25mm",status:"live",from:"DB cupboard",to:"P2 cage east outside wall (~5ft)",contents:"2.5sqmm PVC (16A Type C)",note:"Cage = lockable outdoor enclosure."},
+ {ref:"W1",floor:"GF",service:"water",size:"20mm",status:"live",from:"Niche",to:"Terrace SW Sintex JB (up the riser)",contents:"1x outdoor LSZH Cat6 (PoE)",note:"Up the staircase riser to the terrace, then embedded under terrace screed BEFORE tiling to the SW corner. See the Terrace tab.",explain:"Cat6 (data + 48V PoE) from the niche, up the riser, across the terrace to the Sintex tank JB at the SW corner. It powers the tank's ESP32 and carries the ultrasonic water-level reading back to the server. Sensor run only - the float is separate (W2)."},
+ {ref:"W2",floor:"GF",service:"water",size:"16mm",status:"live",from:"Terrace Sintex HIGH float",to:"DB starter cupboard",contents:"2-core 1.5mm2 double-insulated",note:"Comes DOWN the riser, then around to the cupboard. Parallel to W1, MIN 50mm separation on the shared legs.",explain:"The Sintex HIGH-level float is a hardware safety cut-off: tank full -> stop BOTH motors. Its 2-core runs from the tank straight to the DB starter cupboard and sits in series with both motor coils, so it works even if the server/Wi-Fi are down. It does NOT need to pass through the server - route it the shortest safe way to the cupboard."},
+ {ref:"W3",floor:"GF",service:"water",size:"20mm",status:"live",from:"Niche",to:"Sump JB (porch W wall, 300mm AGL)",contents:"1x outdoor LSZH Cat6 (PoE)",note:"Sleeve through the wall sloping outward. JB beside the manhole (cover hinges W).",explain:"Cat6 (data + 48V PoE) from the niche to the sump JB on the porch. Powers the sump ESP32 and reads the pressure-probe water level. Sensor run only - the float is separate (W4)."},
+ {ref:"W4",floor:"GF",service:"water",size:"16mm",status:"live",from:"Sump LOW float",to:"DB starter cupboard",contents:"2-core 1.5mm2",note:"Short run from the sump JB around to the cupboard. Parallel to W3, MIN 50mm separation.",explain:"The sump LOW-level float stops the booster pump running dry. Its 2-core goes from the sump JB to the DB starter cupboard, in series with the P2 (booster) coil ONLY. Like the Sintex float it's a mechanical failsafe - no reason to route it via the server; take it straight around the walls to the cupboard."},
+ {ref:"W5",floor:"GF",service:"water",size:"20mm",status:"provision",from:"Niche",to:"DB starter cupboard (future backup link)",contents:"PULL STRING ONLY",note:"Both ends capped + labelled WATER AUTOMATION - FUTURE Cat6.",explain:"Spare conduit between the niche and the cupboard. If the Wi-Fi link to the motor controller ever proves unreliable, a Cat6 can be pulled here later for a wired ESP32 motor controller - no wall break."},
+ {ref:"W6",floor:"GF",service:"water",size:"25mm",status:"live",from:"DB starter cupboard",to:"Borewell head outside",contents:"4sqmm armoured (16A Type C)",note:"CONFIRM existing run can be repurposed.",explain:"Purely the POWER feed to RUN the borewell motor - 4sqmm armoured from the P1 starter in the cupboard out to the borewell head. No data or sensor in this conduit."},
+ {ref:"W7",floor:"GF",service:"water",size:"25mm",status:"live",from:"DB starter cupboard",to:"Sump (submersible booster motor)",contents:"3-core 2.5mm2",note:"The sump motor is a SUBMERSIBLE sitting INSIDE the sump - cable goes into the sump, not to an outdoor cage.",explain:"POWER feed to RUN the sump booster pump from the P2 starter. Per the electrician the pump is submerged inside the sump, so this power cable goes to the sump itself."},
 
  {ref:"F1",floor:"FF",service:"power_light",size:"25mm",status:"live",from:"Riser",to:"BR2 ceiling + cove + bedsides + wardrobe driver",contents:"1.5sqmm L + N + E",note:"Centre on bed once headboard line is marked."},
  {ref:"F2",floor:"FF",service:"power_heavy",size:"25mm",status:"live",from:"Riser",to:"BR2 bedside + study sockets at 600mm FFL",contents:"2.5sqmm L + N + E",note:""},
@@ -87,7 +87,6 @@ const CONDUITS = [
  {ref:"F10",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"FF Living CEILING AP, central JB between BR1 & BR2 doors (R-FF-1)",contents:"2x Cat6 UTP (router uplink + spare) + draw wire",note:"Updated 2026-05-29: moved from 2400mm wall plate to ceiling junction box. PoE-only AP (UniFi U6-Lite); 5A socket dropped."},
  {ref:"F11",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"BR2 study wall, 700mm FFL",contents:"1x Cat6 UTP + draw wire",note:""},
  {ref:"F12",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"BR1 study wall, 700mm FFL",contents:"1x Cat6 UTP + draw wire",note:""},
- {ref:"F13",floor:"FF",service:"data",size:"16mm",status:"provision",from:"FF AP",to:"FF balcony soffit (future outdoor mesh AP)",contents:"PULL STRING ONLY",note:"Cap at IP67 keystone box at balcony soffit corner."},
  {ref:"F14",floor:"FF",service:"data",size:"25mm",status:"provision",from:"Riser",to:"Front balcony NW corner soffit/parapet (CAM-3)",contents:"PULL STRING + 1x outdoor Cat6",note:"Elevated overview of compound, gate, driveway."},
  {ref:"F15",floor:"FF",service:"data",size:"25mm",status:"provision",from:"Riser",to:"Continue UP to terrace level (CAM-5)",contents:"PULL STRING + 1x outdoor UV-resistant Cat6",note:"Use UV-rated conduit for last 500mm above roof. Parapet mount."}
 ];
@@ -95,29 +94,30 @@ const CONDUITS = [
 /* ============================================================
    ENDPOINT COORDINATES (viewBox 1000 x 1085)
    ============================================================ */
-const HUB = { DB:[120,896], NICHE:[610,600], DBCUP:[130,952], RISER:[600,610] };
-const NODE = { FOYERPANEL:[300,975], MBRJB:[750,205], CAVTOP:[430,902], FFAP:[490,648] };
+const HUB = { DB:[262,930], NICHE:[820,800], DBCUP:[262,978], RISER:[800,705] };
+const NODE = { FOYERPANEL:[385,992], MBRJB:[750,205], CAVTOP:[430,905], FFAP:[490,648] };
 
 const CO = {
- P1:{o:HUB.DB,d:[300,975]}, P2:{o:NODE.FOYERPANEL,d:[360,932]}, P3:{o:NODE.FOYERPANEL,d:[420,915]},
- P4:{o:NODE.FOYERPANEL,d:[255,938]}, P5:{o:NODE.FOYERPANEL,d:[300,1038]}, P6:{o:HUB.DB,d:[745,720]},
+ P1:{o:HUB.DB,d:[385,985]}, P2:{o:NODE.FOYERPANEL,d:[345,945]}, P3:{o:NODE.FOYERPANEL,d:[300,930]},
+ P4:{o:NODE.FOYERPANEL,d:[430,945]}, P5:{o:NODE.FOYERPANEL,d:[440,1035]}, P6:{o:HUB.DB,d:[745,720]},
  P7:{o:HUB.DB,d:[760,855]}, P8:{o:HUB.DB,d:[210,205]}, P9:{o:HUB.DB,d:[210,520]},
  P10:{o:HUB.DB,d:[770,230]}, P11:{o:HUB.DB,d:[770,500]}, P12:{o:HUB.DB,d:[148,812]}, P13:{o:HUB.DB,d:[700,700]},
- H1:{o:HUB.DB,d:[388,962]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
+ H1:{o:HUB.DB,d:[408,958]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
  H5:{o:HUB.DB,d:[85,80]}, H6:{o:HUB.DB,d:[145,118]}, H7:{o:HUB.DB,d:[448,345]}, H8:{o:HUB.DB,d:[585,300]},
  H9:{o:HUB.DB,d:[700,418]}, H10:{o:HUB.DB,d:[835,452]},
- D1:{o:HUB.NICHE,d:[402,960]}, D2:{o:HUB.NICHE,d:[350,1018]}, D3:{o:HUB.NICHE,d:[472,1038]},
- D4:{o:HUB.NICHE,d:[250,1048]}, D5:{o:HUB.NICHE,d:[700,618]}, D6:{o:HUB.NICHE,d:[68,470]},
- D7:{o:HUB.NICHE,d:[210,560]}, D8:{o:HUB.NICHE,d:[58,330]}, D9:{o:HUB.NICHE,d:[860,640]}, D10:{o:HUB.NICHE,d:[440,690]},
- L1:{o:NODE.FOYERPANEL,d:[410,905]}, L2:{o:NODE.FOYERPANEL,d:[448,932]}, L3:{o:NODE.FOYERPANEL,d:[270,922]},
- L4:{o:NODE.CAVTOP,d:[432,886]}, L5:{o:HUB.NICHE,d:[340,1010]}, L6:{o:NODE.MBRJB,d:[750,72]}, L7:{o:NODE.MBRJB,d:[928,200]},
- W1:{o:HUB.NICHE,d:[862,665]}, W2:{o:HUB.NICHE,d:[862,685]}, W3:{o:HUB.NICHE,d:[45,600]},
- W4:{o:HUB.NICHE,d:[45,640]}, W5:{o:HUB.NICHE,d:[132,948]}, W6:{o:HUB.DBCUP,d:[45,988]}, W7:{o:HUB.DBCUP,d:[45,920]},
+ D1:{o:HUB.NICHE,d:[420,958]}, D2:{o:HUB.NICHE,d:[345,1015]}, D3:{o:HUB.NICHE,d:[400,1040]},
+ D4:{o:HUB.NICHE,d:[745,1000]}, D5:{o:HUB.NICHE,d:[618,618]}, D6:{o:HUB.NICHE,d:[68,470]},
+ D7:{o:HUB.NICHE,d:[210,560]}, D9:{o:HUB.NICHE,d:[845,720]}, D10:{o:HUB.NICHE,d:[470,700]},
+ D11:{o:[80,470],d:[210,560]},
+ L1:{o:NODE.FOYERPANEL,d:[430,905]}, L2:{o:NODE.FOYERPANEL,d:[452,920]}, L3:{o:NODE.FOYERPANEL,d:[300,920]},
+ L4:{o:NODE.CAVTOP,d:[355,952]}, L5:{o:HUB.NICHE,d:[360,1012]}, L6:{o:NODE.MBRJB,d:[750,72]}, L7:{o:NODE.MBRJB,d:[928,200]},
+ W1:{o:HUB.NICHE,d:[845,660]}, W2:{o:HUB.DBCUP,d:[835,715]}, W3:{o:HUB.NICHE,d:[450,1045]},
+ W4:{o:HUB.DBCUP,d:[495,1045]}, W5:{o:HUB.NICHE,d:[300,978]}, W6:{o:HUB.DBCUP,d:[45,985]}, W7:{o:HUB.DBCUP,d:[470,1060]},
  F1:{o:HUB.RISER,d:[700,400]}, F2:{o:HUB.RISER,d:[560,348]}, F3:{o:HUB.RISER,d:[700,255]},
  F4:{o:HUB.RISER,d:[650,128]}, F5:{o:HUB.RISER,d:[260,400]}, F6:{o:HUB.RISER,d:[440,348]},
  F7:{o:HUB.RISER,d:[260,255]}, F8:{o:HUB.RISER,d:[300,128]}, F9:{o:HUB.RISER,d:[250,770]},
- F10:{o:HUB.RISER,d:[490,648]}, F11:{o:HUB.RISER,d:[560,470]}, F12:{o:HUB.RISER,d:[440,470]},
- F13:{o:NODE.FFAP,d:[910,648]}, F14:{o:HUB.RISER,d:[110,1000]}, F15:{o:HUB.RISER,d:[762,730]}
+ F10:{o:HUB.RISER,d:[490,648]}, F11:{o:HUB.RISER,d:[565,612]}, F12:{o:HUB.RISER,d:[445,612]},
+ F14:{o:HUB.RISER,d:[110,1000]}, F15:{o:HUB.RISER,d:[762,730]}
 };
 
 /* mmWave presence sensors — markers only (no conduit drawn). */
@@ -147,20 +147,20 @@ const MMWAVE = [
 
 /* Device / install-guide markers (tag pinned on the plan -> opens a guide). */
 const DEVICES = [
- {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB (porch)", xy:[160,1024]},
- {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[150,922]},
- {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server niche",   xy:[610,558]},
- {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[430,948]},
+ {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB",        xy:[470,1042]},
+ {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[315,978]},
+ {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server niche",   xy:[820,768]},
+ {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[420,945]},
  {id:"AP-GF",        floor:"GF",   svc:"data",  label:"GF ceiling AP",  xy:[470,705]},
- {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[720,628]},
+ {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[650,598]},
  {id:"WAVESHARE-DINING",floor:"GF",svc:"data",  label:"Dining panel",   xy:[140,455]},
  {id:"CAM-DOORBELL", floor:"GF",   svc:"data",  label:"Doorbell",       xy:[330,1008]},
- {id:"CAM-4",        floor:"GF",   svc:"data",  label:"CAM-4",          xy:[80,300]},
- {id:"SMART-SWITCH", floor:"GF",   svc:"power_light", label:"Smart switch box", xy:[300,905]},
+ {id:"CAM-N",        floor:"GF",   svc:"data",  label:"Living N cam",   xy:[745,982]},
+ {id:"SMART-SWITCH", floor:"GF",   svc:"power_light", label:"Smart switch box", xy:[330,908]},
  {id:"AP-FF",        floor:"FF",   svc:"data",  label:"FF ceiling AP",  xy:[490,692]},
  {id:"CAM-3",        floor:"FF",   svc:"data",  label:"CAM-3",          xy:[120,998]},
- {id:"JB-SINTEX",    floor:"RISER",svc:"water", label:"Sintex JB",      xy:[300,152]},
- {id:"CAM-5R",       floor:"RISER",svc:"data",  label:"CAM-5",          xy:[470,152]}
+ {id:"JB-SINTEX",    floor:"TERRACE",svc:"water", label:"Sintex JB",    xy:[790,262]},
+ {id:"CAM-5R",       floor:"TERRACE",svc:"data",  label:"CAM-5",        xy:[640,772]}
 ];
 
 /* ============================================================
@@ -245,14 +245,15 @@ const GUIDES = {
   steps:["Recess the small GI box on the outside N wall at 1450mm.","Pull D2 outdoor Cat6 (floor route) to the box; weatherproof the entry with silicone.","Mount the doorbell bracket over the box; patch its Cat6 to a niche PoE port.","Add it to Frigate; train CompreFace on family faces."],
   imgs:["foyer-xray.jpg"], pdf:"FOYER_ELECTRICIAN_MASTER_PLAN.pdf", related:["D2","D3"]
  },
- "CAM-4":{
-  title:"CAM-4 — East exterior", sub:"Kitchen/utility junction · 2400-2600mm · PoE", glyph:"C4", svc:"data",
+ "CAM-N":{
+  title:"Living N-wall camera", sub:"Mid Living Hall N wall · overview · PoE", glyph:"CN", svc:"data",
   badge:"Pull cable now",
-  inside:["Hikvision ColorVu 4MP turret, 2.8mm, IP67, PoE","Fed by D8 outdoor LSZH UV Cat6"],
-  power:"PoE via D8 from the niche.",
-  mount:"E-wall exterior at the kitchen–utility junction (NE corner), 2400–2600mm FFL. Horizontal run 150mm below the GF slab soffit, out through the E wall to an IP67 back box.",
-  steps:["Run D8 east along the GF ceiling, exit the E wall at the kitchen-utility corner.","Fix an IP67 4×4 back box; weatherproof the penetration.","Mount the camera, aim along the E approach; patch to a niche PoE port."],
-  imgs:["wifi-ap.jpg"], pdf:"ELECTRICIAN_REFERENCE.pdf", related:["D8"]
+  inside:["Hikvision ColorVu 4MP, 2.8mm, IP67, PoE","Fed by D4 outdoor Cat6 (PoE)"],
+  power:"PoE via D4. One Cat6 powers the camera and carries its video to the server.",
+  mount:"Centre of the Living Hall NORTH (entrance-facing) wall — covers the porch and the main approach. Replaces the earlier porch-ceiling position (CAM-2).",
+  sensor:"Overview / context camera, not a face camera. Feeds Frigate for motion + general CCTV.",
+  steps:["Pick the conduit route on site (from the niche, or tap the nearest data run) — left to the technician.","Land a Cat6 at a flush / IP-rated box at the middle of the Living N wall.","Mount the camera, aim out over the porch / approach; patch to a niche PoE port."],
+  imgs:["wifi-ap.jpg"], pdf:"ELECTRICIAN_REFERENCE.pdf", related:["D4"]
  },
  "CAM-3":{
   title:"CAM-3 — Front balcony bird's-eye", sub:"FF balcony NW soffit · PoE", glyph:"C3", svc:"data",
@@ -288,8 +289,8 @@ const GUIDES = {
   inside:["Today: 1× Cat6 + pull-string + capped 3\"×3\"×2.5\" back box (C-Niche-Dining / D6)","Future: Waveshare 10.1\" + a small Pi behind the screen (Pi-at-screen)"],
   power:"Future: Pi-at-screen, wired — a single Cat6 PoE powers AND drives a Pi behind the screen (matches the foyer pattern). No HDMI extender. Today: just lay the cable.",
   mount:"E wall of the dining hall near the breakfast counter / kitchen-dining partition. Height + exact position defer to the interior designer (plywood under the cantilever shelf). Leave 500mm slack so the box can shift ±300mm later.",
-  steps:["Lay C-Niche-Dining (~12m): niche → up the wall → east through the GF ceiling chase → down the dining E wall.","Pull 1× indoor Cat6 + 1× pull-string; cap the back box with a blank plate.","On the day, walk the dining hall with the electrician to chalk the exact wall section + height."],
-  imgs:["dining-xray.jpg"], pdf:"WAVESHARE_INSTALL_GUIDE.pdf", related:["D6","D7"]
+  steps:["Lay C-Niche-Dining (~12m): niche → up the wall → east through the GF ceiling chase → down the dining E wall.","Pull 1× indoor Cat6 + 1× pull-string; cap the back box with a blank plate.","Also drop a short link (D11) from this panel to the dining ceiling-speaker JB so the panel's Pi can drive + control the speaker.","On the day, walk the dining hall with the electrician to mark the exact wall section + height. The interior designer will try to fit the screen into the cantilevered kitchen shelves, so keep it flexible."],
+  imgs:["dining-xray.jpg"], pdf:"WAVESHARE_INSTALL_GUIDE.pdf", related:["D6","D7","D11"]
  },
  "SMART-SWITCH":{
   title:"Smart switch box (Sonoff)", sub:"65mm GI box · neutral required · all smart boards", glyph:"SW", svc:"power_light",
@@ -319,7 +320,8 @@ const ROOMS = {
   [860,610,940,790,"Landing"],
   [60,720,235,905,"Pooja","5' x 5'"],
   [235,905,475,1005,"Foyer"],
-  [540,615,940,1005,"Living Hall","16'11\" x 16'11\""]
+  [540,615,940,1005,"Living Hall","16'11\" x 16'11\""],
+  [320,1008,560,1072,"Porch","main door + sump (W wall)"]
  ],
  FF:[
   [180,60,470,230,"Toilet 1","sink-toilet-shower"],
@@ -335,7 +337,7 @@ const ROOMS = {
 };
 const ENV = {
  GF:"M60,60 H940 V790 H940 V1005 H540 V615 H475 V1005 H235 V905 H60 V60 Z",
- FF:"M60,60 H940 V820 H560 V1020 H60 V840 H340 V840 H60 Z"
+ FF:"M60,60 H940 V820 H560 V1020 H60 Z"
 };
 const VOID_FF=[560,820,940,1020];
 
@@ -468,10 +470,10 @@ function drawDevices(floor,g){
     const[cx,cy]=d.xy; const w=d.label.length*5.7+26, h=19, x=cx-w/2, y=cy-h/2;
     const grp=el("g",{class:"dev","data-id":d.id});
     grp.appendChild(el("rect",{x:x-4,y:y-4,width:w+8,height:h+8,rx:6,fill:"transparent"}));
-    grp.appendChild(el("rect",{class:"tag",x,y,width:w,height:h,rx:5,fill:col}));
-    grp.appendChild(el("circle",{class:"gear",cx:x+11,cy:cy,r:3.1}));
-    grp.appendChild(el("circle",{cx:x+11,cy:cy,r:1.3,fill:col}));
-    const t=txt(cx+6,cy+3.4,d.label,"lab"); grp.appendChild(t);
+    grp.appendChild(el("rect",{class:"tag",x,y,width:w,height:h,rx:5,fill:"#2F2C28"}));
+    grp.appendChild(el("circle",{class:"gear",cx:x+11,cy:cy,r:3.4}));
+    grp.appendChild(el("circle",{cx:x+11,cy:cy,r:1.6,fill:col}));
+    const t=txt(cx+7,cy+3.4,d.label,"lab"); grp.appendChild(t);
     grp.addEventListener("click",e=>{e.stopPropagation();openGuide(d.id);});
     g.appendChild(grp);
   });
@@ -525,6 +527,41 @@ function drawRiser(g){
 }
 
 /* ============================================================
+   TERRACE (roof) view — Sintex JB + what reaches the top
+   ============================================================ */
+function drawTerrace(g){
+  g.appendChild(el("rect",{x:120,y:150,width:760,height:780,class:"wall","stroke-width":3}));
+  const par=el("rect",{x:142,y:172,width:716,height:736,fill:"none",stroke:"#C9C3B2","stroke-width":1.5});
+  par.setAttribute("stroke-dasharray","6,5"); g.appendChild(par);
+  g.appendChild(txt(500,138,"TERRACE (roof level)","rlabel"));
+  g.appendChild(txt(500,922,"parapet wall","rsub"));
+  // corner tags (orientation: S top, N bottom, E left, W right)
+  g.appendChild(txt(170,196,"SE","rsub")); g.appendChild(txt(830,196,"SW","rsub"));
+  g.appendChild(txt(170,892,"NE","rsub")); g.appendChild(txt(830,892,"NW","rsub"));
+  // Sintex tank at the SW corner (top-right)
+  g.appendChild(el("circle",{cx:800,cy:255,r:58,fill:"#EAF4EF",stroke:SVC.water.color,"stroke-width":2}));
+  g.appendChild(txt(800,250,"SINTEX","rsub")); g.appendChild(txt(800,266,"1500L","rsub"));
+  // stair exit from FF
+  g.appendChild(el("rect",{x:600,y:710,width:130,height:95,class:"wall"}));
+  g.appendChild(txt(665,700,"stair up from FF","rsub"));
+  // riser bundle arrival on the terrace
+  const ax=662,ay=722;
+  function tl(x1,y1,x2,y2,color,dash,wd){
+    const p=el("path",{d:`M${x1},${y1} L${x1},${y2} L${x2},${y2}`,fill:"none",stroke:color,
+      "stroke-width":wd||4,"stroke-linecap":"round","stroke-linejoin":"round"});
+    if(dash)p.setAttribute("stroke-dasharray","7,5"); g.appendChild(p);
+  }
+  tl(ax,ay,792,300,SVC.water.color,false,5);      // W1 Sintex sensor Cat6
+  tl(ax-22,ay,650,778,SVC.data.color,true,4);      // CAM-5 to parapet
+  g.appendChild(el("circle",{cx:ax,cy:ay,r:6,fill:"#1C1C1E"}));
+  g.appendChild(txt(ax,ay+20,"riser arrives (D9 + W1 + CAM-5)","rsub"));
+  // mini legend
+  g.appendChild(txt(250,470,"W1 = Sintex sensor Cat6 (PoE)","rsub")).setAttribute("text-anchor","start");
+  g.appendChild(txt(250,492,"W2 = Sintex float → down to DB cupboard","rsub")).setAttribute("text-anchor","start");
+  g.appendChild(txt(250,514,"CAM-5 = terrace parapet camera","rsub")).setAttribute("text-anchor","start");
+}
+
+/* ============================================================
    STATE + INTERACTION
    ============================================================ */
 let floor="GF", active=new Set(DEFAULT_ACTIVE), selRef=null, query="";
@@ -554,7 +591,7 @@ function buildLegend(){
     h+=`<span class="it"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="${SVC[k].color}" stroke-width="4"/></svg>${SVC[k].label} <span style="opacity:.7">(${SVC[k].pvc})</span></span>`;
   });
   h+=`<span class="it"><svg width="16" height="16"><circle cx="8" cy="9" r="6" fill="#fff" stroke="${SVC.presence.color}" stroke-width="1.4"/><circle cx="8" cy="10" r="1.8" fill="${SVC.presence.color}"/></svg>mmWave presence (wired 5V)</span>`;
-  h+=`<span class="it"><svg width="18" height="14"><rect x="1" y="2" width="16" height="11" rx="3" fill="#EB6E14"/></svg>Coloured box = tap for install guide</span>`;
+  h+=`<span class="it"><svg width="20" height="14"><rect x="1" y="2" width="18" height="11" rx="3" fill="#2F2C28"/><circle cx="6" cy="7.5" r="2.6" fill="#fff"/></svg>Dark box = component (tap for install guide)</span>`;
   h+=`<span class="it"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1C1C1E" stroke-width="4"/></svg>Solid = pull cable now</span>`;
   h+=`<span class="it"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1C1C1E" stroke-width="4" stroke-dasharray="6,4"/></svg>Dashed = pull string only</span>`;
   h+=`<span class="it"><svg width="14" height="14"><rect x="1" y="1" width="12" height="12" rx="2" fill="#FFE650" stroke="#1C1C1E"/></svg>Niche</span>`;
@@ -581,11 +618,12 @@ function apply(){
     const passQ = !query || ref.toLowerCase().includes(query) || (m&&m.room.toLowerCase().includes(query));
     g.classList.toggle("dim", !(passSvc&&passQ));
   });
-  // device tags: always visible, narrowed only by search
+  // component tags follow the service filter + search; dimmed ones are non-clickable
   document.querySelectorAll(`#view-${floor} .dev`).forEach(g=>{
     const id=g.dataset.id; const d=DEVICES.find(x=>x.id===id);
+    const passSvc = active.size===0 || (d && active.has(d.svc));
     const passQ=!query || id.toLowerCase().includes(query) || (d&&d.label.toLowerCase().includes(query));
-    g.classList.toggle("dim", !passQ);
+    g.classList.toggle("dim", !(passSvc&&passQ));
   });
 }
 
@@ -595,7 +633,7 @@ function setFloor(f){
   document.querySelectorAll(".view").forEach(v=>v.classList.add("hide"));
   document.getElementById("view-"+f).classList.remove("hide");
   document.getElementById("compass").style.display = f==="RISER"?"none":"block";
-  document.getElementById("doorhint").style.display = f==="RISER"?"none":"block";
+  document.getElementById("doorhint").style.display = (f==="GF"||f==="FF")?"block":"none";
   resetVB();
   apply();
 }
@@ -614,6 +652,9 @@ function select(ref){
   document.getElementById("p-route").innerHTML=
     `<span>${c.from}</span><span class="arr">→</span><span>${c.to}</span>`;
   document.getElementById("p-contents").textContent=c.contents;
+  const ef=document.getElementById("p-explainfld");
+  if(c.explain){document.getElementById("p-explain").textContent=c.explain; ef.style.display="";}
+  else ef.style.display="none";
   const nf=document.getElementById("p-notefld");
   if(c.note){document.getElementById("p-note").textContent=c.note; nf.style.display="";}
   else nf.style.display="none";
@@ -781,7 +822,8 @@ function init(){
     drawPlan(f,v); drawConduits(f,v); drawHubs(f,v); drawMmwave(f,v); drawDevices(f,v);
   });
   drawRiser(document.getElementById("view-RISER"));
-  drawDevices("RISER",document.getElementById("view-RISER"));
+  const vt=document.getElementById("view-TERRACE");
+  drawTerrace(vt); drawDevices("TERRACE",vt);
   buildChips(); buildLegend(); buildSheet();
 
   document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>setFloor(t.dataset.floor));

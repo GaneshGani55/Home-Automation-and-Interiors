@@ -81,7 +81,7 @@ button{font-family:inherit; cursor:pointer;}
 .cond .ref{font-size:9px; font-weight:700; text-anchor:middle; dominant-baseline:central;
            pointer-events:none;}
 .cond .lab{font-size:9px; font-weight:600; pointer-events:none; opacity:0;}
-.cond.dim{opacity:.07;}
+.cond.dim{opacity:.07; pointer-events:none;}
 .cond.emph .ln{stroke-width:6;}
 .cond.emph .lab{opacity:1;}
 .cond.flash .ln{stroke-width:11;}
@@ -93,7 +93,7 @@ button{font-family:inherit; cursor:pointer;}
 .mw .core{fill:var(--presence);}
 .mw .halo{fill:#fff; stroke:var(--presence); stroke-width:1.4;}
 .mw text{font-size:8.5px; font-weight:800; text-anchor:middle; fill:var(--presence); pointer-events:none;}
-.mw.dim{opacity:.1;}
+.mw.dim{opacity:.1; pointer-events:none;}
 .mw.flash .core{r:5;}
 
 /* device / install-guide markers */
@@ -101,7 +101,7 @@ button{font-family:inherit; cursor:pointer;}
 .dev .tag{stroke:var(--ink); stroke-width:1.4;}
 .dev .lab{font-size:9px; font-weight:700; text-anchor:middle; fill:#fff; pointer-events:none;}
 .dev .gear{fill:#fff;}
-.dev.dim{opacity:.12;}
+.dev.dim{opacity:.12; pointer-events:none;}
 
 /* compass + hints */
 #compass{position:absolute; top:12px; right:12px; width:64px; height:64px; pointer-events:none;
@@ -237,6 +237,7 @@ button{font-family:inherit; cursor:pointer;}
       <button class="tab on" data-floor="GF">Ground Floor</button>
       <button class="tab" data-floor="FF">First Floor</button>
       <button class="tab" data-floor="RISER">Riser (vertical)</button>
+      <button class="tab" data-floor="TERRACE">Terrace</button>
     </div>
     <div class="search">
       <input id="search" type="text" placeholder="Search ref or word..." autocomplete="off">
@@ -252,6 +253,7 @@ button{font-family:inherit; cursor:pointer;}
     <g class="view" id="view-GF"></g>
     <g class="view hide" id="view-FF"></g>
     <g class="view hide" id="view-RISER"></g>
+    <g class="view hide" id="view-TERRACE"></g>
   </svg>
 
   <svg id="compass" viewBox="0 0 100 100">
@@ -285,6 +287,7 @@ button{font-family:inherit; cursor:pointer;}
   <div class="pbody">
     <div class="fld"><div class="k">Route</div><div class="route" id="p-route"></div></div>
     <div class="fld"><div class="k">What's inside</div><div class="v" id="p-contents"></div></div>
+    <div class="fld" id="p-explainfld"><div class="k">Why it's here / how it works</div><div class="v" id="p-explain"></div></div>
     <div class="fld" id="p-notefld"><div class="k">Note / gotcha</div><div class="note" id="p-note"></div></div>
     <button class="locate" id="p-locate">Find it on the plan</button>
     <button class="guidebtn" id="p-guide" style="display:none">Open install guide</button>
