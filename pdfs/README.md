@@ -7,6 +7,7 @@ Two ready-to-share PDFs generated from the project markdown.
 | [ELECTRICIAN_REFERENCE.pdf](ELECTRICIAN_REFERENCE.pdf) | Drilling, cavity depths, switch boxes (65 mm Sonoff-ready), conduit colour code, FF router runs, full pre-plaster checklist | Electrician + mason | 12 |
 | [INTERIOR_SUGGESTIONS.pdf](INTERIOR_SUGGESTIONS.pdf) | Whole-house A-to-Z brief: palette (with hex swatches), tiles, wood, hardware, lighting, furniture, sanitaryware, vendor cheat sheet | Interior contractor + carpenter + painter | 24 |
 | [WATER_AUTOMATION.pdf](WATER_AUTOMATION.pdf) | Water level automation: 7-conduit pre-plaster schedule, system overview diagram, JB specs, DB cupboard layout, starter control circuit (how Sonoff taps Magnum Pradhaan), PoE power chain, BOM, sequencing, electrician sign-off | Electrician + plumber + owner | 11 |
+| **[WATER_AUTOMATION_VISUAL.pdf](WATER_AUTOMATION_VISUAL.pdf)** ★ NEW 2026-05-29 | Compact image-led companion to WATER_AUTOMATION.pdf. 3 AI-rendered architectural illustrations (system overview cutaway, sump JB mount site, JB internals exploded view) + 1 conduit summary table. For the electrician who won't read 11 pages. | Electrician (skim) + owner (future-self reference) | 4 |
 
 ## Regenerating the PDFs
 
@@ -18,6 +19,7 @@ pip3 install --user fpdf2     # one-time
 python3 build_electrician_pdf.py
 python3 build_interior_pdf.py
 python3 build_water_automation_pdf.py
+python3 build_water_automation_visual_pdf.py    # 4-page visual handoff with AI-generated images
 ```
 
 The Python scripts (`build_*.py`) are the source of truth for PDF formatting — edit them if you want to add sections, change layout, or update content.
