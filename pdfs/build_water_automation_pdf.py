@@ -368,7 +368,7 @@ class WaterPDF(FPDF):
         # zone labels (faint, left margin)
         zone_labels = [("TERRACE (SW corner)", y),
                        ("GROUND FLOOR - INSIDE",  y + zone_h),
-                       ("OUTSIDE  (NE / E walls)", y + 2 * zone_h)]
+                       ("OUTSIDE  (porch N + E walls)", y + 2 * zone_h)]
         for label, zy in zone_labels:
             self.set_font("Helvetica", "I", 7)
             self.set_text_color(*INK_FAINT)
@@ -1154,7 +1154,7 @@ def page_master_schedule(pdf: WaterPDF):
          "Sintex JB  ->  DB cupboard",
          "2-core 1.5 mm2 (Sintex float, 220V)", "~ 45 ft"],
         ["C-Sump-1", "20 mm",
-         "Server niche  ->  Sump JB on east external wall",
+         "Server niche  ->  Sump JB on porch W wall (300mm AGL)",
          "Cat6 PoE (data + 48V)", "~ 25 ft"],
         ["C-Sump-2", "16 mm",
          "Sump JB  ->  DB cupboard",
@@ -1194,12 +1194,13 @@ def page_conduit_details(pdf: WaterPDF):
          "horizontal in chase to DB cupboard.",
          "2-core 1.5 mm2 double-insulated 220V cable. Mains-class. Separate from Cat6."),
         ("C-Sump-1  -  Server  ->  Sump JB",
-         "Horizontal in ceiling chase to east external wall; sleeved penetration (slope outward); "
-         "vertical drop on outside face to JB at  ~ 1.2 m AGL above sump manhole.",
-         "Outdoor-rated LSZH Cat6. Wall penetration sealed."),
+         "Horizontal in ceiling chase to foyer NW corner; sleeved penetration through porch W wall; "
+         "vertical drop on outside face to JB at  300 mm AGL, offset ~100 mm NORTH of manhole edge "
+         "(so cover swing doesn't strike the JB).",
+         "Outdoor-rated LSZH Cat6. Wall penetration sealed and sloped outward."),
         ("C-Sump-2  -  Sump JB  ->  DB cupboard",
-         "Parallel to C-Sump-1 outdoors, separate sleeved penetration through east wall, "
-         "indoor chase to DB cupboard.",
+         "Parallel to C-Sump-1 outdoors, separate sleeved penetration through porch W wall, "
+         "indoor chase from foyer NW corner to DB cupboard.",
          "2-core 1.5 mm2 double-insulated 220V cable."),
         ("C-DB-Backup  -  Server  ->  DB cupboard",
          "Through ceiling chase to DB cupboard at standard switch height. Pull string ONLY, no cable.",
@@ -1261,14 +1262,16 @@ def page_jbs(pdf: WaterPDF):
         ("Float-in", DANGER),
     ]
     pdf.jb_interior(pdf.PAGE_MARGIN_X + half_w + 6, y0, half_w, box_h,
-                    "SUMP JB  -  east external wall",
+                    "SUMP JB  -  porch W wall, 300mm AGL",
                     sump_contents, sump_glands)
 
     pdf.set_y(y0 + box_h + 4)
     pdf.callout_info("Mounting notes",
                      "Sintex JB: mount on parapet, shaded side. Add fibre-cement sun shield if "
-                     "direct afternoon sun. Sump JB: mount  ~ 1.2 m AGL directly above the sump "
-                     "manhole on the east wall. Both: gland the bottom face only (top stays clean).")
+                     "direct afternoon sun. Sump JB: mount on porch W wall at 300 mm AGL, offset "
+                     "~100 mm NORTH of manhole edge (cover hinges on W and lies flat against this "
+                     "wall when open). Below corner-window sill. Porch overhang provides shade. "
+                     "Both: gland the bottom face only (top stays clean).")
 
     pdf.h2("Power chain inside each JB")
     pdf.power_chain(pdf.PAGE_MARGIN_X, pdf.get_y() + 2, pdf.CONTENT_W, 55)
@@ -1415,7 +1418,7 @@ def page_acceptance(pdf: WaterPDF):
         "Data conduits (20 mm) and mains conduits (16/25 mm) separated by  >=  50 mm in parallel runs",
         "No data and mains cables sharing the same conduit anywhere",
         "Slab + external wall penetrations sleeved and marked",
-        "JB mounting points identified and backplates fixed (Sintex parapet + east wall)",
+        "JB mounting points identified and backplates fixed (Sintex parapet + porch W wall for sump)",
         "DB cupboard cable entry positions match the 7 conduit endpoints",
         "Conduit ends sealed with caps to prevent debris during plastering",
         "Both ends of each conduit labelled with conduit ID (C-Sintex-1, C-Sump-2, etc.)",

@@ -41,8 +41,8 @@
                              ▼              ▼
                   ┌──────────────────┐   ┌──────────────────────┐
                   │  Sump JB         │   │   DB CUPBOARD (foyer) │
-                  │ (east external   │   │                       │
-                  │  wall, ~1.2m)    │   │  ┌─────────────────┐  │
+                  │  (porch W wall,  │   │                       │
+                  │  300mm AGL)      │   │  ┌─────────────────┐  │
                   │  ESP32 + sensor  │   │  │ DB (existing)   │  │
                   └──────────┬───────┘   │  └─────────────────┘  │
                              │           │  ┌─────────────────┐  │
@@ -52,7 +52,7 @@
                              ▼           │  │ P2 starter      │  │
                   ┌──────────────────┐   │  │ (Magnum PSP1)   │  │
                   │   SUMP           │   │  ├─────────────────┤  │
-                  │ (NE, outside)    │   │  │ Sonoff DUALR3   │  │
+                  │ (in porch, next  │   │  │ Sonoff DUALR3   │  │
                   │                  │   │  └─────────────────┘  │
                   │  pressure probe  │   │                       │
                   │  low-level float │   │  Both float wires     │
@@ -96,8 +96,8 @@
 |---|---|---|---|---|---|---|
 | **C-Sintex-1** | 20mm PVC (🩶 grey) | Server niche (staircase) | Sintex JB (terrace, SW corner parapet wall, ~1.2m AGL) | Cat6 UTP, single run | LSZH outdoor-rated Cat6 | **~42 ft (13m)** |
 | **C-Sintex-2** | 16mm PVC | Sintex JB (terrace) | DB cupboard (foyer, east wall) | 2-core 1.5mm² flexible | 220V-rated, double-insulated | **~45 ft (14m)** |
-| **C-Sump-1** | 20mm PVC (🩶 grey) | Server niche (staircase) | Sump JB (east external wall, ~1.2m AGL above manhole) | Cat6 UTP, single run | LSZH outdoor-rated Cat6 | **~25 ft (8m)** |
-| **C-Sump-2** | 16mm PVC | Sump JB (east external wall) | DB cupboard | 2-core 1.5mm² flexible | 220V-rated, double-insulated | **~25 ft (8m)** |
+| **C-Sump-1** | 20mm PVC (🩶 grey) | Server niche (staircase) | Sump JB (porch W wall, 300mm AGL, offset ~100mm N of manhole) | Cat6 UTP, single run | LSZH outdoor-rated Cat6 | **~25 ft (8m)** |
+| **C-Sump-2** | 16mm PVC | Sump JB (porch W wall) | DB cupboard | 2-core 1.5mm² flexible | 220V-rated, double-insulated | **~25 ft (8m)** |
 | **C-DB-Backup** | 20mm PVC (🩶 grey) | Server niche (staircase) | DB cupboard | EMPTY — pull string only | Future Cat6 if ESP32 motor control desired | **~12 ft (4m)** |
 | **C-Motor-P1** | 25mm PVC (🔵 blue) | DB cupboard | Borewell head (outside, location TBC) | 3-core 4mm² armoured | XLPE armoured submersible feeder | depends on borewell location; **likely existing run** — verify with electrician |
 | **C-Motor-P2** | 25mm PVC (🔵 blue) | DB cupboard | P2 pump cage (east outside wall, immediately below where P1 starter would have gone) | 3-core 2.5mm² | PVC double-insulated | **~5 ft (1.5m)** |
@@ -147,29 +147,30 @@
 
 **Routing:**
 1. Start at staircase server niche.
-2. Run horizontally through wall chase at ceiling level to east external wall.
-3. Exit external wall via sleeved penetration to outside.
-4. Drop vertically along outside face of east wall to JB at ~1.2m AGL, sited directly above the sump manhole.
-5. Terminate at sump JB with 20mm gland.
+2. Run horizontally through wall chase at ceiling level to the foyer's NW corner.
+3. Exit at the porch W wall (the 4'9" projection from the foyer NW corner) via a sleeved penetration to outside.
+4. Drop vertically along the outside face of porch W wall to JB at **300mm AGL**, sited **~100mm NORTH of the manhole edge** (so the manhole cover, when swung open, does not strike the JB).
+5. Terminate at sump JB with 20mm gland (bottom entry).
 
 **Key points:**
-- Sleeved penetration through external wall must slope **outward and downward** (so water cannot track inward along the conduit).
+- Sleeved wall penetration must slope **outward and downward** (no water tracking inward).
+- JB lives BELOW the corner-window sill (~3 ft / 900mm AGL); 300mm JB is well clear.
+- Pull string left in conduit.
 - Outdoor segment uses outdoor-rated Cat6.
-- Pull string left.
 
 ### 2.4 C-Sump-2 — Sump JB → DB cupboard
 
-**Purpose:** Sump low-level float wire (220V, in series with P2 coil only) from float (inside sump, on cable) up to JB (transit) and back into the home to DB cupboard.
+**Purpose:** Sump low-level float wire (220V, in series with P2 coil only) from float (inside sump) up to JB (transit) and back into the home to DB cupboard.
 
 **Routing:**
-1. Float cable enters sump JB through bottom gland (transit — internal in-line connector or terminal block).
-2. Continues from JB through C-Sump-2 conduit, parallel to C-Sump-1 (≥50mm separation).
-3. Drops/runs back through external wall (separate sleeved penetration from C-Sump-1).
-4. Inside the house: runs in wall chase to DB cupboard.
+1. Float cable from inside sump enters JB through bottom gland.
+2. Continues from JB through C-Sump-2 conduit, parallel to C-Sump-1 (≥50mm separation through the wall penetration and back inside).
+3. Re-enters the house through a separate sleeved penetration at the same porch W wall location.
+4. Runs in wall chase from porch W wall back to DB cupboard.
 5. Terminates at a terminal block inside DB cupboard, jumpered in series with P2 contactor coil supply only.
 
 **Key points:**
-- Same separation rules as C-Sintex-2.
+- Same separation rules as C-Sintex-2 (data + mains never share).
 - 2-core 1.5mm² flexible, 220V-rated.
 
 ### 2.5 C-DB-Backup — Server → DB cupboard
@@ -234,17 +235,18 @@
 | Power | From PoE only — no separate 230V at JB |
 | Access | Hinged lid with gasket seal; tool-required to open (screw lid, not snap-fit) |
 
-### 3.2 Sump JB (east external wall)
+### 3.2 Sump JB (porch W wall)
 
 | Property | Spec |
 |---|---|
-| Type | Industrial polycarbonate, IP66 (outdoor, exposed) |
-| Size | 200 × 200 × 100 mm |
-| Mounting | Wall-mount at ~1.2m AGL, directly above sump manhole |
-| Glands | 4× glands at bottom: 1× 20mm (C-Sump-1 / Cat6), 1× 16mm (C-Sump-2 / float in & out), 1× 12mm (sensor cable from sump), 1× 12mm (float cable from sump) |
+| Type | Industrial polycarbonate, IP66 (outdoor, partly sheltered by porch overhang) |
+| Size | 250 × 200 × 120 mm preferred (200 × 200 × 100 mm minimum) |
+| Mounting | Surface mount on porch W wall, **300 mm AGL (1 ft)**, offset ~100 mm NORTH of the manhole edge so the manhole cover (hinged on W side, opens up against this wall) cannot strike the JB |
+| Glands | 4× glands at bottom: 1× M20 (C-Sump-1 Cat6), 1× M16 (C-Sump-2 float to DB), 1× M12 (pressure transducer cable from sump), 1× M12 (low-level float cable from sump) |
 | Contents | WT32-ETH01, PoE splitter, 3-way terminal block (pressure transducer wires), 2-way terminal block (float transit), 2-way low-voltage tap (float telemetry → ESP32 GPIO) |
 | Power | From PoE only |
-| Sun shield | Recommended — fibre cement sheet projecting 15cm above JB |
+| Sun shield | Likely not needed — porch overhang shades this wall |
+| Note | Sump-side cable entries: drill side-of-sump glands BEFORE waterproofing the sump interior. Sensor + float cables exit sump through these glands, run up the W wall surface in a short conduit, enter JB from bottom. |
 
 ---
 
@@ -389,7 +391,7 @@ To be signed off by electrician before plastering:
 These are decisions made AFTER conduits go in. Conduit work can proceed without them locked.
 
 - Exact JB position on terrace parapet — confirm on-site once Sintex final position is known.
-- Exact JB position on east external wall — confirm relative to sump manhole.
+- Exact JB position on porch W wall — confirm clearance from corner-window glass + manhole-cover swing arc on-site.
 - Sensor brand specifics (DFRobot SEN0257 / JSN-SR04T) — locked; order placed when JBs are ready.
 - Sonoff DUALR3 — order when DB cupboard ready.
 - Starter for P2 (Magnum Pradhaan PSP1 1HP) — order with the pump (Crompton Mini Champ 1HP).
