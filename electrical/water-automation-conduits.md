@@ -96,7 +96,7 @@
 |---|---|---|---|---|---|---|
 | **C-Sintex-1** | 20mm PVC (🩶 grey) | Server niche (staircase) | Sintex JB (terrace, SW corner parapet wall, ~1.2m AGL) | Cat6 UTP, single run | LSZH outdoor-rated Cat6 | **~42 ft (13m)** |
 | **C-Sintex-2** | 16mm PVC | Sintex JB (terrace) | DB cupboard (foyer, east wall) | 2-core 1.5mm² flexible | 220V-rated, double-insulated | **~45 ft (14m)** |
-| **C-Sump-1** | 20mm PVC (🩶 grey) | Server niche (staircase) | Sump JB (porch W wall, 300mm AGL, offset ~100mm N of manhole) | Cat6 UTP, single run | LSZH outdoor-rated Cat6 | **~25 ft (8m)** |
+| **C-Sump-1** | 20mm PVC (🩶 grey) | Server niche (staircase) | Sump JB (porch W wall, 300mm AGL) | Cat6 UTP, single run | LSZH outdoor-rated Cat6 | **~25 ft (8m)** |
 | **C-Sump-2** | 16mm PVC | Sump JB (porch W wall) | DB cupboard | 2-core 1.5mm² flexible | 220V-rated, double-insulated | **~25 ft (8m)** |
 | **C-DB-Backup** | 20mm PVC (🩶 grey) | Server niche (staircase) | DB cupboard | EMPTY — pull string only | Future Cat6 if ESP32 motor control desired | **~12 ft (4m)** |
 | **C-Motor-P1** | 25mm PVC (🔵 blue) | DB cupboard | Borewell head (outside, location TBC) | 3-core 4mm² armoured | XLPE armoured submersible feeder | depends on borewell location; **likely existing run** — verify with electrician |
@@ -149,7 +149,7 @@
 1. Start at staircase server niche.
 2. Run horizontally through wall chase at ceiling level to the foyer's NW corner.
 3. Exit at the porch W wall (the 4'9" projection from the foyer NW corner) via a sleeved penetration to outside.
-4. Drop vertically along the outside face of porch W wall to JB at **300mm AGL**, sited **~100mm NORTH of the manhole edge** (so the manhole cover, when swung open, does not strike the JB).
+4. Drop vertically along the outside face of porch W wall to JB at **300mm AGL**, positioned beside the manhole (not directly above — manhole cover hinges on W side and lies flat against this wall when open; electrician to choose exact offset on-site).
 5. Terminate at sump JB with 20mm gland (bottom entry).
 
 **Key points:**
@@ -241,7 +241,7 @@
 |---|---|
 | Type | Industrial polycarbonate, IP66 (outdoor, partly sheltered by porch overhang) |
 | Size | 250 × 200 × 120 mm preferred (200 × 200 × 100 mm minimum) |
-| Mounting | Surface mount on porch W wall, **300 mm AGL (1 ft)**, offset ~100 mm NORTH of the manhole edge so the manhole cover (hinged on W side, opens up against this wall) cannot strike the JB |
+| Mounting | Surface mount on porch W wall, **300 mm AGL (1 ft)**, positioned beside the manhole — electrician to decide exact offset on-site (manhole cover hinges W side and lies flat against this wall when open, so JB cannot sit directly above the manhole) |
 | Glands | 4× glands at bottom: 1× M20 (C-Sump-1 Cat6), 1× M16 (C-Sump-2 float to DB), 1× M12 (pressure transducer cable from sump), 1× M12 (low-level float cable from sump) |
 | Contents | WT32-ETH01, PoE splitter, 3-way terminal block (pressure transducer wires), 2-way terminal block (float transit), 2-way low-voltage tap (float telemetry → ESP32 GPIO) |
 | Power | From PoE only |

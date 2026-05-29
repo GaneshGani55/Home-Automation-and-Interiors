@@ -1195,8 +1195,9 @@ def page_conduit_details(pdf: WaterPDF):
          "2-core 1.5 mm2 double-insulated 220V cable. Mains-class. Separate from Cat6."),
         ("C-Sump-1  -  Server  ->  Sump JB",
          "Horizontal in ceiling chase to foyer NW corner; sleeved penetration through porch W wall; "
-         "vertical drop on outside face to JB at  300 mm AGL, offset ~100 mm NORTH of manhole edge "
-         "(so cover swing doesn't strike the JB).",
+         "vertical drop on outside face to JB at 300 mm AGL, beside the manhole (electrician picks "
+         "exact offset on-site -- JB cannot sit directly above the manhole because the cover hinges "
+         "on W and lies flat against this wall when open).",
          "Outdoor-rated LSZH Cat6. Wall penetration sealed and sloped outward."),
         ("C-Sump-2  -  Sump JB  ->  DB cupboard",
          "Parallel to C-Sump-1 outdoors, separate sleeved penetration through porch W wall, "
@@ -1268,10 +1269,11 @@ def page_jbs(pdf: WaterPDF):
     pdf.set_y(y0 + box_h + 4)
     pdf.callout_info("Mounting notes",
                      "Sintex JB: mount on parapet, shaded side. Add fibre-cement sun shield if "
-                     "direct afternoon sun. Sump JB: mount on porch W wall at 300 mm AGL, offset "
-                     "~100 mm NORTH of manhole edge (cover hinges on W and lies flat against this "
-                     "wall when open). Below corner-window sill. Porch overhang provides shade. "
-                     "Both: gland the bottom face only (top stays clean).")
+                     "direct afternoon sun. Sump JB: mount on porch W wall at 300 mm AGL, beside "
+                     "the manhole (not directly above -- cover hinges on W and lies flat against "
+                     "this wall when open; electrician picks the exact offset on-site). Below "
+                     "corner-window sill. Porch overhang provides shade. Both: gland the bottom "
+                     "face only (top stays clean).")
 
     pdf.h2("Power chain inside each JB")
     pdf.power_chain(pdf.PAGE_MARGIN_X, pdf.get_y() + 2, pdf.CONTENT_W, 55)
