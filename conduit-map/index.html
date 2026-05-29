@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Conduit Map — Automation</title>
+<style>
+/* ---------- Base / palette ---------- */
+:root{
+  --paper:#FAF8F2; --ink:#1C1C1E; --line:#333; --grey:#7A776E;
+  --panel:#FFFFFF; --hair:#E3DECF; --chip:#EFEADB;
+  --power_light:#DC1E1E; --power_heavy:#1E5ADC; --data:#EB6E14;
+  --lv16:#8C5AC8; --water:#1E8C64; --presence:#C81E78;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;height:100%;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--paper); color:var(--ink); overflow:hidden;
+  display:flex; flex-direction:column; height:100%;
+}
+button{font-family:inherit; cursor:pointer;}
+
+/* ---------- Top bar ---------- */
+#bar{flex:0 0 auto; background:var(--paper); border-bottom:2px solid var(--ink); z-index:30;}
+.row{display:flex; align-items:center; gap:8px; padding:6px 10px; flex-wrap:wrap;}
+.title{font-weight:700; font-size:15px; letter-spacing:.5px; text-transform:uppercase; margin-right:6px;}
+.title small{display:block; font-weight:500; font-size:10px; color:var(--grey); letter-spacing:.3px; text-transform:none;}
+
+.tabs{display:flex; gap:0; border:1.5px solid var(--ink); border-radius:7px; overflow:hidden;}
+.tab{padding:7px 13px; font-size:12.5px; font-weight:600; background:transparent; border:none;
+     color:var(--ink); border-right:1.5px solid var(--ink);}
+.tab:last-child{border-right:none;}
+.tab.on{background:var(--ink); color:var(--paper);}
+
+.chips{display:flex; gap:6px; flex-wrap:wrap;}
+.chip{display:flex; align-items:center; gap:6px; padding:5px 10px; font-size:12px; font-weight:600;
+      background:var(--chip); border:1.5px solid transparent; border-radius:20px; color:var(--ink);}
+.chip .sw{width:13px; height:13px; border-radius:3px;}
+.chip.on{background:#fff; border-color:currentColor;}
+.chip.off{opacity:.5;}
+
+.search{display:flex; align-items:center; gap:6px; margin-left:auto;}
+.search input{font-family:inherit; font-size:13px; padding:6px 10px; width:150px;
+  border:1.5px solid var(--ink); border-radius:7px; background:#fff; color:var(--ink);}
+.btn{padding:6px 11px; font-size:12px; font-weight:600; background:#fff;
+     border:1.5px solid var(--ink); border-radius:7px; color:var(--ink);}
+
+#legend{display:flex; align-items:center; gap:14px; padding:5px 10px; border-top:1px solid var(--hair);
+        font-size:11px; color:var(--grey); flex-wrap:wrap;}
+#legend .it{display:flex; align-items:center; gap:5px;}
+#legend svg{display:block;}
+
+/* ---------- Stage ---------- */
+#stage{flex:1 1 auto; position:relative; overflow:hidden;}
+#plan{width:100%; height:100%; display:block; touch-action:none;}
+.view{position:absolute; inset:0;}
+.view.hide{display:none;}
+
+.wall{fill:none; stroke:var(--line); stroke-width:2; stroke-linejoin:round;}
+.fillroom{fill:#fff;}
+.rlabel{fill:var(--grey); font-size:13px; font-weight:600; letter-spacing:.4px; text-anchor:middle;
+        pointer-events:none; text-transform:uppercase;}
+.rsub{fill:var(--grey); font-size:10px; text-anchor:middle; pointer-events:none;}
+.door{fill:none; stroke:var(--grey); stroke-width:1.2;}
+.step{stroke:var(--grey); stroke-width:1;}
+.voidhatch line{stroke:#C9C3B2; stroke-width:1;}
+
+.hub rect{stroke:var(--ink); stroke-width:1.5;}
+.hub text{font-size:10px; font-weight:700; text-anchor:middle; fill:var(--ink); pointer-events:none;}
+.node rect{fill:#EDE7D8; stroke:var(--grey); stroke-width:1;}
+.node text{font-size:8.5px; text-anchor:middle; fill:var(--grey); pointer-events:none;}
+
+/* conduits */
+.cond{cursor:pointer;}
+.cond .hit{stroke:transparent; stroke-width:18; fill:none;}
+.cond .ln{fill:none; stroke-width:4.5; stroke-linejoin:round; stroke-linecap:round;
+          transition:stroke-width .15s, opacity .15s;}
+.cond.prov .ln{stroke-dasharray:7,5;}
+.cond .dot{stroke-width:2; transition:opacity .15s;}
+.cond .ref{font-size:9px; font-weight:700; text-anchor:middle; dominant-baseline:central;
+           pointer-events:none;}
+.cond .lab{font-size:9px; font-weight:600; pointer-events:none; opacity:0;}
+.cond.dim{opacity:.07;}
+.cond.emph .ln{stroke-width:6;}
+.cond.emph .lab{opacity:1;}
+.cond.flash .ln{stroke-width:11;}
+.cond.flash{opacity:1 !important;}
+
+/* mmWave presence markers */
+.mw{cursor:pointer;}
+.mw .ring{fill:none; stroke:var(--presence); stroke-width:1.7;}
+.mw .core{fill:var(--presence);}
+.mw .halo{fill:#fff; stroke:var(--presence); stroke-width:1.4;}
+.mw text{font-size:8.5px; font-weight:800; text-anchor:middle; fill:var(--presence); pointer-events:none;}
+.mw.dim{opacity:.1;}
+.mw.flash .core{r:5;}
+
+/* device / install-guide markers */
+.dev{cursor:pointer;}
+.dev .tag{stroke:var(--ink); stroke-width:1.4;}
+.dev .lab{font-size:9px; font-weight:700; text-anchor:middle; fill:#fff; pointer-events:none;}
+.dev .gear{fill:#fff;}
+.dev.dim{opacity:.12;}
+
+/* compass + hints */
+#compass{position:absolute; top:12px; right:12px; width:64px; height:64px; pointer-events:none;
+  background:rgba(255,255,255,.85); border:1px solid var(--hair); border-radius:8px; padding:5px;}
+#doorhint{position:absolute; left:50%; bottom:10px; transform:translateX(-50%);
+  font-size:11px; color:var(--grey); background:rgba(255,255,255,.85); padding:3px 10px;
+  border-radius:12px; border:1px solid var(--hair); pointer-events:none; text-align:center;}
+
+/* ---------- Side panel (conduit detail) ---------- */
+#panel{position:absolute; top:0; right:0; height:100%; width:350px; max-width:88%;
+  background:var(--panel); border-left:2px solid var(--ink); transform:translateX(102%);
+  transition:transform .22s ease; z-index:40; display:flex; flex-direction:column;
+  box-shadow:-8px 0 24px rgba(0,0,0,.10);}
+#panel.open{transform:translateX(0);}
+.ph{display:flex; align-items:flex-start; gap:10px; padding:16px 16px 12px; border-bottom:1px solid var(--hair);}
+.pref{font-size:26px; font-weight:800; line-height:1; padding:8px 10px; border-radius:8px; color:#fff;}
+.ph .meta{flex:1;}
+.ph .sz{font-size:12px; color:var(--grey); font-weight:600;}
+.pclose{margin-left:auto; font-size:22px; line-height:1; background:none; border:none; color:var(--grey); padding:2px 4px;}
+.badge{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.5px; padding:3px 9px;
+  border-radius:20px; text-transform:uppercase; margin-top:6px;}
+.badge.live{background:#E4F4EC; color:#0E6B45; border:1px solid #1E8C64;}
+.badge.prov{background:#FBF1DC; color:#8A6A12; border:1px solid #C99A1E;}
+.badge.sensor{background:#FCE4F1; color:#9C1163; border:1px solid #C81E78;}
+.pbody{padding:14px 16px; overflow:auto;}
+.fld{margin-bottom:14px;}
+.fld .k{font-size:10.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--grey); margin-bottom:3px;}
+.fld .v{font-size:14px; line-height:1.45;}
+.route{display:flex; align-items:center; gap:8px; font-size:13.5px; line-height:1.4;}
+.route .arr{color:var(--grey); font-weight:700;}
+.note{background:#FBF6E7; border-left:3px solid #C99A1E; padding:9px 11px; border-radius:0 6px 6px 0; font-size:13px; line-height:1.45;}
+.locate{margin-top:4px; width:100%; padding:10px; font-size:13px; font-weight:700;
+  background:var(--ink); color:var(--paper); border:none; border-radius:8px;}
+.guidebtn{margin-top:8px; width:100%; padding:11px; font-size:13px; font-weight:700;
+  background:#fff; color:var(--ink); border:1.5px solid var(--ink); border-radius:8px;}
+
+/* ---------- Install-guide panel ---------- */
+#guide{position:absolute; top:0; right:0; height:100%; width:430px; max-width:94%;
+  background:var(--panel); border-left:2px solid var(--ink); transform:translateX(104%);
+  transition:transform .24s ease; z-index:42; display:flex; flex-direction:column;
+  box-shadow:-8px 0 24px rgba(0,0,0,.12);}
+#guide.open{transform:translateX(0);}
+.ghead{display:flex; align-items:flex-start; gap:11px; padding:14px 16px; border-bottom:1px solid var(--hair);}
+.gicon{width:44px; height:44px; border-radius:10px; flex:0 0 auto; display:flex; align-items:center;
+  justify-content:center; color:#fff; font-weight:800; font-size:15px; letter-spacing:.5px;}
+.gmeta{flex:1; min-width:0;}
+.gtitle{font-size:17px; font-weight:800; line-height:1.15;}
+.gsub{font-size:11.5px; color:var(--grey); font-weight:600; margin-top:3px;}
+.gbody{padding:14px 16px 28px; overflow:auto;}
+.gsec{margin-bottom:17px;}
+.gsec h4{margin:0 0 7px; font-size:10.5px; letter-spacing:.7px; text-transform:uppercase; color:var(--grey);}
+.gsec ul{margin:0; padding-left:18px;}
+.gsec li{font-size:13.5px; line-height:1.5; margin-bottom:4px;}
+.gsec p{margin:0; font-size:13.5px; line-height:1.5;}
+.gsteps{counter-reset:st; list-style:none; padding-left:0;}
+.gsteps li{position:relative; padding-left:32px; margin-bottom:11px; font-size:13.5px; line-height:1.45;}
+.gsteps li:before{counter-increment:st; content:counter(st); position:absolute; left:0; top:-1px;
+  width:22px; height:22px; background:var(--ink); color:var(--paper); border-radius:50%;
+  font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+.gimgs img{width:100%; border:1px solid var(--hair); border-radius:8px; margin-bottom:8px; display:block;}
+.grel{display:flex; flex-wrap:wrap; gap:6px;}
+.grel button{font:inherit; font-size:12px; font-weight:700; padding:5px 11px; border-radius:20px;
+  border:1.5px solid var(--ink); background:#fff; color:var(--ink);}
+.gpdf{display:block; text-align:center; text-decoration:none; margin-top:2px; padding:12px;
+  font-size:13px; font-weight:700; background:var(--ink); color:var(--paper); border-radius:8px;}
+.gnote{background:#FBF6E7; border-left:3px solid #C99A1E; padding:10px 12px; border-radius:0 6px 6px 0;
+  font-size:13px; line-height:1.5;}
+
+/* scrim */
+#scrim{position:absolute; inset:0; background:rgba(20,20,22,.18); z-index:35; opacity:0; pointer-events:none; transition:opacity .2s;}
+#scrim.on{opacity:1; pointer-events:auto;}
+
+/* rotate hint */
+#rotate{position:absolute; inset:0; z-index:60; background:var(--paper); display:none;
+  flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px; gap:14px;}
+#rotate .rot{font-size:46px;}
+#rotate p{max-width:280px; color:var(--grey); font-size:14px; line-height:1.5;}
+@media (max-width:760px) and (orientation:portrait){
+  #rotate{display:flex;}
+}
+
+/* zoom controls */
+#zoomctl{position:absolute; right:12px; bottom:12px; display:flex; flex-direction:column; gap:6px; z-index:25;}
+#zoomctl button{width:40px; height:40px; font-size:21px; font-weight:600; line-height:1;
+  background:rgba(255,255,255,.92); border:1.5px solid var(--ink); border-radius:9px; color:var(--ink);}
+#zoomctl button:active{background:var(--ink); color:var(--paper);}
+
+/* phone responsive */
+@media (max-width:760px){
+  .title{font-size:13px; margin-right:2px;}
+  .title small{display:none;}
+  .row{padding:5px 7px; gap:6px;}
+  .tab{padding:6px 9px; font-size:11.5px;}
+  .search input{width:96px; font-size:12px; padding:5px 8px;}
+  .btn{padding:5px 9px;}
+  #chips{overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch; padding-bottom:7px;}
+  #chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto; font-size:11px; padding:4px 9px;}
+  #legend{overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch; font-size:10px; gap:10px;}
+  #legend .it{flex:0 0 auto; white-space:nowrap;}
+  #panel{width:100%; max-width:100%;}
+  #guide{width:100%; max-width:100%;}
+  #compass{width:50px; height:50px; top:8px; right:8px;}
+  #doorhint{font-size:10px; bottom:62px;}
+  #zoomctl button{width:44px; height:44px;}
+}
+
+/* Print */
+#sheet{display:none;}
+@media print{
+  @page{size:A3 landscape; margin:8mm;}
+  body{overflow:visible; height:auto; display:block;}
+  #bar,#panel,#guide,#scrim,#compass,#doorhint,.search,#rotate,#zoomctl{display:none !important;}
+  #stage{position:static; height:auto;}
+  .view.hide{display:none;}
+  .view{position:static;}
+  #plan{height:auto;}
+  .cond.dim{opacity:1;}
+  #sheet{display:block; margin-top:10mm; page-break-before:always;}
+  #sheet h2{font-size:14px; margin:0 0 6px;}
+  #sheet table{width:100%; border-collapse:collapse; font-size:9px;}
+  #sheet th,#sheet td{border:1px solid #999; padding:3px 5px; text-align:left; vertical-align:top;}
+  #sheet .sgrp td{background:#eee; font-weight:700; text-transform:uppercase;}
+}
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <div class="row">
+    <div class="title">Conduit Map<small>Automation focus &middot; tap a line or a box for detail</small></div>
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-floor="GF">Ground Floor</button>
+      <button class="tab" data-floor="FF">First Floor</button>
+      <button class="tab" data-floor="RISER">Riser (vertical)</button>
+    </div>
+    <div class="search">
+      <input id="search" type="text" placeholder="Search ref or word..." autocomplete="off">
+      <button class="btn" onclick="window.print()">Print</button>
+    </div>
+  </div>
+  <div class="row" id="chips"></div>
+  <div id="legend"></div>
+</div>
+
+<div id="stage">
+  <svg id="plan" viewBox="0 0 1000 1085" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <g class="view" id="view-GF"></g>
+    <g class="view hide" id="view-FF"></g>
+    <g class="view hide" id="view-RISER"></g>
+  </svg>
+
+  <svg id="compass" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="46" fill="none" stroke="#999" stroke-width="1.5"/>
+    <path d="M50 18 L50 78" stroke="#1C1C1E" stroke-width="2"/>
+    <path d="M50 82 L43 66 L50 71 L57 66 Z" fill="#DC1E1E"/>
+    <text x="50" y="14" text-anchor="middle" font-size="13" font-weight="700" fill="#7A776E">S</text>
+    <text x="50" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#DC1E1E">N</text>
+    <text x="9" y="54" font-size="11" font-weight="700" fill="#7A776E">E</text>
+    <text x="84" y="54" font-size="11" font-weight="700" fill="#7A776E">W</text>
+  </svg>
+  <div id="doorhint">Main door is at the bottom (North) &middot; coloured boxes open install guides</div>
+  <div id="zoomctl">
+    <button id="zin" title="Zoom in">+</button>
+    <button id="zout" title="Zoom out">&minus;</button>
+    <button id="zreset" title="Reset view">&#8635;</button>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<aside id="panel">
+  <div class="ph">
+    <div class="pref" id="p-ref">--</div>
+    <div class="meta">
+      <div class="sz" id="p-size"></div>
+      <span class="badge" id="p-badge"></span>
+    </div>
+    <button class="pclose" id="p-close">&times;</button>
+  </div>
+  <div class="pbody">
+    <div class="fld"><div class="k">Route</div><div class="route" id="p-route"></div></div>
+    <div class="fld"><div class="k">What's inside</div><div class="v" id="p-contents"></div></div>
+    <div class="fld" id="p-notefld"><div class="k">Note / gotcha</div><div class="note" id="p-note"></div></div>
+    <button class="locate" id="p-locate">Find it on the plan</button>
+    <button class="guidebtn" id="p-guide" style="display:none">Open install guide</button>
+  </div>
+</aside>
+
+<aside id="guide">
+  <div class="ghead">
+    <div class="gicon" id="g-icon"></div>
+    <div class="gmeta">
+      <div class="gtitle" id="g-title"></div>
+      <div class="gsub" id="g-sub"></div>
+    </div>
+    <button class="pclose" id="g-close">&times;</button>
+  </div>
+  <div class="gbody" id="g-body"></div>
+</aside>
+
+<div id="rotate">
+  <div class="rot">&#x21BB;</div>
+  <p><b>Rotate your phone to landscape</b><br>The floor plan is wide &mdash; turn the phone sideways for the best view.</p>
+  <button class="btn" id="rotdismiss">Show plan anyway</button>
+</div>
+
+<div id="sheet"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
