@@ -36,7 +36,7 @@
 | 6 | **Store room** | ~4'0" × 4'0" | Below utility. |
 | 7 | **Refrigerator niche** | — | Below store room, ~2'-3' deep. |
 | 8 | **Hand wash** | small alcove between dining and bathroom | Confirmed — keeping it. |
-| 9 | **Master Bedroom (M.Bed)** | ~12' × 12'3" usable (excluding wardrobe runs) | Wardrobe along N wall (12' run) + wardrobe along W wall (12'3" run). Door from dining/passage. Window on W wall. |
+| 9 | **Master Bedroom (M.Bed)** | ~12' × 12'3" usable | **L-shaped wardrobe**: starts on **S wall** (10'3" run, sliding doors) and wraps onto **W wall** as a tail (~3' continuation). **S wall SE corner** has a 2'×5' teak window. **E wall** is solid — bed (queen 75×60") sits against it, head-to-east, with sconces + bedside tables, centered with slight N bias. **W wall** sequence (S→N): wardrobe tail → sleek dressing/powder unit (~4') → 3.5'×5' teak window at NW corner. **N wall** (interior, opens to passage): NW corner = closed sewing-machine cabinet, middle = reading nook (cane-back walnut armchair + brass arc lamp + walnut side table + framed Indian art panel), NE corner = 3ft door swinging inward toward E (left as you enter). AC unit planned high on N wall above door/nook. Ceiling 11ft, no false ceiling. |
 | 10 | **Common Bathroom** | 9'0" × 4'6" | Layout (N→S along W wall): SINK · TOILET · SHOWER. Door opens from **West** side. (9'0" is the bathroom run; door itself is standard width ~3'.) |
 | 11 | **Staircase** | 22 risers, going UP (to FF) | Located in middle of plan, against W side. Landing offset 1'6" out, landing depth 7'6". Window above landing on W wall. |
 | 12 | **Living Area** | North wall = **16'11"**. TV wall on **W wall**, usable TV-unit length **11'6"**. Overall living area still approximately 16'11" × 16'11" pending final site check. | Entry is from the foyer at the NW side. TV unit is on the west wall. North wall has the main centred double-height window composition. A 5" sunken-floor drop is planned inside a 1ft perimeter offset from the walls. Double-height void above (cut-out in FF slab). |
@@ -51,7 +51,8 @@
 ### Windows (Ground Floor)
 - **N wall (top):** 2 windows over kitchen / utility area.
 - **E wall (left):** kitchen window (over sink) + dining window.
-- **W wall (right):** master-bedroom window + window above stair landing.
+- **W wall (right):** master-bedroom NW-corner window (3.5'×5' teak) + window above stair landing.
+- **S wall (top):** master-bedroom SE-corner window (2'×5' teak).
 - **Living north wall:** centred teak window composition: lower window **8ft wide × 6ft high**, centred on the 16'11" wall. Above it, a matching centred upper composition: **3ft wall + 1ft beam + 2ft wall** over the first wall zone, with another 8ft-wide centred opening above.
 - **Living NW / foyer corner:** L-shaped corner window near the main-door side: one wall next to the main door is **5'11"**, with a 90-degree return wall of **4'9"** toward north. Window height **5ft**, with GF lintel height **8ft**.
 

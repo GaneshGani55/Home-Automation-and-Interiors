@@ -5,11 +5,15 @@
 > Cavity depth + Sonoff fitting rules: see [conduits-and-cavities.md § PART 0](conduits-and-cavities.md#part-0--electrician-one-page-cheat-sheet).
 > **Status key:** ✅ CONFIRMED · 🔲 TBD · ⚠️ PENDING DECISION
 
-> **🆕 ELECTRICIAN HEADS-UP for FF:**
-> 1. **All smart-switch boxes on FF use 65mm-deep GI MS boxes** (Sonoff relay sits behind the switch). The dumb 50mm box does not work.
-> 2. **A Wi-Fi access point goes on FF Living wall** at 2400mm FFL — see new section "FF Router / AP Wall Plate" below.
-> 3. **Two extra Cat6 drops** go to BR1 and BR2 study walls at 700mm FFL.
-> 4. **Every smart-switch board needs neutral** — visible black wire in tail bundle, even if today's switch is dumb.
+> **🆕 ELECTRICIAN HEADS-UP for FF (REVISED 2026-05-23):**
+> 1. **All smart-switch boxes on FF use 65mm-deep GI MS boxes** (Sonoff ZBMINI R2 sits hidden behind the plate).
+> 2. **Apply "+2M-per-Sonoff" plate-sizing rule everywhere.** 1 smart gang → 3M, 2 → 6M, 3 → 8M, 4 → 12M, 5+ → 18M. See [conduits-and-cavities.md § 0.4b](conduits-and-cavities.md#04b--plate-size-sizing-rule-for-hidden-sonoff-boards-2m-per-sonoff).
+> 3. **Smart-switch hardware locked**: Sonoff ZBMINI R2 hidden behind Schneider Unica plates. Aqara H1 / Wiser dropped from spec.
+> 4. **A Wi-Fi access point goes on FF Living wall** at 2400mm FFL — see "FF Router / AP Wall Plate" below.
+> 5. **Two extra Cat6 drops** go to BR1 and BR2 study walls at 700mm FFL.
+> 6. **Every smart-switch board needs neutral** — visible black wire in tail bundle.
+> 7. **Fans: Atomberg smart BLDC + "always-on Sonoff" pattern.** Each bedroom fan = 1-module rocker on the room board with hidden Sonoff; rocker UP by default → fan permanently powered for Atomberg BLE/HA control; HA can cut for service.
+> 8. **Staircase top (FF landing)**: dumb rocker only. 2-wire traveler back to GF Sonoff. **NO 230V at top box.**
 
 ---
 
@@ -25,8 +29,8 @@
 |---|---|---|---|---|---|---|---|
 | Ceiling light(s) | 2–3× recessed LED, 9W | Ceiling, avoiding beam line | 10ft | D9 | 60mm circular | Smart switch | Warm 2700K |
 | Socket | Double 5A | Wall near staircase | 300mm | D9 | 50mm | No | Charging / occasional use |
-| Staircase top switch | 1-gang smart | FF landing, near stair top | 1200mm | B7 (stair circuit) | **65mm** | Smart 2-way partner | Partners with GF base switch |
-| Switch board | 2-gang smart | Central wall | 1200mm | D9 | **65mm** | Smart | FF corridor lights |
+| Staircase top switch | **1-gang DUMB rocker** (no module — 2-wire traveler to GF Sonoff S2) | FF landing, near stair top | 1200mm | B7 (traveler only) | 50mm | Dumb signaller | **No 230V at this box** — only 2 traveler wires returning to GF base Sonoff. Both rockers (GF+FF) physically toggle the relay when HA is down. |
+| Switch board | **6M plate (2 gangs + 4M slack)** — 2× Sonoff ZBMINI R2 hidden | Central wall | 1200mm | D9 | **65mm** | Smart 2 hidden Sonoffs | FF corridor lights — Direct mode |
 | **🆕 Router/AP wall plate** | 2× Cat6 keystone | **FF Living central wall** between BR1 & BR2 doors | **2400mm** | LV-25-AP | 50mm wall plate | — | Run R-FF-1 from staircase niche; primary FF Wi-Fi 6 access point |
 | **🆕 Router power socket** | Single 5A | 300mm to side of router plate | 2400mm | D9 | 50mm | No | For non-PoE APs / PoE injector / power adapter |
 
@@ -48,7 +52,10 @@
 | Study socket | Double 5A + **🆕 Cat6 keystone (R-FF-3)** | Study wall | 700mm | D2 + LV | 50mm | No | Laptop + wired internet drop from staircase niche |
 | General socket | Double 5A | S or W wall | 300mm | D2 | 50mm | No | |
 | AC point | 20A socket | High on W or S wall | 1800mm | E3 | 50mm | No (smart AC) | Dedicated RCBO E3 |
-| Switch board (door) | 4-gang smart | Near bedroom door, inside | 1200mm | D1 | **65mm (4-gang = 230×75×65)** | Smart (3 gangs) | Main light, reading L+R, master off |
+| **Ceiling fan (Atomberg BLDC)** | Atomberg Renesa smart BLDC, ~30W | Centre of room (clear of study area) | Ceiling | D1 (lights circuit) | — | Smart — always-on Sonoff ZBMINI R2 | Rocker UP by default; emergency cutoff only. Atomberg BLE remote at bedside. |
+| Switch board (door) — REVISED | **12M plate (5 gangs: main + reading L + R + study + fan; +7M slack)** — 5× Sonoff ZBMINI R2 hidden | Near bedroom door, inside | 1200mm | D1 + fan feed | **65mm** | Smart 5 hidden Sonoffs | All Direct mode — bedside + fan safety when HA is down |
+
+> 📝 **Future Aqara upgrade**: bedside switches are highest-touch in a bedroom. If you want a glass-touch plate at the bedside specifically, plan two 86×86×50mm square cavities at 1400mm FFL on the bedside wall — post-move-in retrofit.
 
 ---
 
@@ -83,7 +90,10 @@
 | Study socket | Double 5A + **🆕 Cat6 keystone (R-FF-2)** | Study wall | 700mm | D6 + LV | 50mm | No | Laptop + wired internet drop from staircase niche |
 | General socket | Double 5A | N or E wall | 300mm | D6 | 50mm | No | |
 | AC point | 20A socket | High on E or S wall | 1800mm | E4 | 50mm | No (smart AC) | Dedicated RCBO E4 |
-| Switch board (door) | 4-gang smart | Near bedroom door, inside | 1200mm | D5 | **65mm (4-gang = 230×75×65)** | Smart (3 gangs) | Main light, reading L+R, master off |
+| **Ceiling fan (Atomberg BLDC)** | Atomberg Renesa smart BLDC, ~30W | Centre of room (clear of false-ceiling cove) | Ceiling | D5 (lights circuit) | — | Smart — always-on Sonoff ZBMINI R2 | Rocker UP by default; emergency cutoff only. |
+| Switch board (door) — REVISED | **18M plate (6 gangs: main + reading L + R + cove + study + fan; +12M slack)** — 6× Sonoff ZBMINI R2 hidden | Near bedroom door, inside | 1200mm | D5 + D11 cove + fan feed | **65mm** | Smart 6 hidden Sonoffs | All Direct mode. Confirmed cove (D11) and study light slot. |
+
+> 📝 **Future Aqara upgrade**: bedside or cove gangs candidates for glass-touch. Cut new 86×86×50mm cavity post-move-in.
 
 ---
 
@@ -133,23 +143,28 @@
 
 ---
 
-## FF Switch Board Summary
+## FF Switch Board Summary (REVISED 2026-05-23 — +2M-per-Sonoff rule applied)
 
-| Location | Board type | Gang count | **Box depth** | Smart gangs |
-|---|---|---|---|---|
-| FF corridor | Modular | 2 | **65mm** | 2 smart |
-| FF staircase top (2-way) | Modular | 1 | **65mm** | Smart 2-way |
-| Bedroom 1 (inside door) | Modular | 4 | **65mm** | 3 smart |
-| Bedroom 1 geyser switch (outside toilet) | 20A switch | 1 | 50mm | No |
-| Bedroom 2 (inside door) | Modular | 4 | **65mm** | 3 smart |
-| Bedroom 2 geyser switch (outside toilet) | 20A switch | 1 | 50mm | No |
-| Front balcony | Modular | 1 | **65mm** | Smart |
-| **🆕 FF Router/AP wall plate** | Cat6 ×2 keystone wall plate | — | 50mm wall plate | — (data only) |
-| **🆕 FF Router power socket** | 1-gang 5A | 1 | 50mm | No |
-| **🆕 BR1 study Cat6 plate** | Cat6 keystone wall plate | — | 50mm wall plate | — |
-| **🆕 BR2 study Cat6 plate** | Cat6 keystone wall plate | — | 50mm wall plate | — |
+| Location | Plate size | Box (GI MS, mm) | Smart gangs | Hidden Sonoffs | HA mode |
+|---|---|---|---|---|---|
+| FF corridor | **6M** | 130×130×65 | 2 (corridor lights) | 2× ZBMINI R2 | Direct |
+| FF staircase top (2-way) | **1M** | 75×75×**50** | 0 (dumb rocker, **no 230V**, traveler-only to GF Sonoff) | 0 | Dumb |
+| Bedroom 1 (inside door) | **12M** | 225×130×65 | 5 (main + reading L + R + study + fan) | 5× ZBMINI R2 | Direct |
+| Bedroom 1 geyser switch (outside toilet) | 1M 20A DP | 75×75×**50** | 0 (dumb) | 0 | Dumb |
+| Bedroom 2 (inside door) | **18M** | 290×130×65 OR 225×195×65 | 6 (main + reading L + R + cove + study + fan) | 6× ZBMINI R2 | Direct |
+| Bedroom 2 geyser switch (outside toilet) | 1M 20A DP | 75×75×**50** | 0 (dumb) | 0 | Dumb |
+| Front balcony | **3M** | 86×86×65 | 1 | 1× ZBMINI R2 | Direct (sunset/sunrise auto schedule) |
+| West/top balcony | **3M** | 86×86×65 | 1 | 1× ZBMINI R2 | Direct |
+| Terrace landing light | **3M** | 86×86×65 | 1 | 1× ZBMINI R2 | Direct |
+| **🆕 FF Router/AP wall plate** | 2-port Cat6 keystone | 50mm wall plate | — (data) | — | — |
+| **🆕 FF Router power socket** | 1-gang 5A | 75×75×**50** | 0 | 0 | — |
+| **🆕 BR1 study Cat6 plate** | 1-port Cat6 keystone | 50mm wall plate | — | — | — |
+| **🆕 BR2 study Cat6 plate** | 1-port Cat6 keystone | 50mm wall plate | — | — | — |
+| **FF Sonoff ZBMINI R2 subtotal** | | | **17 gangs** | **17 modules** | |
 
-> **Why 65mm for smart switch boxes?** Sonoff ZBMINI R2 / Aqara T1 relay modules sit *behind* the switch plate. They are ~22mm thick; combined with wire-bending room and switch terminals, 50mm is too tight (cables get crushed, plate doesn't sit flush). 65mm GI MS box gives clean fit + future flexibility. Same plate face, same modular accessories — only the wall hole is deeper. **Tell your mason explicitly when chasing.**
+> **Why 65mm for smart switch boxes?** Sonoff ZBMINI R2 modules sit *hidden behind* the switch plate. They are 39.5×39.5×18.4mm; combined with wire-bending room, the neutral bus, and switch terminals, 50mm is too tight (cables get crushed, plate doesn't sit flush). 65mm GI MS box gives clean fit + future flexibility. Same plate face, same modular accessories — only the wall hole is deeper. **Tell your mason explicitly when chasing.**
+>
+> **📝 Future Aqara upgrade option (any FF room):** if you ever want a glass-touch plate (e.g. bedside, FF Bed 2 cove), cut a fresh 86×86×50mm square cavity adjacent to (or replacing) the Sonoff board. Post-move-in retrofit. Not pre-plaster work.
 
 ---
 

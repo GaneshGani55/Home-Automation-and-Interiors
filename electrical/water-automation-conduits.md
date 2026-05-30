@@ -406,3 +406,12 @@ These are decisions made AFTER conduits go in. Conduit work can proceed without 
 - Circuits + load: [circuits-and-load.md](circuits-and-load.md) — **NEEDS UPDATE: "Type C not needed here" is wrong now**
 - System architecture: `automation-iot/water-level-system.md` (TODO — write this next)
 - Decision log: [../decisions/decision-log.md](../decisions/decision-log.md)
+
+---
+
+## 10 — Conduit-map review notes (2026-05-30)
+
+Captured while building the interactive conduit map (`conduit-map/`). Flag for review; fold into the schedule above when confirmed.
+
+- **Sump motor is a SUBMERSIBLE pump sitting INSIDE the sump** (not a surface pump in an outdoor cage). So **C-Motor-P2 / W7 runs from the DB starter cupboard down into the sump itself** to power the submersible — re-label any "P2 cage on east outside wall" wording accordingly.
+- **Float wires do NOT route via the server/niche.** Both the Sintex high-level float (C-Sintex-2 / W2) and the sump low-level float (C-Sump-2 / W4) run **straight from their JB to the DB starter cupboard**, the shortest safe way around the walls, in series with the motor contactor coils (Sintex float → both coils; sump float → P2 coil only). They are mechanical, server-independent failsafes — there is no reason to pass them through the staircase server. Only the **sensor** Cat6 runs (C-Sintex-1 / W1, C-Sump-1 / W3) go to the niche for PoE + data.

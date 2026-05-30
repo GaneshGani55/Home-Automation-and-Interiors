@@ -1,5 +1,12 @@
 # Materials Checklist — Electrical + Smart Home + Screen Setup
 
+> ⚠️ **Updates 2026-05-22 (foyer scope):** these affect Sections 7, 9, 10 below — **authoritative spec is in [FOYER_MASTER_ELECTRICIAN_PLAN.md § revision summary](FOYER_MASTER_ELECTRICIAN_PLAN.md)**. Key changes since this file's content was last fully edited:
+> - **§ 7 Foyer Screen:** monitor is already updated to LS22F320GAWXXL + VESA 100 (per 2026-05-26 entry). Visaton FR 8 + MDF baffle are now NOT needed (cavity speaker dropped).
+> - **§ 9 Entrance / Doorbell:** Reolink Video Doorbell PoE → **Hikvision DS-KV6113-WPE1(C)** (same dealer: I Secure India; add accessory DS-KABV6113-A for theft mount).
+> - **§ 10 Foyer Speaker:** rename to "Foyer Ceiling Speaker" — 3" flush-mount ceiling speaker + B-type ceiling rose box instead of Visaton cavity speaker (PAM8403 amp stays in cavity; speaker wire runs up Conduit #4).
+> - **Cavity Socket Panel:** upgrade to 8M plate + Cat6 keystone jack (~₹150 keystone + bigger 8M back box ~₹250 vs prior 2-module ~₹120).
+> - **CAM-1:** confirmed provision-only (no camera purchase needed now); future option: small flush anti-theft PoE pinhole.
+>
 > **How to use:** Each section is a category. Check off items as purchased/installed. Prices are approximate Indian market rates (2025–26). Search terms are for Amazon India / Flipkart unless noted as "electrical distributor" — those are bought at your local Schneider/Legrand/Havells distributor (better price than online for bulk).
 >
 > **Total estimated cost** is at the bottom.
@@ -60,47 +67,61 @@
 
 ---
 
-## SECTION 4 — Sockets, Switch Frames & Dumb Switches
+## SECTION 4 — Sockets, Switch Frames & Dumb Switches (REVISED 2026-05-23)
 
-Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneider Wiser smart switches for consistent aesthetics).
+Using **Schneider Unica White** modular system house-wide for uniform aesthetic. Plate sizes follow the **+2M-per-Sonoff rule** — see [conduits-and-cavities.md § 0.4b](conduits-and-cavities.md#04b--plate-size-sizing-rule-for-hidden-sonoff-boards-2m-per-sonoff).
 
 | # | Item | Qty | Unit Price (₹) | Total (₹) | Search / Buy | Status |
 |---|---|---|---|---|---|---|
-| 4.1 | **6A modular socket** (standard Indian pin) | 30 | 180 | 5,400 | Search "Schneider Unica 6A socket" or "Legrand Mylinec socket" | ☐ |
+| 4.1 | **6A modular socket** (standard Indian pin) | 30 | 180 | 5,400 | "Schneider Unica 6A socket" | ☐ |
 | 4.2 | **16A modular socket** (heavy duty) | 12 | 250 | 3,000 | Same series | ☐ |
-| 4.3 | **20A DP switch with indicator** (geyser switches, dumb) | 5 | 320 | 1,600 | Search "Schneider 20A DP switch" | ☐ |
-| 4.4 | **Dumb 1-gang switch module** (kitchen, utility, store) | 12 | 120 | 1,440 | Same series | ☐ |
-| 4.5 | **4-gang modular plate + frame** | 8 | 350 | 2,800 | Same series | ☐ |
-| 4.6 | **2-gang modular plate + frame** | 6 | 250 | 1,500 | Same series | ☐ |
-| 4.7 | **1-gang modular plate + frame** | 8 | 180 | 1,440 | Same series | ☐ |
-| 4.8 | **Flush mounting boxes — 50mm GI MS** (3-module / 4-module — for dumb switches, sockets, geyser switches, AC sockets, PIR) | 30 | 80 | 2,400 | Hardware store — GI MS box, **standard 50mm depth** | ☐ |
-| 4.8b | **🆕 Flush mounting boxes — 65mm DEEP GI MS** (for ALL smart-switch boards — Sonoff/Aqara relay sits behind plate) | 14 | 110 | 1,540 | Hardware store — **specify 65mm DEEP**, sizes: 1-mod 75×75×65, 2-mod 130×75×65, 3-mod 175×75×65, 4-mod 230×75×65 | ☐ |
-| 4.9 | **PIR occupancy switch** (standalone, for 3 bathrooms) | 3 | 1,800 | 5,400 | Search "Legrand Myrius PIR switch" or "Schneider PIR occupancy switch" | ☐ |
-| 4.10 | **Cat6 keystone jack** — UPGRADED from 10 to **18** (added FF router ×2, BR1 study, BR2 study, FF balcony cap, niche patch panel 12-port) | 18 | 120 | 2,160 | Search "D-Link Cat6 keystone" on Amazon | ☐ |
-| 4.11 | **Cat6 wall plate** (1-port + 2-port) — UPGRADED from 6 to 9 | 9 | 150 | 1,350 | Amazon — "Cat6 wall plate" | ☐ |
+| 4.3 | **20A DP switch with indicator** (geyser switches, dumb) | 5 | 320 | 1,600 | "Schneider 20A DP switch" | ☐ |
+| 4.4 | **Dumb 1-module rocker** (kitchen, utility, store, geyser, staircase top) | 18 | 120 | 2,160 | Same series — includes the 6 rockers for Foyer 18M, all rockers in Living SB1/SB2/Dining/MBR/Pooja boards (rockers themselves are NOT smart — the Sonoff behind them is) | ☐ |
+| 4.5a | **18M Schneider Unica plate + frame** (Foyer N-wall, FF Bed 2) | 2 | 650 | 1,300 | "Schneider Unica 18M plate white" | ☐ |
+| 4.5b | **12M Schneider Unica plate + frame** (MBR, FF Bed 1) | 2 | 480 | 960 | "Schneider Unica 12M plate white" | ☐ |
+| 4.5c | **8M Schneider Unica plate + frame** (Living SB1, Dining) | 2 | 380 | 760 | "Schneider Unica 8M plate white" | ☐ |
+| 4.5d | **6M Schneider Unica plate + frame** (Living SB2, Pooja, FF corridor) | 3 | 290 | 870 | "Schneider Unica 6M plate white" | ☐ |
+| 4.5e | **4M Schneider Unica plate + frame** (Kitchen, GF Bath outside) | 2 | 230 | 460 | "Schneider Unica 4M plate white" | ☐ |
+| 4.5f | **3M Schneider Unica plate + frame** (Staircase base, Front/West/Top balconies, Terrace landing) | 5 | 180 | 900 | "Schneider Unica 3M plate white" | ☐ |
+| 4.5g | **1M Schneider Unica plate + frame** (Utility, Store, FF staircase top, 3× geyser) | 6 | 120 | 720 | "Schneider Unica 1M plate white" | ☐ |
+| 4.6 | **Blank module insert** (Schneider Unica white) — for filling the slack modules in +2M plates | 50 | 25 | 1,250 | "Schneider Unica blank module" | ☐ |
+| 4.8 | **Flush mounting boxes — 50mm GI MS** (sockets, geyser switches, AC sockets, PIR, Kitchen, FF staircase top, dumb 4M boards) | 30 | 80 | 2,400 | Hardware store — **standard 50mm depth** | ☐ |
+| 4.8b | **🆕 Flush mounting boxes — 65mm DEEP GI MS** (ALL smart-switch boards — Sonoff hidden) — **per-size breakdown:** 3M (86×86×65) × 5, 6M (130×130×65) × 3, 8M (175×130×65) × 2, 12M (225×130×65) × 2, **18M (290×135×65 OR 225×195×65) × 2** (Foyer cavity already cut; FF Bed 2 to be cut) | 14 | varies (avg 150) | 2,100 | Hardware store — **specify 65mm DEEP** and the per-size breakdown above. **DO NOT accept 50mm boxes for smart-switch locations.** | ☐ |
+| 4.9 | **PIR occupancy switch** (standalone, for 3 bathrooms) | 3 | 1,800 | 5,400 | "Legrand Myrius PIR" or "Schneider PIR" | ☐ |
+| 4.10 | **Cat6 keystone jack** | 18 | 120 | 2,160 | "D-Link Cat6 keystone" Amazon | ☐ |
+| 4.11 | **Cat6 wall plate** (1-port + 2-port) | 9 | 150 | 1,350 | Amazon — "Cat6 wall plate" | ☐ |
 | 4.12 | **RJ45 patch cable 0.5m** (for patch panel) | 12 | 150 | 1,800 | Amazon | ☐ |
-| 4.13 | **🆕 12-port Cat6 keystone patch panel** (for staircase niche) — replaces 6-port wall plate | 1 | 1,200 | 1,200 | Search "12 port Cat6 keystone patch panel wall mount" on Amazon | ☐ |
-| 4.14 | **🆕 Cat6 outdoor UV-rated cable** (for CAM-3, CAM-5 terrace runs + R-FF-4 balcony future) | 30m | 50/m | 1,500 | Search "Cat6 outdoor UV LSZH" on Amazon India | ☐ |
-| | **Section 4 Total** | | | **~₹35,540** | | |
+| 4.13 | **12-port Cat6 keystone patch panel** (staircase niche) | 1 | 1,200 | 1,200 | "12 port Cat6 keystone patch panel wall mount" | ☐ |
+| 4.14 | **Cat6 outdoor UV-rated cable** (CAM-3, CAM-5 + R-FF-4 future) | 30m | 50/m | 1,500 | "Cat6 outdoor UV LSZH" Amazon India | ☐ |
+| | **Section 4 Total** | | | **~₹37,290** | | |
 
 ---
 
-## SECTION 5 — Smart Switches (Aqara Zigbee — Recommended)
+## SECTION 5 — Smart Switches (LOCKED 2026-05-23: All Sonoff ZBMINI R2 hidden + Schneider Unica plates)
 
-> If you go **Schneider Wiser** instead, replace with Wiser switch modules (2–3× the price). If you go **Wipro Smart** (Wi-Fi), replace with Wipro Smart switches (slightly cheaper, no hub needed).
+> **Decision history**: Aqara H1, Schneider Wiser, Wipro NextHome, and Shelly all **dropped from spec** on 2026-05-23 / 2026-05-26. Reasons:
+> - **Aqara H1** uses a non-Indian-modular 86×86 square plate → vendor lock-in via cavity shape if Aqara support ends.
+> - **Schneider Wiser** is cloud-dependent for many automations, weak HA integration, 5–10× cost.
+> - **Wipro Smart Module** is Wi-Fi only (no Zigbee SKU), locked to Wipro's NextHome cloud, fragile/unofficial HA integration, larger module = won't fit cleanly behind Unica in 65mm box. Trades one vendor lock for a worse one.
+> - **Shelly (Plus 1 / Plus 1PM / Plus 2PM)** is excellent hardware — best-in-class local HA integration, smaller form factor (Mini Gen3 = 33×33×16mm), built-in power monitoring on PM variants — **but Wi-Fi only**. Shelly has no Zigbee in-wall relay as of 2026. Going Shelly = 45 Wi-Fi clients on the IoT SSID instead of a Zigbee mesh → router congestion, no mesh range, marginal staircase/terrace coverage. India sourcing is also limited (Robu stocks some, Amazon spotty, no bulk channel) and per-unit cost is ~1.5–2× ZBMINI R2 (~₹1,100–1,500 vs ₹700). Shelly would be the right call in Europe with a Zigbee SKU; in India + Zigbee-mesh architecture, it isn't.
+> - **Sonoff ZBMINI R2** hidden behind a standard Schneider Unica modular plate: identical Zigbee latency, identical HA-down behaviour (rocker still toggles relay), 1/5 the cost of Aqara, fully replaceable from any Indian electrical store, and the only mature Zigbee in-wall relay available in 45-unit bulk in India.
+>
+> If you later want a glass-touch upgrade in 1–2 specific spots, cut a new 86×86×50mm cavity post-move-in — don't commit pre-plaster work to it.
 
 | # | Item | Qty | Unit Price (₹) | Total (₹) | Search / Buy | Status |
 |---|---|---|---|---|---|---|
-| 5.1 | **Aqara H1 EU Smart Wall Switch (1-gang, with neutral)** | 10 | 2,200 | 22,000 | Search "Aqara H1 EU wall switch" on Amazon India | ☐ |
-| 5.2 | **Aqara H1 EU Smart Wall Switch (2-gang, with neutral)** | 8 | 2,800 | 22,400 | Same | ☐ |
-| 5.3 | **Sonoff Zigbee 3.0 USB Dongle Plus** (plugs into mini PC — replaces hub) | 1 | 2,000 | 2,000 | Search "Sonoff Zigbee 3.0 USB Dongle Plus" on Amazon | ☐ |
-| 5.4 | **Aqara Motion Sensor P1** (for bathrooms — replaces PIR switch OR supplements) | 3 | 1,800 | 5,400 | Search "Aqara motion sensor P1" on Amazon India | ☐ |
-| 5.5 | **🆕 Sonoff ZBMINI R2 Zigbee Relay** (hidden behind dumb switch — alternative to full smart switches; uses neutral; 65mm box) — for areas where you'd rather keep the existing rocker switch + add smarts | 8 | 950 | 7,600 | Search "Sonoff ZBMINI R2" on Amazon India / Aliexpress | ☐ |
-| 5.6 | **🆕 Wi-Fi Access Point — FF (primary)** · TP-Link EAP610 / Ubiquiti UniFi U6-Lite (Wi-Fi 6, PoE, ceiling/wall mount) | 1 | 6,500 | 6,500 | Search "TP-Link EAP610" or "UniFi U6-Lite" on Amazon India | ☐ |
-| 5.7 | **🆕 Wi-Fi Router — main (GF, in staircase niche)** · TP-Link Archer AX55 / Asus RT-AX55 (Wi-Fi 6, dual-band, gigabit) | 1 | 7,500 | 7,500 | Search "TP-Link Archer AX55" on Amazon India | ☐ |
-| | **Section 5 Total** | | | **~₹73,400** | | |
+| 5.1 | **Sonoff ZBMINI R2 Zigbee Relay** (hidden behind Schneider Unica rocker; with-neutral; fits 65mm box). **Counts: GF 22 + FF 17 + 6 spares = 45** | 45 | 700 | 31,500 | "Sonoff ZBMINI R2" on Amazon India / Robu / AliExpress (buy a bulk lot — same SKU + firmware = easier Z2M batch pairing) | ☐ |
+| 5.2 | **Sonoff Mini R2 (Wi-Fi)** — for the foyer cavity Monitor Socket (inside cavity socket pocket, switched by HA, not by a wall rocker) | 1 | 700 | 700 | "Sonoff Mini R2" on Amazon | ☐ |
+| 5.3 | **Sonoff DUALR3 Pro** (2-relay) — DB cupboard, switches P1+P2 motor starters for water automation. Already specced in [water-automation-conduits.md](water-automation-conduits.md). | 1 | 2,200 | 2,200 | "Sonoff DUALR3 Pro" on Amazon India | ☐ |
+| 5.4 | **Sonoff Zigbee 3.0 USB Dongle Plus** (plugs into Beelink HA server — coordinator for the whole Sonoff mesh; replaces a Zigbee hub) | 1 | 2,000 | 2,000 | "Sonoff Zigbee 3.0 USB Dongle Plus" on Amazon | ☐ |
+| 5.5 | **Aqara Motion Sensor P1** (Zigbee, for bathroom presence — supplements PIR or replaces). Uses same Z2M coordinator. | 3 | 1,800 | 5,400 | "Aqara motion sensor P1" Amazon India | ☐ |
+| 5.6 | **Wi-Fi Access Point — FF (primary)** · TP-Link EAP610 / UniFi U6-Lite (Wi-Fi 6, PoE) | 1 | 6,500 | 6,500 | "TP-Link EAP610" or "UniFi U6-Lite" Amazon India | ☐ |
+| 5.7 | **Wi-Fi Router — main (GF, in staircase niche)** · TP-Link Archer AX55 (Wi-Fi 6, gigabit) | 1 | 7,500 | 7,500 | "TP-Link Archer AX55" Amazon India | ☐ |
+| | **Section 5 Total** | | | **~₹55,800** | | |
 
-> **Note:** Smart switches require a **neutral wire** at every switch board. This is already planned in the conduit layout. Tell your electrician explicitly before chasing.
+> **Note:** All Sonoff modules require a **neutral wire** at every switch board. This is already specified in the conduit layout. Tell your electrician explicitly before chasing.
+>
+> **Procurement timing:** buy Sonoff units 2–3 weeks before move-in (you DIY-install them, not the electrician). Electrician's pre-plaster work is identical regardless — capped L+N+E tails in 65mm boxes is all he leaves.
 
 ---
 
@@ -125,19 +146,22 @@ Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneid
 
 ---
 
-## SECTION 7 — Foyer Screen & Display Setup
+## SECTION 7 — Foyer Screen & Display Setup (REVISED 2026-05-19 — PoE-powered)
 
 | # | Item | Qty | Unit Price (₹) | Total (₹) | Search / Buy | Status |
 |---|---|---|---|---|---|---|
-| 7.1 | **Samsung LS22F350FHWXXL** (21.5" IPS FHD, thin bezel) | 1 | 8,500 | 8,500 | Search "Samsung LS22F350 monitor" on Amazon/Flipkart | ☐ |
-| 7.2 | **Raspberry Pi Zero 2W** | 1 | 1,800 | 1,800 | Search "Raspberry Pi Zero 2W" on Robu.in or Evelta.in (Indian RPi distributor) | ☐ |
-| 7.3 | **32GB MicroSD card (Class 10 / A1)** | 1 | 400 | 400 | Search "Samsung 32GB microSD" on Amazon | ☐ |
-| 7.4 | **Mini HDMI to HDMI cable 0.5m** | 1 | 350 | 350 | Search "mini HDMI to HDMI 0.5m" on Amazon | ☐ |
-| 7.5 | **USB-C power adapter 5V/3A** (for RPi Zero 2W) | 1 | 500 | 500 | Search "USB-C 5V 3A power adapter" | ☐ |
-| 7.6 | **Slim VESA 75 wall mount bracket** (10–15mm depth) | 1 | 600 | 600 | Search "VESA 75 slim wall mount bracket" on Amazon India | ☐ |
-| 7.7 | **12mm ply backing board** (600×400mm, for VESA inside cavity) | 1 | 200 | 200 | Hardware store — cut to size | ☐ |
-| 7.8 | **USB OTG micro to ethernet adapter** (for wired LAN on RPi Zero if needed) | 1 | 400 | 400 | Search "micro USB OTG ethernet adapter" on Amazon | ☐ |
-| | **Section 7 Total** | | | **~₹12,750** | | |
+| 7.1 | **Samsung LS22F320GAWXXL** (21.5" IPS FHD 120Hz, bezel-less, **VESA 100**, dual HDMI, no speakers, 1.6 kg, 36.2 mm deep) — REVISED 2026-05-26 from LS22F350 (which was actually TN, not IPS as previously logged) | 1 | 6,499 | 6,499 | Amazon India "LS22F320GAWXXL" — Cocoblu / Appario / Samsung Official seller, 3-yr Samsung India warranty | ☑ **ORDERED 2026-05-26** |
+| 7.2 | **Raspberry Pi Zero 2W** | 1 | 2,500 | 2,500 | Robu.in / Amazon | ☐ |
+| 7.3 | **32GB MicroSD card (Class 10 / A1)** | 1 | 400 | 400 | Amazon | ☐ |
+| 7.4 | **Mini HDMI to HDMI cable 0.3m** | 1 | 200 | 200 | Amazon | ☐ |
+| 7.5 | **PoE splitter (5V USB-C output)** ★ NEW — replaces USB-C charger | 1 | 1,000 | 1,000 | "TP-Link TL-PoE10R" or "UCTRONICS PoE splitter 5V USB-C" | ☐ |
+| 7.6 | **Slim VESA 100 fixed wall mount bracket** (15 mm standoff, 15 kg capacity, supports 14–26" monitors) — Speedio Universal Fixed Wall Mount or equivalent; REVISED 2026-05-26 from VESA 75 to match new monitor SKU | 1 | 500 | 500 | Amazon India "VESA 100 fixed flat wall mount low profile" | ☑ **ORDERED 2026-05-26** |
+| 7.7 | ~~12mm ply backing board 600×400mm~~ — **OPTIONAL only** (~17×11" if used; many installs go direct rawl-plug into masonry per Phase 7) | 0-1 | 200 | 0 | Carpenter scrap | ☐ |
+| 7.8 | **USB OTG micro-to-ethernet adapter** (for wired LAN on RPi Zero, paired with PoE splitter's RJ45 output) | 1 | 400 | 400 | Amazon | ☐ |
+| 7.9 | **USB sound card (small dongle)** ★ NEW — gives RPi a 3.5mm audio output for the cavity speaker amp | 1 | 400 | 400 | Amazon | ☐ |
+| 7.10 | **3.5mm audio cable (30 cm)** ★ NEW — sound card to PAM8403 amp | 1 | 100 | 100 | Amazon | ☐ |
+| 7.11 | **Cavity hardware kit** ★ NEW — 3M VHB tape + silicone sealant + Velcro + cable ties (for mounting RPi/Sonoffs/amp on back wall) | 1 set | 500 | 500 | Local | ☐ |
+| | **Section 7 Total** | | | **~₹15,000** | | |
 
 ---
 
@@ -155,63 +179,73 @@ Using **Schneider Unica** or **Legrand Mylinec** modular system (matches Schneid
 
 ---
 
-## SECTION 9 — Entrance / Doorbell / Cameras
+## SECTION 9 — Entrance / Doorbell / Cameras (REVISED 2026-05-20 — Hikvision doorbell replaces CAM-1)
 
-> **Camera model note (2026-05-02):** Camera brand/model is provisionally locked to Hikvision ColorVu. Final model confirmation to be done at time of purchase — user may re-evaluate before buying. Buy from **I Secure India, Chitradurga** (confirmed Hikvision authorised dealer).
+> **Major revision 2026-05-20:** the dedicated CAM-1 face-capture camera (Hikvision DS-2CD2143G2-LU) has been **DROPPED from initial purchase**. Face detection is now handled by a **Hikvision DS-KV6113-WPE1(C) Video Doorbell PoE** mounted on the outside face of the 1'6" N wall section. This doubles as doorbell + camera + intercom and saves ~₹17,000 vs the original CAM-1 + Godrej plan (⚠️ net saving shrinks once the pricier Hikvision unit price is confirmed — see § 9.2). The CAM-1 conduit + capped IP67 back box are still being installed on the porch W wall as a FUTURE provision — if doorbell-only face detection proves unreliable later, a Hikvision camera can be added without breaking walls.
 >
-> **Why ColorVu over AcuSense:** Frigate NVR bypasses on-camera AI entirely; it uses the Beelink EQ12's Intel N100 OpenVINO for detection. ColorVu (full-colour night vision via built-in warm-white light) gives far better face-recognition accuracy at night vs IR (black-and-white) cameras. AcuSense features are wasted in a Frigate pipeline.
+> The Godrej video doorbell + smart lock is also revised: smart door lock is now flagged for a SEPARATE session (battery deadbolts like Yale YDM7116 or Hafele Catus are conduit-free; only wired strike/maglock needs pre-plaster conduit).
+>
+> **Camera buying source:** I Secure India, Chitradurga (Hikvision authorised dealer) for the doorbell + cams 3, 4, 5.
 
 | # | Item | Qty | Unit Price (₹) | Total (₹) | Search / Buy | Status |
 |---|---|---|---|---|---|---|
-| 9.1 | **Godrej video doorbell + smart lock** (aesthetics + door access) | 1 set | 15,000 | 15,000 | Visit Godrej Locks dealer or search "Godrej video door phone" | ☐ |
-| 9.2 | **CAM-1 — Primary face-capture camera** · Hikvision DS-2CD2143G2-LU (ColorVu, 4MP, **4mm**, IP67, PoE) · outside main door, latch-side, 1650mm FFL, aimed front-on at visitors 1–1.8m from door | 1 | 7,000 | 7,000 | Ask I Secure India, Chitradurga — confirm **LU suffix** (ColorVu), not IS (AcuSense) | ☐ |
-| 9.3 | **CAM-2 — Porch overview camera** · Hikvision DS-2CD2347G2-LU (ColorVu, 4MP, **2.8mm**, IP67, PoE) · porch ceiling/soffit, 2400–2700mm FFL, wide angle context | 1 | 6,000 | 6,000 | Same — I Secure India, Chitradurga | ☐ |
-| 9.4 | **CAM-3 — FF front balcony bird's-eye camera** · Hikvision DS-2CD2347G2-LU (ColorVu, 4MP, 2.8mm, IP67, PoE) · NW corner of front balcony soffit, ~5500mm from ground, covers compound/gate/driveway | 1 | 6,000 | 6,000 | Same series — I Secure India or Amazon India | ☐ |
-| 9.5 | **CAM-4 — East-side exterior camera** · Hikvision 4MP ColorVu turret, 2.8mm, IP67, PoE · E-wall exterior at kitchen–utility zone, 2400–2600mm FFL, covers E-side approach and utility/back area | 1 | 6,000 | 6,000 | Same series | ☐ |
-| 9.6 | **CAM-5 — Terrace staircase exit camera** · Hikvision 4MP ColorVu dome or bullet, 2.8mm, IP67, PoE · parapet wall near FF→terrace staircase exit, ~2500mm from terrace floor | 1 | 6,000 | 6,000 | Same series | ☐ |
-| 9.7 | **CAM-0 — Screen-bezel camera** · Raspberry Pi Camera Module 3 (CSI ribbon cable → RPi Zero 2W) · inside foyer screen cavity, top-centre, 1600–1650mm FFL · **no PoE needed** — powered by RPi; streams RTSP over existing Cat6 | 1 | 1,800 | 1,800 | Search "Raspberry Pi Camera Module 3" on Robu.in / Evelta.in | ☐ |
-| 9.8 | **Weatherproof outdoor camera junction/back box** (for CAM-1 through CAM-5) | 5 | 600 | 3,000 | Search "IP camera junction box waterproof IP67" on Amazon India | ☐ |
-| 9.9 | **Wired magnetic reed door contact** (concealed main-door open/close sensor) | 1 | 500 | 500 | Search "wired magnetic door contact sensor concealed" | ☐ |
-| 9.10 | **2-core low-voltage cable** (doorbell/lock/contact sensor runs) | 20m | 20/m | 400 | Electrical shop — 0.75mm² or 1.0mm² 2-core cable | ☐ |
-| | **Section 9 Total** | | | **~₹51,700** | | |
+| 9.1 | ~~Godrej video doorbell + smart lock~~ — **DROPPED**; replaced by Hikvision doorbell below + smart lock flagged for separate session | 0 | — | 0 | Deferred | — |
+| 9.2 | **Hikvision DS-KV6113-WPE1(C) Video Doorbell PoE** ★ REPLACES CAM-1 + Godrej. Outside N wall 1'6" section, 1450 mm FFL. PoE-powered, RTSP/ONVIF to Frigate, 2-way audio, motion detection, face capture. Add accessory DS-KABV6113-A for theft-resistant mount. ⚠️ Price shown is the **old Reolink figure** — confirm Hikvision street price (typically higher) with I Secure India and re-total § 9. | 1 | 8,000 ⚠️ | 8,000 ⚠️ | I Secure India, Chitradurga | ☐ |
+| 9.3 | **In-house chime (Hikvision)** — the DS-KV6113-WPE1(C) has no cheap plug-in wireless chime like the Reolink did. Chime is via Hik-Connect app push (free), HA playing a tone on any networked speaker (free), or a paired Hikvision DS-KH-series indoor station (separate ~₹6–10K purchase — flag for decision). | 0 | — | 0 | I Secure India | ☐ |
+| 9.4 | ~~CAM-1 dedicated Hikvision~~ — **DROPPED from base install** (conduit + back box provisioned on porch W wall for future). Add later only if the doorbell's face detection proves unreliable. | 0 | (was 7,000) | 0 | Future purchase only | — |
+| 9.5 | **CAM-2 — Porch overview camera (PROVISION ONLY)** — conduit + capped IP67 back box on porch soffit NE corner. Camera not installed now. | 0 (conduit only) | (later 6,000) | 0 | Hikvision later if needed | ☐ |
+| 9.6 | **CAM-3 — FF front balcony bird's-eye** · Hikvision DS-2CD2347G2-LU (ColorVu, 4MP, 2.8mm, IP67, PoE) · NW corner of front balcony soffit | 1 | 6,000 | 6,000 | I Secure India | ☐ |
+| 9.7 | **CAM-4 — East-side exterior** · Hikvision 4MP ColorVu turret, 2.8mm, IP67, PoE | 1 | 6,000 | 6,000 | I Secure India | ☐ |
+| 9.8 | **CAM-5 — Terrace staircase exit** · Hikvision 4MP ColorVu dome/bullet, 2.8mm, IP67, PoE | 1 | 6,000 | 6,000 | I Secure India | ☐ |
+| 9.9 | **CAM-0 — Screen-bezel camera** · Raspberry Pi Camera Module 3 (CSI ribbon → RPi) · inside cavity top-centre of monitor bezel · no PoE | 1 | 2,500 | 2,500 | Robu.in / Amazon | ☐ |
+| 9.10 | **Weatherproof outdoor IP67 back box** (4×4" — for CAM-1 spare + CAM-2 stub + CAM-3 + CAM-4 + CAM-5) | 5 | 300 | 1,500 | Polycab / Hensel | ☐ |
+| 9.11 | **3" × 3" GI MS modular back box** (Hikvision doorbell — smaller than bracket so it stays hidden) | 1 | 100 | 100 | Local | ☐ |
+| 9.12 | **Silicone sealant tube** (Hikvision doorbell back box conduit-entry weatherproofing) | 1 | 100 | 100 | Local hardware | ☐ |
+| 9.13 | ~~Magnetic reed door contact sensor~~ — DEFERRED to smart door lock session | 0 | — | 0 | — | — |
+| 9.14 | **2-core low-voltage cable** (for any remaining LV runs) | 10m | 20/m | 200 | Local | ☐ |
+| | **Section 9 Total** | | | **~₹31,900** (was 51,700; save ~₹19,800 by deferring CAM-1 + Godrej + sensor) ⚠️ re-total once Hikvision doorbell price confirmed; chime line 9.3 now ₹0 | | |
 
 ---
 
-## SECTION 10 — Foyer Speaker
+## SECTION 10 — Foyer Cavity Speaker (REVISED 2026-05-19 — moved to cavity, ceiling speaker dropped)
+
+> **Major revision 2026-05-19:** ceiling speaker DROPPED. Speaker now lives INSIDE the cavity behind the monitor — "voice from screen" effect. Visaton FR 8 driver fires forward, sound diffracts around monitor edges into foyer. Magnet recesses into a 3" dia × 1" pocket cut into cavity back wall. Driven by PAM8403 amp inside cavity, powered from RPi USB (PoE budget). A 16 mm grey conduit + pull string is **provisioned** from cavity top wall to false ceiling for a future ceiling speaker if music playback is desired later.
 
 | # | Item | Qty | Unit Price (₹) | Total (₹) | Search / Buy | Status |
 |---|---|---|---|---|---|---|
-| 10.1 | **Flush ceiling speaker 2"–3"** (for welcome chime + announcements) | 1 | 1,500 | 1,500 | Search "flush mount ceiling speaker 3 inch" on Amazon India | ☐ |
-| 10.2 | **Mini USB audio amplifier board** (plugs into mini PC 3.5mm or USB, powers the speaker) | 1 | 600 | 600 | Search "PAM8403 mini amplifier board" on Amazon/Robu.in | ☐ |
-| | **Section 10 Total** | | | **~₹2,100** | | |
+| 10.1 | **Visaton FR 8 speaker driver** (80 mm dia, 35 mm deep, 8 ohm full-range) — PRIMARY cavity speaker | 1 | 1,800 | 1,800 | Amazon (Visaton India) | ☐ |
+| 10.2 | **PAM8403 audio amplifier board** (3W × 2 channel, USB-powered) | 1 | 150 | 150 | Robu.in / Amazon | ☐ |
+| 10.3 | **MDF baffle** (3½" × 3½" × ¼" with 3⅛" circular cutout for driver) | 1 | 50 | 50 | Carpenter scrap | ☐ |
+| 10.4 | **2-core speaker wire (1 sqmm)** | 1 m | 50 | 50 | Local | ☐ |
+| 10.5 | ~~Flush ceiling speaker~~ — DROPPED from base plan; conduit + pull string PROVISIONED from cavity to false ceiling for future install if music wanted | 0 | — | 0 | Future | — |
+| | **Section 10 Total** | | | **~₹2,050** | | |
 
 ---
 
-## COST SUMMARY
+## COST SUMMARY (REVISED 2026-05-23 — All-Sonoff lock-in)
 
 | Section | What it covers | Estimated Cost (₹) |
 |---|---|---|
-| 1 | DB + MCBs + RCCBs + RCBOs | 40,220 |
-| 2 | All wires + Cat6 | 28,285 |
+| 1 | DB + MCBs + RCCBs + RCBOs (incl. 30mA RCBO for B-Foyer-Cavity) | 40,220 |
+| 2 | All wires + Cat6 (incl. outdoor LSZH UV Cat6 for Hikvision doorbell + cavity) | 28,285 |
 | 3 | Conduits + boxes + accessories | 9,800 |
-| 4 | Sockets + dumb switches + frames + PIR + **65mm GI MS boxes + 12-port patch panel + outdoor Cat6** | 35,540 |
-| 5 | Smart switches + **Sonoff ZBMINI relays + Wi-Fi router + FF AP** | 73,400 |
-| 6 | All lighting fittings + LED strips + drivers | 48,030 |
-| 7 | Foyer screen + RPi + mounts | 12,750 |
-| 8 | Server + UPS + PoE network switch (upgraded to TL-SG1210P) | 36,500 |
-| 9 | Doorbell + 5 outdoor cameras + screen-bezel camera + sensors | 51,700 |
-| 10 | Foyer speaker | 2,100 |
-| **TOTAL MATERIALS** | | **~₹3,38,325** |
+| 4 | Schneider Unica plates (per +2M rule) + 65mm GI MS boxes + sockets + dumb rockers + PIR + Cat6 keystones + patch panel | 37,290 |
+| 5 | **All-Sonoff smart stack**: 45× ZBMINI R2 + 1× Mini R2 + 1× DUALR3 + Z3 dongle + 3× motion sensors + AP + Router | 55,800 |
+| 6 | All lighting fittings + LED strips + drivers (no change) | 48,030 |
+| 7 | Foyer screen + RPi + PoE splitter + sound card + cavity hardware kit | 15,000 |
+| 8 | Server + UPS + PoE network switch (TL-SG1210P) | 36,500 |
+| 9 | Hikvision doorbell + 3 outdoor cameras (CAM-3/4/5) + bezel CAM-0 + IP67 back boxes | 31,900 |
+| 10 | Foyer cavity speaker (Visaton FR 8 + PAM8403 + MDF baffle) | 2,050 |
+| **TOTAL MATERIALS** | | **~₹3,04,875** |
 | Labour estimate (electrician for 2-floor home) | Not included — get 3 quotes | ~₹35,000–65,000 |
-| **GRAND TOTAL (materials + labour)** | | **~₹3,73,000–4,03,000** |
+| **GRAND TOTAL (materials + labour)** | | **~₹3,40,000–3,70,000** |
 
-> **Why cost rose ₹30,500 from previous total:**
-> - 65mm-deep GI MS boxes for smart-switch boards: +₹1,540
-> - Upgraded Cat6 keystones (10 → 18) + 12-port patch panel + outdoor Cat6: +₹4,910
-> - **Sonoff ZBMINI R2 ×8 modules**: +₹7,600 (gives smart control behind regular switches in spare/optional spots)
-> - **TP-Link AX55 router** (GF, staircase niche): +₹7,500
-> - **TP-Link EAP610 / UniFi U6-Lite AP** (FF): +₹6,500
-> - Updated Section 4 totals: +₹3,000 (extra mounting boxes, Cat6 cables)
+> **Why total dropped ~₹16,750 from previous estimate (2026-05-22 baseline of ₹3,21,625):**
+> - Dropped 18× Aqara H1 switches (was ₹44,400) → replaced with 37 additional Sonoff ZBMINI R2 (₹25,900) → **net saving ₹18,500**
+> - Added blank module inserts (+₹1,250) and 18M/12M Schneider Unica plate counts adjusted (+~₹500)
+> - Slight wire & box adjustments (+~₹1,750 to Section 4)
+>
+> **Per-room smart-switch cost is now uniformly ₹700/gang (Sonoff) + ~₹120/rocker + plate amortised over the board.** A 6-gang foyer board costs ~₹4,950 (6 Sonoffs + 6 rockers + 18M plate + 12 blanks + 65mm box) vs. ~₹18,000 if we'd gone Aqara H1.
 
 > **This is materials only.** Plastering, false ceiling (civil), stone cladding, furniture, and paint are separate budgets.
 > Prices are approximate as of April 2026. Actual prices may vary ±15% depending on city and supplier.

@@ -1,14 +1,19 @@
 # Ground Floor — Electrical Layout
 
+> ⚠️ **FOYER subsection updated 2026-05-22 (v1.1):** doorbell brand → Hikvision DS-KV6113-WPE1(C) (was Reolink); speaker → ceiling-mounted (was cavity); cavity socket → 8M with Cat6 keystone (was 2-module); switch panel → 18M vertical (was 6-gang); smart-switch boxes → 50mm + 2 modules (foyer panel exception 65mm). **Authoritative foyer spec: [FOYER_MASTER_ELECTRICIAN_PLAN.md](FOYER_MASTER_ELECTRICIAN_PLAN.md) (see revision summary at top of that doc).** Foyer subsection below kept for index purposes; if conflict, the master plan wins.
+>
 > Cross-reference: [../floor-plans/floor-plans-decoded.md](../floor-plans/floor-plans-decoded.md) for room dimensions.
 > Circuit IDs here match [db-layout.md](db-layout.md).
 > Cavity depth + Sonoff fitting rules: see [conduits-and-cavities.md § PART 0](conduits-and-cavities.md#part-0--electrician-one-page-cheat-sheet).
 > **Status key:** ✅ CONFIRMED · 🔲 TBD · ⚠️ PENDING DECISION
 
-> **🆕 ELECTRICIAN HEADS-UP for GF:**
-> 1. **All smart-switch boxes use 65mm-deep GI MS boxes** (Sonoff/Aqara relay sits behind plate). Dumb 50mm boxes only at: Kitchen, Utility, Store, geyser switches, all sockets, AC sockets.
-> 2. **Staircase niche** is the data hub — it terminates: all Cat6 from cameras, all Cat6 from FF (router uplink + 2 study drops), Cat6 from foyer screen, foyer speaker, doorbell, contact sensor. Plan a **6-port + 6-port keystone patch panel** at 700mm FFL on niche side wall.
-> 3. **Every smart-switch board needs neutral** — black wire visible in tail bundle.
+> **🆕 ELECTRICIAN HEADS-UP for GF (REVISED 2026-05-23):**
+> 1. **All smart-switch boxes use 65mm-deep GI MS boxes** (Sonoff ZBMINI R2 sits hidden behind plate). Dumb 50mm boxes only at: Kitchen, Utility, Store, geyser switches, all sockets, AC sockets.
+> 2. **Apply the "+2M-per-Sonoff" plate-sizing rule everywhere.** 1 smart gang → 3M plate, 2 → 6M, 3 → 8M, 4 → 12M, 6 → 18M. See [conduits-and-cavities.md § 0.4b](conduits-and-cavities.md#04b--plate-size-sizing-rule-for-hidden-sonoff-boards-2m-per-sonoff). This is the rule the electrician agreed to follow on 2026-05-23.
+> 3. **Smart-switch hardware locked**: all hidden Sonoff ZBMINI R2 behind Schneider Unica modular plates. Aqara H1 and Schneider Wiser dropped from spec.
+> 4. **Staircase niche** is the data hub — it terminates: all Cat6 from cameras, all Cat6 from FF (router uplink + 2 study drops), Cat6 from foyer screen, foyer speaker, doorbell, contact sensor. Plan a **12-port keystone patch panel** at 700mm FFL on niche side wall.
+> 5. **Every smart-switch board needs neutral** — black wire visible in tail bundle.
+> 6. **Fans: Atomberg smart BLDC, "always-on Sonoff" pattern.** Each fan gang on the room board is a 1-module rocker with a hidden Sonoff ZBMINI R2; the rocker stays UP (relay closed) by default so the Atomberg fan has continuous power for its BLE/HA control. Wall rocker exists only as emergency cutoff for fan service. Atomberg handles speed via remote / HA.
 
 ---
 
@@ -17,39 +22,49 @@
 ---
 
 ### 1. Foyer
-**Circuit:** B1 (lights), B2 (screen/speaker), B10 (false ceiling cove — confirmed), DB on this wall
-**Wall:** W wall (6ft wide × 11ft tall feature wall)
+
+> ⚠️ **REVISED 2026-05-22 — see [FOYER_MASTER_ELECTRICIAN_PLAN.md](FOYER_MASTER_ELECTRICIAN_PLAN.md) for authoritative full plan.** This subsection is a summary.
+
+**Circuits:** B-Foyer-Lights (6A MCB, all foyer + porch lighting) + B-Foyer-Cavity (6A + 30mA RCBO, cavity sockets only).
+**DB position:** **East wall** (revised 2026-05-17 from earlier West-wall plan; main door swings against E wall so DB is hidden when door is open). Starter cupboard for water automation co-locates on East wall (P1 + P2 starters + Sonoff DUALR3).
+**Stone feature wall:** 6 ft wide × 11 ft tall, on the **South edge** of the foyer (East 6 ft of the 9.5 ft S edge; the West 3.5 ft is open passage to Living/Pooja).
 
 | Point | Type | Location | Height from floor | Circuit | Smart? | Notes |
 |---|---|---|---|---|---|---|
-| Ceiling spotlight 1 | Recessed GU10, 7W warm white | 300mm from W wall, centered left | Ceiling (11ft) | B1 | Via smart switch | Stone-grazing angle |
-| Ceiling spotlight 2 | Recessed GU10, 7W warm white | 300mm from W wall, centered right | Ceiling (11ft) | B1 | Via smart switch | Stone-grazing angle |
-| Screen power socket | 6A 3-pin socket | Inside screen recess cavity | 1350mm (centre of cavity) | B2 | No | Hidden behind screen |
-| Screen LED halo driver | 24V LED driver | Inside screen recess cavity | With screen socket | B2 | No | Powers amber halo strip |
-| Foyer shelf LED strip | 24V LED strip under shelf | Under walnut shelf, full 6ft width | 900mm (shelf height) | B1 | Via smart switch | Warm 2700K, under-shelf wash |
-| Speaker point | 2-core 1.5mm² speaker wire | Ceiling, above foyer centre | Ceiling | B2 | Via server | Terminate in ceiling rose |
-| Screen-bezel camera | USB camera module or tiny RTSP/PoE pinhole camera | Top-centre of screen recess/bezel | 1600–1650mm | Screen cavity / LV | Via server/RPi | Secondary face verification when person looks at welcome screen |
-| Primary face-capture camera | PoE IP camera | Outside main door, latch-side wall/jamb | 1600–1700mm | PoE / network | Via HA/Frigate | Main face-recognition camera; keep face-level, not ceiling height |
-| Porch overview camera | PoE IP camera | Porch ceiling/soffit corner | 2400–2700mm | PoE / network | Via HA/Frigate | Security/context view only; not reliable for face ID |
-| Video doorbell/intercom | Doorbell / video phone point | Latch side of main door | 1400–1450mm | LV / PoE | Smart | Pull Cat6 + 2-core LV cable for flexibility |
-| Main-door contact sensor | Concealed wired reed sensor | Top of main door frame | Door head | LV | Via HA | Screen wake + door-open automation trigger |
-| DB panel | 40-way flush-mount DB | W wall, right of foyer (behind door) | Bottom of DB at 1500mm | — | — | See db-layout.md |
-| Switch board 1 | 4-gang modular (Schneider Unica or similar) | W wall, left of door, 1200mm | 1200mm | B1/B2 | Smart (2 gangs) | Gangs: foyer lights, screen, spare, spare |
+| Ceiling spotlight 1 | Recessed GU10 gimbal, 7W 2700K | 300mm from W wall area, 609mm from N edge | False ceiling (9ft FFL) | B-Foyer-Lights (Gang 1) | Via smart switch | Grazes S feature wall stone |
+| Ceiling spotlight 2 | Recessed GU10 gimbal, 7W 2700K | 300mm from W wall area, 1218mm from N edge | False ceiling (9ft) | B-Foyer-Lights (Gang 1) | Via smart switch | Grazes S feature wall stone |
+| Cavity Socket A (Monitor) | 5A socket on cavity BACK wall in 3"×3"×2.5" pocket | Centre of back wall, in pocket cut INTO masonry | 53" (1346mm) FFL | B-Foyer-Cavity | Sonoff Mini (HA control) | Powers Samsung LS22F350 monitor; cord hidden in rear gap behind monitor |
+| Cavity Socket B (Spare) | 5A socket beside Socket A on same plate | Same pocket | 53" FFL | B-Foyer-Cavity | Always-live | Spare for future / RPi backup |
+| Halo LED strip | 24V 2200K LED strip on inner walls of cavity at 30mm depth step | All 4 inner walls behind stone reveal lip | Inside cavity | B-Foyer-Lights (Gang 2, linked with cove) | Via smart switch | Driver above false ceiling |
+| Cove LED strip | 24V 2700K LED in cove pocket | Foyer false-ceiling perimeter | At cove (~9ft) | B-Foyer-Lights (Gang 2) | Via smart switch | ~10m perimeter |
+| Walnut shelf under-LED | 24V 2700K LED strip | Under walnut shelf on S wall | At shelf (900mm FFL) | B-Foyer-Lights (Gang 3) | Via smart switch | Driver Option 1 (above false ceiling) or Option 2 (under shelf) |
+| Cavity speaker | Visaton FR 8 (80mm driver, ~₹1,800) | Mounted to cavity back wall via MDF baffle | Centre 57⅛" FFL (in 3" dia × 1" pocket) | RPi USB power (PoE) | Via HA → RPi | Replaces ceiling speaker; "voice from screen" effect |
+| Bezel camera (CAM-0) | Pi Camera Module 3 via CSI ribbon | Top-centre of monitor bezel | ~63" FFL | RPi CSI port | Via Frigate | Secondary close-range face check |
+| **Hikvision DS-KV6113-WPE1(C) Video Doorbell PoE (REVISED)** | doorbell + camera + intercom | OUTSIDE face of 1'6" N wall section | 1450mm FFL | PoE (Cat6) | Via HA/Frigate | **Primary face detection** (replaces dedicated CAM-1 install) + doorbell + 2-way audio (chime via Hik-Connect app or paired indoor station) |
+| CAM-1 spare (PROVISION ONLY) | Future PoE camera if needed | Porch W wall (= Living E exterior, NOT foyer wall) | 1650mm FFL | PoE (capped) | Future | Conduit + IP67 back box + pull string only; no camera now |
+| CAM-2 stub (PROVISION ONLY) | Future overview camera | Porch soffit NE corner | ~2700mm FFL | PoE (capped) | Future | Conduit + back box + pull string only |
+| **DB panel (REVISED)** | Schneider Acti9 48-way | **East wall**, behind door swing | Bottom edge 1500mm FFL | — | — | See db-layout.md |
+| **Starter cupboard** | Wooden cupboard with hinged lockable plywood facade | East wall, alongside or below DB (electrician's choice on-site) | TBD on-site | — | — | Houses P1 + P2 motor starters + Sonoff DUALR3 for water automation |
+| **Foyer Switch Panel (REVISED 2026-05-23)** | **18M VERTICAL GI MS, ~290×135×65mm (or 225×195×65mm)** — as cut on site | **N wall, 1'6" section** between corner window (W) and main door (E) | 1200mm FFL (centre) | B-Foyer-Lights | Smart — **6× Sonoff ZBMINI R2 hidden** behind Schneider Unica 18M plate | 6 gangs: Spots / Cove+Halo / Shelf / Spare / Porch Ceiling / Porch Wall (future). 12M of internal slack accommodates 6 hidden Sonoffs + neutral bus per electrician's "+2M-per-Sonoff" rule. Direct mode (NOT detach) — guests must be able to use foyer switches when HA is down. |
+| **Waveshare back box (PROVISION)** | Cat6 termination for future indoor unit | Staircase South wall (above server niche) | 1500mm FFL | LV (Cat6 pulled) | Future | Hardware design deferred |
 
-**Conduits from DB → foyer:**
-- 25mm conduit: lighting circuit B1 (DB → ceiling spotlight positions → shelf strip → switch board)
-- 25mm conduit: B2 screen power + speaker wire (DB → screen cavity → ceiling speaker point)
+**Conduits from DB (East wall) — only 2:**
+- **C-DB-Foyer-Switch** (25mm RED): DB → up E wall → false ceiling → across to N wall → drops to Foyer Switch Panel (carries L+N+E for all foyer + porch lighting)
+- **C-DB-Cavity-Power** (25mm RED): DB → horizontal in E wall → SE corner → S wall → cavity bottom-LEFT corner of back wall (L+N+E for cavity sockets, direct, not switched at wall)
 
-**Conduits from staircase niche → foyer cavity:**
-- 25mm: Cat6 (server → screen RPi)
-- 25mm: spare (future)
+**Conduits from Foyer Switch Panel to loads:** C-SW-Spots (25mm), C-SW-Cove-Halo (25mm), C-SW-Shelf (16mm), C-SW-Spare-4 (16mm), C-SW-Porch-Ceiling (16mm), C-SW-Porch-Wall (16mm capped).
 
-**Conduits from staircase niche → entrance/door points:**
-- 25mm LV: Cat6 to primary face-capture camera outside main door
-- 25mm LV: Cat6 to porch overview camera
-- 16mm LV: Cat6 + 2-core LV cable to doorbell/intercom point
-- 16mm LV: 2-core cable to concealed main-door contact sensor
-- 16mm LV sleeve: screen cavity → screen-bezel camera point
+**Conduits from staircase niche → foyer + porch (all share the same FLOOR chase going East):**
+- **C-Niche-Cavity-Data** (25mm GREY, floor route): Cat6 (PoE) to RPi inside cavity
+- **C-Niche-Doorbell** (25mm GREY, floor route): Cat6 (PoE) to Hikvision doorbell on outside face of 1'6" N wall section
+- **C-Niche-CAM1** (25mm GREY, floor route): pull string only, terminates at porch W wall back box
+- **C-Niche-CAM2** (25mm GREY, false ceiling route — only viable for porch soffit destination): pull string only
+- **C-Niche-Waveshare** (25mm GREY, short vertical run): Cat6 to staircase S wall
+
+**Cavity-internal conduit (not from anywhere else):**
+- 16mm GREY pull string going UP from cavity TOP wall into false ceiling — future ceiling speaker provision
+
+⚠️ **CRITICAL TIMING:** all floor-route conduits (Cavity Data + Doorbell + CAM1 spare + shelf branch) MUST be laid in floor screed BEFORE the tile contractor arrives.
 
 ---
 
@@ -66,12 +81,14 @@
 | General socket 1 | Double 5A + USB-A/C | N wall (near foyer entry) | 300mm | B5 | No | |
 | General socket 2 | Double 5A + USB-A/C | E wall (opposite TV) or S wall | 300mm | B5 | No | |
 | AC point | 16A or 20A socket | High on S wall or as per AC spec | 1800mm | E1 | No (smart AC) | Dedicated RCBO E1 |
-| Switch board 1 | 4-gang modular | W wall, near foyer-living boundary | 1200mm | B3/B4 | Smart (2 smart gangs) | Main lights + cove |
-| Switch board 2 (2-way) | 2-gang | Near staircase entry | 1200mm | B3 | Smart | 2-way with SB1 for main lights |
+| **Ceiling fan (Atomberg BLDC)** | Atomberg Renesa/Studio+ smart BLDC, ~30W | Centre of room (or shifted clear of pendant if chandelier installed) | Ceiling | GF-LIV-03 (lights circuit, fans run on lighting feed) | Smart — **always-on Sonoff ZBMINI R2** behind fan rocker | Rocker stays UP by default; Sonoff relay closed; fan permanently powered for Atomberg BLE/HA control. Cutoff only for service. |
+| Switch board 1 (REVISED) | **8M plate (4 gangs: main + cove + fan + spare; +4M slack)** | W wall, near foyer-living boundary | 1200mm | B3/B4 + GF-LIV-03 fan feed | Smart 4 hidden Sonoffs | Gang 1: main light. Gang 2: cove. Gang 3: fan (always-on). Gang 4: spare. Detach mode in HA for Gang 1+2 for scenes (movie/dinner/bright). |
+| Switch board 2 (2-way) | **6M plate (2 gangs + 4M slack)** | Near staircase entry | 1200mm | B3 | Smart | 2-way partner with SB1 for main lights via Sonoff S2 traveler input (see staircase Section 9 below). |
 
 **Confirmed + Open decisions:**
 - ✅ False ceiling confirmed for Living Area — cove circuit B4 active.
 - ⚠️ Chandelier in double-height void: decide yes/no. If yes, needs a conduit from DB run vertically to FF slab beam level, then pendant drop cord. Must be coordinated with false ceiling contractor.
+- 📝 **Future Aqara upgrade**: if you want a glass-touch plate on SB1 later, cut a fresh 86×86×50 mm square cavity post-move-in. Not pre-plaster work.
 
 ---
 
@@ -86,7 +103,10 @@
 | Recessed downlights | 2–3× recessed COB in false ceiling | Distributed in dining zone | False ceiling | B6 | Smart | Supplement pendant |
 | AC point | 20A socket | High on W or N wall | 1800mm | E2 | No (smart AC) | Dedicated RCBO E2 |
 | General socket | Double 5A | E wall | 300mm | B6 | No | Laptop / occasional use |
-| Switch board | 3-gang smart | W side of dining entry | 1200mm | B6/B9 | Smart (2 smart gangs) | Pendant + cove |
+| **Ceiling fan (Atomberg BLDC)** | Atomberg Renesa smart BLDC, ~30W | Centre of dining zone (offset from pendant) | Ceiling | GF-LIV-06 (lights circuit) | Smart — always-on Sonoff ZBMINI R2 | Rocker UP by default; emergency cutoff only. |
+| Switch board (REVISED) | **8M plate (3 gangs: pendant + cove + fan; +5M slack)** | W side of dining entry | 1200mm | B6/B9 + fan feed | Smart 3 hidden Sonoffs | Pendant + cove + fan. Detach mode in HA for pendant+cove (dinner scene). |
+
+> 📝 **Future Aqara upgrade**: pendant + cove gangs could be Aqara H1 2-gang glass plate. Requires cutting a fresh 86×86×50mm square cavity adjacent to the Sonoff board. Post-move-in change.
 
 ---
 
@@ -131,20 +151,23 @@
 ---
 
 ### 7. Master Bedroom (M.Bed)
-**Circuit:** C1 (lights), C2 (sockets), E2 (AC)
-**Wardrobes:** 12ft N wall + 12'3" W wall
+**Circuit:** C1 (lights), C2 (sockets), E3 (AC)
+**Wardrobes:** 10'3" S wall + ~3' W-wall tail
 
 | Point | Type | Location | Height | Circuit | Smart? | Notes |
 |---|---|---|---|---|---|---|
 | Main ceiling light | Recessed COB or surface LED | Ceiling centre | 11ft | C1 | Smart switch | |
-| Bedside reading light L | Wall light or recessed spot | Left of bed, bedside | 1400mm | C1 | Smart / dimmer | |
-| Bedside reading light R | Wall light or recessed spot | Right of bed, bedside | 1400mm | C1 | Smart / dimmer | |
-| Wardrobe interior light | 5W LED strip or sensor light | Inside N-wall wardrobe | — | C1 | Door sensor switch | Comes on when wardrobe opens |
+| Bedside reading light L | Wall light or recessed spot | E wall, left side of headboard | 1400mm | C1 | Smart / dimmer | Align after final queen-bed centreline is marked |
+| Bedside reading light R | Wall light or recessed spot | E wall, right side of headboard | 1400mm | C1 | Smart / dimmer | Align after final queen-bed centreline is marked |
+| Wardrobe interior light | 5W LED strip or sensor light | Inside S-wall wardrobe + W-wall tail | — | C1 | Door sensor switch | Comes on when wardrobe opens |
 | Bedside socket L | Double 5A + 1× USB-C | Left bedside | 600mm | C2 | No | |
 | Bedside socket R | Double 5A + 1× USB-C | Right bedside | 600mm | C2 | No | |
-| General socket | Double 5A | S or E wall | 300mm | C2 | No | Study table / dressing table |
-| AC point | 20A socket | High on S wall or as per AC spec | 1800mm | E2 | No (smart AC) | Dedicated RCBO E2 |
-| Switch board (door) | 4-gang smart modular | Near bedroom door | 1200mm | C1 | Smart (2-3 gangs) | Main light, reading lights, master off |
+| General socket | Double 5A | W-wall dressing or N-wall reading nook | 300mm | C2 | No | Dressing table / floor lamp / occasional use |
+| AC point | 20A socket | High on N wall above door/nook, or as per AC spec | 1800mm | E3 | No (smart AC) | Dedicated RCBO E3 |
+| **Ceiling fan (Atomberg BLDC)** | Atomberg Renesa smart BLDC, ~30W | Centre of room (clear of wardrobe area) | Ceiling | GF-BED-01 (lights circuit) | Smart — always-on Sonoff ZBMINI R2 | Rocker UP by default; emergency cutoff only. Atomberg BLE remote bedside-friendly. |
+| Switch board (door) — REVISED | **12M plate (4 gangs: main + reading L + reading R + fan; +8M slack)** | Near bedroom door | 1200mm | C1 + fan feed | Smart 4 hidden Sonoffs | Main light + 2 bedside readings + fan. **Direct mode (not detach)** — bedside switches must work when HA is down for sleep/dark scenarios. |
+
+> 📝 **Future Aqara upgrade**: bedside switches are the most-pressed in a bedroom. If you want a glass-touch panel at the bedside specifically, plan two 86×86×50mm square cavities at 1400mm FFL on bedside wall — post-move-in retrofit.
 
 ---
 
@@ -167,14 +190,16 @@
 ---
 
 ### 9. Staircase
-**Circuit:** B7 (2-way control, GF bottom switch + FF landing switch)
+**Circuit:** B7 / GF-LIV-07 (2-way control, GF bottom switch + FF landing switch)
+
+> **2-way wiring approach (REVISED 2026-05-23):** Sonoff ZBMINI R2 hidden at GF bottom box ONLY. Top (FF landing) is a dumb rocker connected to bottom Sonoff's S2 input via a 2-wire **traveler**. No 230V at top box — just 2 signal wires. Both rockers physically toggle the relay, even when HA is down. See Section 5 in [conduits-and-cavities.md § 0.4](conduits-and-cavities.md#04-switch-box-cavity-depth--this-is-new-sonoff-compatibility).
 
 | Point | Type | Location | Height | Circuit | Smart? | Notes |
 |---|---|---|---|---|---|---|
-| Staircase ceiling/wall lights | 3–4× step lights or wall-mounted luminaires | Along staircase wall | Staggered | B7 | Smart 2-way | One switch GF bottom, one FF landing |
+| Staircase ceiling/wall lights | 3–4× step lights or wall-mounted luminaires | Along staircase wall | Staggered | B7 | Smart 2-way | Toggleable from either GF base or FF landing |
 | Step lights (optional) | LED step nosing strips | Each step riser | Step level | B7 | With main circuit | Decorative; adds safety |
-| Switch board GF | 1-gang smart | Base of stairs, GF | 1200mm | B7 | Smart | |
-| Switch board FF | 1-gang smart | FF landing | 1200mm | B7 | Smart 2-way partner | |
+| Switch board GF (bottom) | **3M plate (1 gang + 2M slack)** — Sonoff ZBMINI R2 hidden | Base of stairs, GF | 1200mm | B7 | Smart — full Sonoff module here | L+N+E feed; L OUT to ceiling lights; S1 to bottom rocker; **S2 to top rocker via 2-wire traveler** |
+| Switch board FF (top) | **1M plate** — dumb Schneider Unica rocker, NO module | FF landing | 1200mm | B7 (traveler only) | Dumb signaller | **No 230V** to this box. Only 2 traveler wires returning to bottom Sonoff's S2 input. |
 
 ---
 
@@ -204,23 +229,35 @@
 
 ---
 
-## GF Switch Board Summary
+## GF Switch Board Summary (REVISED 2026-05-23 — +2M-per-Sonoff rule applied)
 
-| Location | Board type | Gang count | **Box depth** | Smart gangs |
-|---|---|---|---|---|
-| Foyer (W wall, near door) | Modular | 4 | **65mm** | 2 smart + 2 dumb |
-| Living Area (W wall) | Modular | 4 | **65mm** | 3 smart |
-| Living Area 2-way (stair side) | Modular | 2 | **65mm** | 2 smart |
-| Dining | Modular | 2 | **65mm** | 1 smart |
-| Kitchen | Modular (dumb only) | 4 | 50mm | 0 |
-| Utility | Modular | 1 | 50mm | 0 |
-| Store room | Modular | 1 | 50mm | 0 |
-| MBR door | Modular | 4 | **65mm** | 3 smart |
-| Bathroom (outside) | PIR switch + geyser | 2 | 50mm | PIR auto |
-| Staircase base | Modular | 1 | **65mm** | Smart 2-way |
-| Pooja (outside entry) | Modular | 2 | **65mm** | 2 smart |
+| Location | Plate size | Box (GI MS, mm) | Smart gangs | Hidden Sonoffs | HA mode |
+|---|---|---|---|---|---|
+| **Foyer Switch Panel (N wall 1'6")** | **18M vertical** | **~290×135×65 OR 225×195×65** (as cut on site) | 6 | 6× ZBMINI R2 | Direct |
+| Living SB1 (W wall) | **8M** | 175×130×65 (or 225×86×65) | 4 (main + cove + fan + spare) | 4× ZBMINI R2 | Detach for main+cove; Direct for fan+spare |
+| Living SB2 (2-way, stair side) | **6M** | 130×130×65 | 2 | 2× ZBMINI R2 | Direct (traveler pair with SB1 main light) |
+| Dining | **8M** | 175×130×65 | 3 (pendant + cove + fan) | 3× ZBMINI R2 | Detach for pendant+cove; Direct for fan |
+| Kitchen | 4M | 130×75×**50** | 0 (all dumb) | 0 | n/a |
+| Utility | 1M | 75×75×**50** | 0 (dumb) | 0 | n/a |
+| Store room | 1M | 75×75×**50** | 0 (dumb) | 0 | n/a |
+| MBR door | **12M** | 225×130×65 | 4 (main + reading L + R + fan) | 4× ZBMINI R2 | Direct (bedside safety) |
+| Bathroom (outside × 3) | 4M each | 130×75×**50** | 0 (PIR + geyser, all dumb) | 0 | n/a |
+| Staircase base (GF) | **3M** | 86×86×65 | 1 (light, full Sonoff hidden) | 1× ZBMINI R2 | Direct |
+| Staircase top (FF landing) | **1M** | 75×75×**50** | 0 (dumb, traveler only, NO 230V) | 0 | n/a |
+| Pooja (outside entry) | **6M** | 130×130×65 | 2 (ceiling + niche) | 2× ZBMINI R2 | Direct |
+| **GF Sonoff ZBMINI R2 subtotal** | | | **22 gangs** | **22 modules** | |
+| Foyer cavity Monitor Socket | — (inside cavity socket pocket) | — | — | 1× Sonoff Mini (different model — Wi-Fi, switches cavity socket only) | HA |
+| Water automation DB cupboard | — | — | — | 1× Sonoff DUALR3 (P1+P2 motor starters — see [water-automation-conduits.md](water-automation-conduits.md)) | HA |
 
-> **Cavity-depth rule for the mason:** wherever a smart switch is planned (anything that says "Smart" in the table above), the GI MS box must be **65mm deep, not 50mm**. The wall plate is the same modular size — only the back box is deeper. **Buy 65mm GI boxes from your hardware shop and check the depth before sending to site.**
+> **Cavity-depth rule for the mason:** wherever a smart switch is planned (anything with a "Hidden Sonoff" count > 0), the GI MS box must be **65mm deep, not 50mm**. The wall plate matches the +2M rule plate-size column above — only the back box depth differs from dumb-switch boxes. **Buy 65mm GI boxes from your hardware shop and check the depth before sending to site.**
+>
+> **What goes inside each smart back box (electrician's final wiring):**
+> 1. Incoming feed: L (red) + N (black) + E (green/yellow) from circuit conduit
+> 2. Outgoing switched feed: 1× switched-L per gang to load (light/fan), plus shared N + E
+> 3. **Wires capped with 300 mm tails** — Sonoff modules are installed by Ganesh after move-in
+> 4. Schneider Unica plate with the modular rockers and blank inserts filling the slack modules
+>
+> **📝 Future Aqara upgrade option (any room):** if you ever want a glass-touch plate at a specific board, cut a new 86×86×50mm square cavity adjacent to (or replacing) the Sonoff board. Post-move-in retrofit. Not pre-plaster work — don't ask the mason to cut it now.
 
 ---
 

@@ -15,7 +15,7 @@
 |---|---|
 | Sunken living floor | 5" drop, 1ft perimeter ledge from all 4 walls (decision-log 2026-04-27) |
 | Double-height void | 16'9" × 11' — over the northern half of living area |
-| Foyer wall | 9" thick × 6ft wide stone-feature wall straight ahead from main door |
+| Foyer wall | 9" thick × 6ft wide stone-feature wall on S edge of foyer (East 6 ft of the 9.5 ft S edge; West 3.5 ft is open passage to Living/Pooja). **Stone wraps INTO the cavity reveal for 30 mm depth (revised 2026-05-19)** — see [FOYER_MASTER_ELECTRICIAN_PLAN.md](../electrical/FOYER_MASTER_ELECTRICIAN_PLAN.md) |
 | Main door orientation | North-facing (confirmed) |
 | GF Common Bathroom door | East wall, left corner (corrected 2026-05-01) |
 | GF Common Bathroom ceiling | 8ft RCC slab, no false ceiling |
@@ -105,11 +105,22 @@
 ## E — Electrical & Smart Home (cross-reference)
 
 See:
-- [../electrical/conduits-and-cavities.md](../electrical/conduits-and-cavities.md) — cavity depths, switch box specs (65mm GI MS)
-- [../electrical/db-layout.md](../electrical/db-layout.md) — circuits + DB
-- [../electrical/materials-checklist.md](../electrical/materials-checklist.md) — buy list
+- **★ [../electrical/FOYER_MASTER_ELECTRICIAN_PLAN.md](../electrical/FOYER_MASTER_ELECTRICIAN_PLAN.md) ★** — authoritative foyer welcome system plan (18 sections; PDF version at `pdfs/FOYER_ELECTRICIAN_MASTER_PLAN.pdf`)
+- [../electrical/conduits-and-cavities.md](../electrical/conduits-and-cavities.md) — cavity depths, switch box specs (65mm GI MS); foyer Part 1 is a summary, master plan above has full detail
+- [../electrical/db-layout.md](../electrical/db-layout.md) — circuits + DB (DB on East wall of foyer per 2026-05-17 correction)
+- [../electrical/materials-checklist.md](../electrical/materials-checklist.md) — buy list (revised 2026-05-22 with foyer-scope items)
 
-**Switch plate finish (whole house):** Schneider Unica **champagne** OR Legrand Mylinec **bronze** — pick one and stick.
+**Switch plate finish (whole house):** Schneider Unica **champagne** OR Legrand Mylinec **bronze** — pick one and stick. **Foyer Switch Panel is 6-gang (default; possibly 7- or 8-gang if box fits)** on N wall 1'6" section between corner window and main door.
+
+**Foyer welcome system summary** (full detail in foyer master plan):
+- Hikvision DS-KV6113-WPE1(C) Video Doorbell PoE on N wall outside (face detection + bell + 2-way audio)
+- Samsung 21.5" monitor recessed in S feature wall cavity (centre 1450 mm FFL)
+- Stone slips wrap 30 mm INTO cavity reveal (all 4 inner walls); back wall + deeper portion matte black
+- Halo LED 24V 2200K behind stone reveal lip — glows around monitor edges
+- Cavity speaker (Visaton FR 8) hidden behind monitor — voice from screen
+- RPi Zero 2W powered via PoE (no extra 230V wires for the RPi)
+- 2 MCBs: B-Foyer-Lights + B-Foyer-Cavity (30mA RCBO)
+- Waveshare touchscreen indoor unit provisioned on staircase S wall (design deferred)
 
 ---
 
@@ -137,16 +148,41 @@ See [living-area.md](living-area.md) for full detail.
 | Dining chairs | 6 chairs | Walnut frame, oatmeal upholstered seat |
 | Sideboard / buffet | 5–6ft × 18" deep | Walnut + brushed brass handles |
 
-### F.3 Master Bedroom (GF)
+### F.3 Master Bedroom (GF) — layout locked 2026-05-10
 
-| Item | Size | Material |
+**Room:** ~12' × 12'3" usable · 11ft ceiling, no false ceiling, direct slab paint · SE quadrant of house · door from central passage.
+
+**Wall-by-wall:**
+
+| Wall | Length | Contents (ordered) |
 |---|---|---|
-| Bed | King 78×72" with upholstered headboard | Walnut frame, cream linen headboard |
+| **S wall** (exterior) | 12'3" | SE corner: 2'×5' teak window · then 10'3" L-wardrobe S-run with sliding doors |
+| **E wall** (exterior, **solid — no windows**) | ~12' | Bed wall — Queen 75×60", head-to-east, centered with slight N bias · 2× wall sconces flanking headboard · 2× walnut bedside tables |
+| **W wall** (interior, shared w/ Common Bath + Staircase) | ~12' | SW corner: ~3' wardrobe tail (continuation of L) · then ~4' sleek dressing/powder unit · then NW corner: 3.5'×5' teak window |
+| **N wall** (interior, opens to passage) | 12'3" | NW corner: closed sewing-machine cabinet (machine tucks away, fold-out work surface, walnut + cream finish to match wardrobe) · middle ~6': reading nook · NE corner: 3ft door swinging inward to E (left as you enter) · AC unit high above door/nook |
+
+**Reading nook (N wall middle):**
+- Cane-back walnut armchair, low-slung
+- Brass arc floor lamp angled over chair
+- Small round walnut side table, 12" dia, marble top
+- Framed pichwai or madhubani panel above (~30×40", walnut frame)
+
+**Furniture spec:**
+
+| Item | Size | Material / finish |
+|---|---|---|
+| Bed | Queen 75×60" with upholstered headboard | Walnut frame, cream linen headboard |
 | Bedside tables ×2 | 22×16" | Walnut |
-| Wardrobe (N wall, 12ft run) | Floor-to-ceiling | Walnut + matte cream shutters mix |
-| Wardrobe (W wall, 12'3" run) | Floor-to-ceiling | Same finish |
-| Dressing table | 4ft × 18" | Walnut, with mirror |
-| Bench at foot of bed (optional) | 4ft × 18" | Cream upholstered |
+| L-wardrobe (S 10'3" + W ~3' tail) | Floor-to-ceiling, **sliding doors** (space-tight) | Walnut + matte cream shutter mix, brass slim handles |
+| Dressing/powder unit (W wall) | ~4ft wide × 16–18" deep, sleek/minimal | Walnut, framed mirror, brass pulls |
+| Reading nook chair | Single armchair | Cane-back + walnut frame |
+| Side table (nook) | 12" diameter | Walnut + marble top |
+| Floor lamp (nook) | Arc | Brushed brass |
+| Sewing cabinet (NW) | ~3ft wide × 18" deep × ceiling height | Walnut + cream — closed when not in use |
+
+**Style/mood:** TBD — choosing between Warm Heritage Calm / Modern Indian Luxe / Japandi-Indian Hybrid (renders pending).
+
+**AC point:** high on N wall above door/nook (provisioned).
 
 ### F.4 FF Bedroom 1
 
@@ -204,7 +240,7 @@ See [living-area.md](living-area.md) for full detail.
 | Windows (existing teak frames) | Double-glazed where possible OR good single 6mm clear toughened — already in place; do NOT replace |
 | Bathroom shower partitions | 10mm clear toughened, frameless, brushed-gold pivot/handle (or fixed panel + kerb) |
 | BR2 writing board | 8mm frosted toughened, brass standoffs |
-| Foyer screen | 21.5" Samsung LS22F350 — covered separately in electrical/conduits-and-cavities.md |
+| Foyer screen | 21.5" Samsung LS22F350 recessed in S feature wall cavity. **Full design in [electrical/FOYER_MASTER_ELECTRICIAN_PLAN.md](../electrical/FOYER_MASTER_ELECTRICIAN_PLAN.md)** (the authoritative source for the welcome system — face detection via Hikvision doorbell, halo LED, ceiling speaker, etc.) |
 
 ---
 
@@ -444,7 +480,7 @@ Colour codes in [master-color-palette.md](../materials-finishes/master-color-pal
 
 | Room | Spec |
 |---|---|
-| MBR | 12ft (N wall) + 12'3" (W wall) — see master-color-palette.md for finish |
+| MBR | 10'3" (S wall) + ~3' tail (W wall) — see master-color-palette.md for finish |
 | BR1 | 8ft N wall (TBD exact) — walnut + cream split shutters |
 | BR2 | 8ft along S/W wall, 3ft deep on W wall — walnut shutters with brass D-pulls |
 | All wardrobes internal | Hettich Quadro drawers, soft-close hinges, internal LED strip on door-actuated switch |

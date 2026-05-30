@@ -16,7 +16,7 @@ This folder is the **single source of truth** for Ganesh's home interior + home-
 | [interior-design/generated-images/](interior-design/generated-images/) | Output dump for `/banana` skill renders. |
 | [materials-finishes/](materials-finishes/) | Tiles, paints, wood, hardware, sanitaryware. **Master palette: [master-color-palette.md](materials-finishes/master-color-palette.md).** |
 | [decisions/](decisions/) | Chronological decision log — *what* was chosen and *why*. |
-| [pdfs/](pdfs/) | Ready-to-share PDFs: [ELECTRICIAN_REFERENCE.pdf](pdfs/ELECTRICIAN_REFERENCE.pdf) (12 pages, hand to electrician+mason) and [INTERIOR_SUGGESTIONS.pdf](pdfs/INTERIOR_SUGGESTIONS.pdf) (24 pages, hand to interior contractor). |
+| [pdfs/](pdfs/) | Ready-to-share PDFs. **★ NEW [FOYER_ELECTRICIAN_MASTER_PLAN.pdf](pdfs/FOYER_ELECTRICIAN_MASTER_PLAN.pdf) ★** (44 pages, hand to electrician for the foyer welcome system). Plus [ELECTRICIAN_REFERENCE.pdf](pdfs/ELECTRICIAN_REFERENCE.pdf), [SWITCH_LAYOUT.pdf](pdfs/SWITCH_LAYOUT.pdf), [INTERIOR_SUGGESTIONS.pdf](pdfs/INTERIOR_SUGGESTIONS.pdf), [WATER_AUTOMATION.pdf](pdfs/WATER_AUTOMATION.pdf). See [pdfs/README.md](pdfs/README.md) for the full list. |
 
 ## Working agreement (for any agent reading this)
 
@@ -34,6 +34,10 @@ This folder is the **single source of truth** for Ganesh's home interior + home-
 - [Decision log](decisions/decision-log.md)
 - [Master interior spec (A-Z)](interior-design/master-interior-spec.md)
 - [Master colour palette (hex codes)](materials-finishes/master-color-palette.md)
+- **★ [Foyer Master Electrician Plan (md)](electrical/FOYER_MASTER_ELECTRICIAN_PLAN.md)** — 18 sections, the latest authoritative foyer plan
 - [Conduits & cavities — electrician cheat sheet](electrical/conduits-and-cavities.md)
-- 📄 [Electrician PDF](pdfs/ELECTRICIAN_REFERENCE.pdf) — 12 pages
+- 📄 **★ [Foyer Electrician Master Plan PDF](pdfs/FOYER_ELECTRICIAN_MASTER_PLAN.pdf) — 44 pages with vector diagrams (NEW 2026-05-22)**
+- 📄 [Electrician Reference PDF](pdfs/ELECTRICIAN_REFERENCE.pdf) — 12 pages (whole house)
+- 📄 [Switch Layout PDF](pdfs/SWITCH_LAYOUT.pdf) — 26 pages
 - 📄 [Interior Suggestions PDF](pdfs/INTERIOR_SUGGESTIONS.pdf) — 24 pages
+- 📄 [Water Automation PDF](pdfs/WATER_AUTOMATION.pdf) — 11 pages

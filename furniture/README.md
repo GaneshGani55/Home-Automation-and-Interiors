@@ -6,13 +6,14 @@ Built-in and loose furniture per room: dimensions, materials, finishes, and plac
 
 ## Files (to add as we go)
 - `ground-floor-furniture.md`
+- `gf-master-bedroom-floor-plan.md`
 - `first-floor-furniture.md`
 - `built-ins.md` — wardrobes, TV unit, kitchen, pooja, dining, study, shoe rack
 - `loose-furniture.md` — sofas, beds, dining table, chairs, side tables
 
 ## Known built-ins (from floor plans)
 **Ground Floor**
-- Master Bedroom wardrobes: 12'0" run on N wall + 12'3" run on W wall
+- Master Bedroom wardrobes: 10'3" run on S wall + ~3' tail on W wall; see `gf-master-bedroom-floor-plan.md`
 - TV unit on W wall of Living Area (usable TV-unit length ~11'6", double-height above)
 - Kitchen counter L-shape (top-left), with stove and sink
 - Pooja unit inside the 5'×5' room

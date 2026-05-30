@@ -27,8 +27,8 @@
 | GF-WET-06 | Kitchen — hob/cooktop | 20A | A | 4mm² | 3500W | ✅ |
 | GF-WET-07 | Utility — washing machine | 16A | A | 2.5mm² | 2000W | ✅ |
 | GF-WET-08 | Refrigerator (always-live) | 16A | A | 2.5mm² | 200W | ✅ |
-| GF-LIV-01 | Foyer — ceiling spots + LED strips | 6A | B | 1.5mm² | 50W | ✅ |
-| GF-LIV-02 | Foyer — screen socket + speaker | 6A | B | 1.5mm² | 60W | ✅ |
+| B-Foyer-Lights | Foyer + porch — all lighting (spots + cove + halo + shelf + porch ceiling + porch wall future) via 6-gang switch panel on N wall | 6A B-curve | B | 1.5mm² | ~140W | ✅ Revised 2026-05-18 — consolidates old GF-LIV-01 + B10 + porch lights |
+| B-Foyer-Cavity | Foyer cavity — 2× 5A sockets (Monitor + Spare), Sonoff-switched. Direct 230V to cavity. | 6A + **30mA RCBO** | B | 2.5mm² | ~36W (250W max) | ✅ Revised 2026-05-18 — RCBO mandatory for electronics |
 | GF-LIV-03 | Living — main ceiling lights | 6A | B | 1.5mm² | 80W | ✅ |
 | GF-LIV-04 | Living — cove / accent | 6A | B | 1.5mm² | 60W | 🔲 TBD |
 | GF-LIV-05 | Living — sockets (TV wall + general) | 16A | B | 2.5mm² | 400W | ✅ |

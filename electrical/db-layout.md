@@ -1,5 +1,7 @@
 # Distribution Board (DB) Layout
 
+> ⚠️ **Note 2026-05-22:** the blanket "65mm-deep boxes everywhere for smart switches" mandate (2026-05-06) has been **relaxed** to "depth-as-needed + 2 extra modules per Sonoff" — see [FOYER_MASTER_ELECTRICIAN_PLAN.md § revision summary](FOYER_MASTER_ELECTRICIAN_PLAN.md). General rule: standard 50mm box + 2 extra modules. Exception: high-density boards (e.g., Foyer Switch Panel with 6 Sonoffs in one box) still need 65mm + 2M-per-Sonoff per master plan § 8.5.
+>
 > **What is a DB?** The DB (Distribution Board) is the metal/plastic box on your wall that houses all the MCBs and RCCBs. Every electrical circuit in the house originates here. Think of it as the brain of your home's electrical system.
 >
 > **MCB** (Miniature Circuit Breaker) = protects each circuit from overload and short circuit. Like a smart resettable fuse. Rated in Amps (6A, 16A, 20A, 32A).
@@ -14,9 +16,11 @@
 
 ## DB Location
 - **Floor:** Ground Floor
-- **Wall:** East wall, foyer (behind door swing — door swings anticlockwise/left when entering, so door panel covers east wall)
-- **Height:** Bottom of DB at 1500mm from floor (comfortable working height)
-- **DB size:** 40-way flush-mount (confirmed — 34 circuits + 6 spare)
+- **Wall:** **East wall**, foyer (behind door swing — main door hinges on East jamb and swings against E wall, so door panel covers DB when open)
+- **Height:** Bottom of DB at **1500mm FFL**
+- **DB size:** **48-way** flush-mount Schneider Acti9 IEF48 (per 2026-04-27 decision; 42 confirmed circuits + 6 spare)
+- **Recess dimensions:** 400 × 600 × 100 mm
+- **Adjacent:** **Starter cupboard** for water automation (P1 + P2 starters + Sonoff DUALR3) — surface-mounted alongside or below DB on same East wall. Layout (side-by-side vs stacked) chosen on-site by electrician + carpenter; see [FOYER_MASTER_ELECTRICIAN_PLAN.md § 6](FOYER_MASTER_ELECTRICIAN_PLAN.md).
 
 ## Recommended DB Brand
 **Schneider Electric Acti9** or **Legrand DX³** series. Both are widely available in India, have standardised components, and electricians are trained on them. Avoid off-brand DB boxes — the MCBs and RCCBs inside them are what matter, and these two brands have the best quality in India at reasonable cost.
@@ -81,14 +85,14 @@ INCOMING MAINS (230V, 50Hz, Single Phase)
 
 | Slot | Circuit ID | Circuit Name | MCB Rating | Wire Size | Status |
 |------|-----------|---|---|---|---|
-| B1 | GF-LIV-01 | Foyer — lights (2× ceiling spotlights + LED strips) | 6A | 1.5mm² | ✅ |
-| B2 | GF-LIV-02 | Foyer — screen power socket + speaker conduit | 6A | 1.5mm² | ✅ |
+| B1 | **B-Foyer-Lights** | Foyer + porch — all lighting (2× GU10 spots + cove + cavity halo + walnut shelf LED + porch ceiling + porch wall future) via 6-gang Switch Panel on N wall | 6A | 1.5mm² | ✅ Revised 2026-05-18: consolidates old B1 + B10 + porch lights into one MCB |
+| B2 | **B-Foyer-Cavity** | Foyer cavity — 2× 5A sockets (Monitor + Spare), Sonoff-switched. 230V direct to cavity, not through wall switch. | 6A + **30mA RCBO** | 2.5mm² | ✅ Revised 2026-05-18: RCBO mandatory for electronics |
 | B3 | GF-LIV-03 | Living Area — main ceiling lights (smart) | 6A | 1.5mm² | ✅ |
 | B4 | GF-LIV-04 | Living Area — cove / false ceiling accent lighting | 6A | 1.5mm² | ✅ False ceiling confirmed for Living |
 | B5 | GF-LIV-05 | Living Area — sockets (TV wall + general) | 16A | 2.5mm² | ✅ |
 | B6 | GF-LIV-06 | Dining Area — main lights + sockets | 6A | 1.5mm² | ✅ |
 | B9 | GF-LIV-09 | Dining Area — false ceiling cove / accent | 6A | 1.5mm² | ✅ False ceiling confirmed |
-| B10 | GF-LIV-10 | Foyer — false ceiling cove (above stone wall) | 6A | 1.5mm² | ✅ False ceiling confirmed |
+| B10 | ~~GF-LIV-10~~ | ~~Foyer — false ceiling cove (above stone wall)~~ — **MERGED into B1 (B-Foyer-Lights) 2026-05-18.** Slot B10 now SPARE. | — | — | ⚠️ Slot reassigned |
 | B7 | GF-LIV-07 | Staircase — lights (2-way, GF bottom to FF top) | 6A | 1.5mm² | ✅ |
 | B8 | GF-LIV-08 | Pooja room — lights + socket | 6A | 1.5mm² | ✅ |
 

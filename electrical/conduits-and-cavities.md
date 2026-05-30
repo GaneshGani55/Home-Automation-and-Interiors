@@ -1,8 +1,10 @@
 # Conduits, Cavities & Lighting — Exact Specifications
 
+> ⚠️ **FOYER section updates 2026-05-22:** the foyer welcome system has been revised — see [FOYER_MASTER_ELECTRICIAN_PLAN.md § revision summary at top](FOYER_MASTER_ELECTRICIAN_PLAN.md) for the authoritative v1.1 changes. Key foyer changes since this file was last fully edited: (1) cavity speaker → ceiling speaker (speaker pocket dropped, conduit #4 now carries 2-core speaker wire); (2) cavity socket → 8M box with Cat6 keystone (was 2-module); (3) Foyer Switch Panel → 18M vertical (was 6-gang); (4) smart-switch boxes → 50mm + 2 modules where feasible (foyer panel exception: 65mm + 2M-per-Sonoff per § 8.5); (5) doorbell → Hikvision DS-KV6113-WPE1(C) (was Reolink); (6) CAM-1 confirmed provision-only. **If anything below contradicts the master plan v1.1, the master plan wins.**
+>
 > This file is the **field reference** — hand it to your civil contractor and electrician before any chasing or cavity cutting starts. Every dimension is in **mm** (with inches in brackets). Heights are measured from **finished floor level (FFL)**.
 >
-> Cross-reference: [floor-plans-decoded.md](../floor-plans/floor-plans-decoded.md) for room dimensions · [db-layout.md](db-layout.md) for circuit IDs.
+> Cross-reference: [floor-plans-decoded.md](../floor-plans/floor-plans-decoded.md) for room dimensions · [db-layout.md](db-layout.md) for circuit IDs · [FOYER_MASTER_ELECTRICIAN_PLAN.md](FOYER_MASTER_ELECTRICIAN_PLAN.md) for foyer authoritative spec.
 
 ---
 
@@ -58,20 +60,49 @@
                                               └────────────────┘
 ```
 
-| Switch type | Box depth | Box size (mm) | Where used |
+| Switch type | Box depth | Box sizing rule | Where used |
 |---|---|---|---|
-| **Smart switch + Sonoff relay (hidden)** | **65mm** GI MS | 75 × 75 × 65 (1-gang) · 130 × 75 × 65 (2-gang) · 175 × 75 × 65 (3-gang) · 230 × 75 × 65 (4-gang) | Living, Bedrooms, Foyer, Dining, Pooja, FF Living, Balconies, Staircase |
+| **Smart switch + Sonoff ZBMINI R2 (hidden)** | **65mm** GI MS | **+2M per hidden Sonoff** — see § 0.4b below | Living, Bedrooms, Foyer, Dining, Pooja, FF Living, Balconies, Staircase |
 | **Dumb switch (no relay)** | 50mm GI MS | Standard 75 × 75 × 50 | Kitchen, Utility, Store room |
 | **PIR switch** | 50mm GI MS | Standard | Outside all 3 bathrooms |
 | **Geyser switch (20A DP)** | 50mm GI MS | 1-module | Outside each bathroom, 1050mm FFL |
 | **Sockets (5A / 16A)** | 50mm GI MS | Standard 2-module / 3-module | All sockets |
 | **AC socket (20A)** | 50mm GI MS | Standard 3-module | 1850mm FFL |
 
-> **Sonoff/Aqara module dimensions (for reference):**
-> - Sonoff ZBMINI R2 (Zigbee): 39.5 × 39.5 × 18.4 mm
-> - Sonoff MINIR4 (Wi-Fi backup option): 39.5 × 39.5 × 20 mm
-> - Aqara Relay T1 (no neutral): 42 × 42 × 22 mm
-> - Module sits in the back of the box; switch plate seals the front. **65mm depth = module + neutral block + bent earth wire + switch terminals all fit comfortably.**
+> **Sonoff ZBMINI R2 dimensions:** 39.5 × 39.5 × 18.4 mm. Sits behind the rocker inside the box. **65 mm depth = module + neutral block + bent earth wire + switch terminals all fit comfortably.**
+
+### 0.4b — Plate-size sizing rule for hidden-Sonoff boards (+2M per Sonoff)
+
+> **This is the most important sizing rule on the project.** Apply at every smart-switch board.
+
+Six Sonoffs + 6 sets of wires + a neutral bus + earth bonding = a lot of stuff inside one back box. Cramming them into a tight modular plate (where gang count = module count) causes:
+- Wire-bend radius violations (insulation cuts on sharp bends)
+- Plate can't sit flush (modules bulge against the back of the rocker)
+- Neutral bus has no room → looping with twisted joints (unsafe)
+- Electrician swears at you, blames "the smart stuff", takes 3× longer
+
+**Rule:** `Plate size (modules) = (number of smart gangs) + (number of hidden Sonoffs × 2M slack)`. Round up to the nearest standard Schneider Unica plate (3M / 4M / 6M / 8M / 12M / 18M).
+
+| Smart gangs | Recommended plate | Approx GI MS box (all 65 mm deep) | Notes |
+|---|---|---|---|
+| 1 | **3M** | 86 × 86 × 65 mm | 1 rocker + 2M slack |
+| 2 | **6M** | 130 × 130 × 65 mm | 2 rockers + 4M slack |
+| 3 | **8M** | 175 × 130 × 65 mm OR 225 × 86 × 65 mm | 3 rockers + 5M slack |
+| 4 | **12M** | 225 × 130 × 65 mm | 4 rockers + 8M slack |
+| 5 | **12M** | 225 × 130 × 65 mm | 5 rockers + 7M slack (tight; go 18M if box fits) |
+| **6 (foyer)** | **18M** | **290 × 130 × 65 mm OR 225 × 195 × 65 mm (vertical)** | 6 rockers + 12M slack — **already cut at foyer** |
+
+**For dumb switches**, the +2M rule does NOT apply — gang count = module count (e.g. 4-gang kitchen = 4M plate, 50 mm box).
+
+### 0.4c — Smart-switch hardware: ALL Sonoff ZBMINI R2 hidden behind Schneider Unica plates
+
+After comparing Sonoff vs Aqara H1 vs Schneider Wiser (decided 2026-05-23):
+
+- **All smart gangs use Sonoff ZBMINI R2 (Zigbee)** hidden behind a Schneider Unica modular plate. Z2M pairing post-move-in.
+- **Aqara H1 dropped from spec.** Requires non-Indian-modular 86×86 square cavity (vendor lock-in if Aqara dies). Latency / HA-down behaviour identical to Sonoff, so no functional benefit.
+- **Schneider Wiser dropped from spec.** Cloud-dependent for many automations; weak HA integration; 5–10× cost; no gain over Sonoff for an HA-driven house.
+
+> **Future Aqara upgrade**: if you ever want a glass-touch plate in 1–2 specific spots (e.g. master-bedroom bedside), cut a fresh 86 × 86 × 50 mm square cavity at that location — this is a post-move-in change. Don't prepare for it pre-plaster.
 
 ### 0.5 Universal Switch-Board Wiring Diagram (apply at every smart switch)
 
@@ -128,65 +159,118 @@
 
 ## PART 1 — FOYER SCREEN CAVITY (Most Critical — Do First)
 
-### Monitor: Samsung LS22F350 (21.5" IPS)
-Panel dimensions (without stand):
-- Width: **491mm (19.3")**
-- Height: **291mm (11.5")**
-- Depth at thinnest (panel edge): **49mm (1.9")**
-- VESA hole pattern: **75mm × 75mm**
+> ⚠️ **AUTHORITATIVE SOURCE: [FOYER_MASTER_ELECTRICIAN_PLAN.md](FOYER_MASTER_ELECTRICIAN_PLAN.md)** (and its PDF at `pdfs/FOYER_ELECTRICIAN_MASTER_PLAN.pdf`).
+> This section is a summary — the master plan has full step-by-step procedures, vector diagrams, BOM, sign-off checklists. If anything in this section conflicts with the master plan, the **master plan wins**.
 
-### Cavity to Cut in Wall
+### Monitor: Samsung LS22F320GAWXXL (21.5" IPS, Essential S3) — REVISED 2026-05-26
+Panel dimensions (without stand):
+- Width: **489.9 mm (19.3")**
+- Height: **291.9 mm (11.5")**
+- Depth at thinnest (panel edge): **36.2 mm (1.4")** ← thinner than prior F350 (49 mm)
+- Weight: **1.6 kg** (without stand)
+- VESA hole pattern: **100 mm × 100 mm** ← changed from 75×75 on prior F350
+- Refresh: 120 Hz · Dual HDMI · No built-in speakers · 3-yr Samsung India warranty
+
+> The original locked spec named the LS22F350 and claimed "IPS"; Samsung's own datasheet says LS22F350 is **TN**, not IPS. The LS22F320GAW is the modern IPS replacement at lower price, lighter weight, thinner depth, more cavity clearance. See [decisions/decision-log.md](../decisions/decision-log.md) 2026-05-26.
+
+### Cavity to Cut in Wall (REVISED 2026-05-19)
 
 ```
-        ← 540mm (21.3") →
+   Raw masonry cut (BEFORE stone reveal slips applied):
+        ← 580mm (22-3/4") →
         ┌─────────────────┐  ─
         │                 │  │
-        │   STONE WALL    │  │ 340mm
-        │   CAVITY        │  │ (13.4")
+        │   STONE WALL    │  │ 380mm
+        │   CAVITY        │  │ (14-7/8")
         │                 │  │
         └─────────────────┘  ─
              ↑
          depth: 100mm (4")
+
+   Inner usable opening AFTER stone reveal slips (20mm thick on
+   all 4 inner walls, front 30mm of depth only):
+                    540mm (21-1/4") wide × 340mm (13-1/2") tall
+   (this matches monitor 491×291 + 25mm clearance — same as original design)
 ```
 
-| Dimension | Value | Why |
-|---|---|---|
-| Cavity width | **540mm (21.3")** | Panel 491mm + 25mm clearance each side |
-| Cavity height | **340mm (13.4")** | Panel 291mm + 25mm clearance top and bottom |
-| Cavity depth | **100mm (4")** | Panel 49mm + 51mm behind for HDMI/power cables |
-| Bottom of cavity from FFL | **1280mm (50.4")** | Screen centre at 1450mm — comfortable eye level |
-| Centre of cavity from FFL | **1450mm (57.1")** | Ergonomic eye-level for standing adult |
-| Top of cavity from FFL | **1620mm (63.8")** | |
-| Horizontal position | **Centred** on the 6ft (1828mm) wall | Left edge at 644mm from left wall, right edge at 1184mm from right wall |
+| Dimension | Value (raw cut) | Value (after stone reveal) | Why |
+|---|---|---|---|
+| Cavity width | **580mm (22-3/4")** raw cut | 540mm (21-1/4") inner usable | Stone slips 20mm thick on each side at front 30mm of depth |
+| Cavity height | **380mm (14-7/8")** raw cut | 340mm (13-1/2") inner usable | Same — stone slips on top + bottom inner walls front 30mm |
+| Cavity depth | **100mm (4")** | unchanged | Leaves 128mm (5") of solid masonry behind for structural safety |
+| Stone reveal depth (front portion clad in stone) | — | **30mm (1-1/4")** | Stone wraps from wall face INTO cavity reveal — creates premium framed-picture effect; halo LED hides behind stone lip |
+| Bottom of cavity from FFL | **1280mm (50-1/2")** | unchanged | Screen centre at 1450mm — comfortable eye level |
+| Centre of cavity from FFL | **1450mm (57-1/8")** | unchanged | Ergonomic eye-level for standing adult |
+| Top of cavity from FFL | **1620mm (63-7/8")** | unchanged | |
+| Horizontal position | **Centred on the 6ft (1828mm) feature wall portion of S edge** (the East 6ft of the 9.5ft S edge; the West 3.5ft is open passage to Living/Pooja) | unchanged | Electrician must measure actual wall width on-site and centre on the real measurement |
 
-### Inside the Cavity
+### Sub-pockets cut INTO the cavity walls
+
+Two small additional pockets are cut beyond the main cavity:
+
+| # | Pocket | Wall | Dimensions | Depth INTO masonry | Position |
+|---|---|---|---|---|---|
+| 1 | **Socket pocket** | Cavity back wall (NOT right inner wall as previously logged) | 3" × 3" (75 × 75 mm) | 2-1/2" (65 mm) | Centred horizontally; centre at 53" (1346 mm) FFL — below monitor centre, fully hidden behind monitor body |
+| 2 | **Speaker pocket** | Cavity back wall | 3" diameter (75 mm) circular | 1" (25 mm) | Centred horizontally; centre at 57-1/8" (1450 mm) FFL — recesses the Visaton FR 8 driver magnet |
+
+Wall capacity check: 9" wall = 228 mm. Main cavity uses 100 mm; deepest sub-pocket (socket) uses an additional 65 mm → total depth used 165 mm; remaining solid masonry behind = 63 mm (2-1/2"). Safe.
+
+### Stone cladding wrap into cavity (REVISED 2026-05-19)
+
+Stone slips (20 mm thick) are applied to **all 4 inner walls** of the cavity (top, bottom, left, right) — but only for the **FRONT 30 mm of depth**. Beyond 30 mm depth into the cavity, inner walls are matte black (painter's domain). Back wall is matte black across full surface (no stone).
+
+Visual effect: the wall's stone face continues seamlessly INTO the cavity for the first 30 mm, framing the recessed monitor like a stone picture frame.
+
+### Inside the Cavity (REVISED — socket on BACK wall, not right inner wall)
 
 ```
-  [Back wall of cavity]
-  ┌─────────────────────┐
-  │  ●       ●          │  ← 2× VESA screws (75×75mm pattern)
-  │     VESA PLATE      │
-  │  ●       ●          │
-  │                     │
-  │  [O]  [O]           │  ← 2× conduit entries bottom-left corner
-  │   C1   C2           │     C1 = 25mm power, C2 = 25mm Cat6
-  └─────────────────────┘
+  [Cavity back wall, viewed from foyer side, looking INTO cavity]
+  ◄───────── 580mm raw cut (540mm inner after stone slips) ─────────►
+  ┌──────────────────────────────────────────────────────────────────┐
+  │              ● Halo conduit (top-centre, 16mm grey)              │
+  │                                                                    │
+  │                                                                    │
+  │                        ╔═══════════════╗                          │
+  │                        ║   VESA mount   ║  ← 75×75mm pattern,     │
+  │                        ║   on back wall ║     centre at 1450mm FFL │
+  │                        ╚═══════════════╝                          │
+  │                                                                    │
+  │                       ⊙ SPEAKER POCKET  ← 3" dia × 1" deep         │
+  │                         centre 1450mm FFL                          │
+  │                                                                    │
+  │                       ┌──────────┐                                │
+  │                       │  SOCKET  │  ← 3"×3"×2.5" pocket,           │
+  │                       │  POCKET  │     centre at 53" (1346mm) FFL  │
+  │                       └──────────┘                                │
+  │                                                                    │
+  │  ● Power (25mm RED              ● Data (25mm GREY                  │
+  │    from DB-East)                  from niche via floor)            │
+  │    bottom-LEFT                    bottom-RIGHT                     │
+  └──────────────────────────────────────────────────────────────────┘
 ```
 
-- **VESA plate:** slim flush-mount VESA 75 bracket (10–15mm proud of back wall)
-- **Paint inside cavity:** matte black — hides depth shadow around screen edges
-- **Conduit entries:** both conduits enter from **bottom-left corner** of the cavity back wall, coming from the staircase niche direction (routing along W wall behind plaster)
-- **Stone cladding:** runs right to the cavity edge. No stone inside the cavity.
+- **VESA mount:** slim **VESA 100** bracket (Speedio Universal Fixed or equivalent, 15 mm standoff, 15 kg capacity), direct rawl plugs into masonry back wall (no plywood backing needed unless carpenter prefers) — bracket centre at 1450 mm FFL, horizontally centred on back wall. _REVISED 2026-05-26 from VESA 75 to match new LS22F320GAW monitor SKU._
+- **Paint inside cavity:** matte black on back wall + deeper 70mm of inner walls (NOT the front 30mm where stone goes)
+- **Conduit entries — REVISED (DB moved East 2026-05-17):**
+  - Bottom-LEFT corner of back wall = **POWER** (25mm RED, from DB on East wall)
+  - Bottom-RIGHT corner of back wall = **DATA** (25mm GREY, Cat6 from staircase niche via FLOOR route)
+  - Top-CENTRE of back wall = **HALO 24V** (16mm GREY, from halo driver above false ceiling)
+  - PLUS the new 4th conduit: from TOP wall going UP into false ceiling (16mm GREY, **pull string only**, provision for future ceiling speaker)
+- **Stone cladding:** WRAPS into front 30mm of inner walls (all 4 sides). Does NOT enter the back wall or the deeper 70mm of inner walls.
 
-### Cable Routing Inside Cavity
+### Cable Routing Inside Cavity (REVISED — RPi PoE-powered)
+
 | Cable | From | To | Length needed |
 |---|---|---|---|
-| Monitor power cable | 6A socket (inside cavity, right wall) | Monitor power port | ~400mm |
-| RPi USB-C power | USB-C charger (share socket) | RPi Zero 2W | ~200mm |
+| Monitor power cable | 5A socket A (inside cavity, BACK wall) | Monitor power port | ~500mm |
+| RPi power | **PoE splitter** (powered from Cat6 PoE) | RPi Zero 2W USB-C input | ~200mm |
 | Mini-HDMI → HDMI | RPi HDMI port | Monitor HDMI input | ~300mm |
-| Cat6 patch cable | Keystone inside cavity | RPi USB-OTG Ethernet adapter | ~200mm |
+| Cat6 patch | PoE splitter RJ45 out | USB OTG Ethernet adapter on RPi | ~200mm |
+| 3.5mm audio | USB sound card on RPi | PAM8403 amp input | ~300mm |
+| Speaker wire (2-core) | PAM8403 amp output | Visaton FR 8 speaker terminals | ~300mm |
+| CSI ribbon | RPi CSI port | Pi Camera Module 3 on top bezel of monitor | ~250mm (comes with camera) |
 
-**Socket position:** 1× double 5A socket flush-mounted on the **right inner wall** of the cavity at 1300mm from FFL (just below monitor bottom). Hidden behind monitor face when screen is installed.
+**Socket panel position — REVISED:** 2-module modular plate (2× 5A sockets: "Monitor" + "Spare") on the **cavity BACK wall**, centre at 53" (1346mm) FFL. NOT on right inner wall as previously logged. Sonoff Mini R2 sits inside the socket back box and switches only the Monitor socket; Spare socket is always-live. Monitor power cord runs invisibly in the rear gap behind monitor.
 
 ---
 
@@ -215,39 +299,69 @@ Panel dimensions (without stand):
 
 ### GF Conduit Runs — Detail
 
-#### DB to Foyer Ceiling (Circuit B1 — Foyer Lights)
+#### DB position — REVISED 2026-05-17
+
+DB has moved from **West wall** to **East wall** of the foyer (behind door swing). All conduits originating from DB now start on the East wall side. The starter cupboard for water automation (P1 + P2 starters + Sonoff DUALR3) co-locates with DB on East wall. Final DB + cupboard layout (side-by-side vs stacked vertically) is chosen on-site by electrician + carpenter based on 549mm clearance south of door swing arc — see [FOYER_MASTER_ELECTRICIAN_PLAN.md § 6](FOYER_MASTER_ELECTRICIAN_PLAN.md).
+
+#### Conduits originating FROM the DB (only 2 to feed the foyer)
+
+| # | Conduit ID | Size | Route | Wires inside |
+|---|---|---|---|---|
+| 1 | **C-DB-Foyer-Switch** | 25mm RED | DB (E wall) → up E wall → false ceiling → across to N wall → drops to Foyer Switch Panel at 1200mm FFL | 1.5sqmm L + N + E (feed for all foyer + porch lighting via 6-gang switch panel) |
+| 2 | **C-DB-Cavity-Power** | 25mm RED | DB (E wall) → horizontal in E wall at ~1300mm → SE corner → horizontal in S wall (behind stone) → cavity bottom-LEFT corner of back wall | 2.5sqmm L + N + E (direct 230V for cavity sockets; switched by Sonoff inside socket box, not at wall switch) |
+
+#### Foyer Switch Panel (Circuit B-Foyer-Lights) — N wall
+
 | Item | Value |
 |---|---|
-| Conduit size | 25mm |
-| Route | DB (W wall, 1500mm) → up W wall → across foyer false ceiling → to 2× spotlight ceiling boxes |
-| Spotlight box 1 position | 300mm from W wall, 609mm from N edge of foyer |
-| Spotlight box 2 position | 300mm from W wall, 1218mm from N edge of foyer (or 609mm from S edge) |
-| Depth at ceiling | Flush ceiling box (B-type, 60mm depth) |
-| Switch drop | From ceiling conduit → down W wall to switch board at 1200mm |
+| Wall | **N wall, 1'6" (457mm) section** between corner window (W) and main door (E) — NOT West wall (foyer has no W wall) |
+| Centre height | **1200mm (47-1/4") FFL** |
+| Back box | **6-gang GI MS, 335 × 75 × 65mm** (default; electrician may upgrade to 7- or 8-gang if it fits cleanly) |
+| Gang 1 | Foyer ceiling GU10 spotlights (no driver needed; GU10 runs on 230V mains direct) |
+| Gang 2 | Cove LED 2700K + cavity Halo LED 2200K (linked via Sonoff) |
+| Gang 3 | Walnut shelf under-LED (24V via shelf driver) |
+| Gang 4 | Foyer spare (capped) |
+| Gang 5 | **Porch ceiling light** (NEW) |
+| Gang 6 | **Porch wall light** (future provision, capped) |
+| Sonoff | Sonoff ZBMINI L2 hidden behind plate; remote control via HA |
 
-#### DB to Foyer Screen (Circuits B2 — Screen + Speaker)
+#### Conduits FROM Switch Panel to loads (branches from B-Foyer-Lights)
+
+| Conduit | Size | Route | Carries |
+|---|---|---|---|
+| C-SW-Spots | 25mm RED | Up N wall → false ceiling → 2× spotlight boxes | Switched Live from Gang 1 + N + E |
+| C-SW-Cove-Halo | 25mm RED | Up N wall → false ceiling → cove driver + halo driver | Switched Live from Gang 2 + N + E |
+| C-SW-Shelf | 16mm RED | Down N wall → floor route → up S wall to shelf area | Switched Live from Gang 3 + N + E |
+| C-SW-Spare-4 | 16mm RED | Up N wall → false ceiling (capped) | Pull string only |
+| C-SW-Porch-Ceiling | 16mm RED | Up N wall → through N wall → outside porch ceiling | Switched Live from Gang 5 + N + E |
+| C-SW-Porch-Wall | 16mm RED | Up N wall → through N wall → outside near door (capped) | Pull string only (future) |
+
+Spotlight box positions: 300mm from W wall area, 609mm from N edge (#1) + 1218mm from N edge (#2). Ceiling box B-type, 60mm depth.
+
+#### Foyer Screen (Circuit B-Foyer-Cavity) — 4 conduits at the cavity
+
+| # | Conduit | Size | Colour | Entry/exit point | From / To |
+|---|---|---|---|---|---|
+| 1 | POWER | 25mm | RED | Bottom-LEFT corner of cavity back wall (1.5" up + 2" in from edges) | From DB on E wall (C-DB-Cavity-Power) |
+| 2 | DATA | 25mm | GREY | Bottom-RIGHT corner of cavity back wall (1.5" up + 2" in) | From staircase niche **via FLOOR route** under floor screed (C-Niche-Cavity-Data, ~12m) |
+| 3 | HALO 24V | 16mm | GREY | Top-CENTRE of cavity back wall (3/4" down from top inner edge) | From halo driver above false ceiling |
+| 4 | Ceiling speaker (PROVISION) | 16mm | GREY | TOP inner wall, exits UP into false ceiling | Pull string only — future ceiling speaker if music playback desired |
+
+#### Staircase Niche to Entrance — REVISED (Hikvision doorbell replaces CAM-1 install)
+
 | Item | Value |
 |---|---|
-| Conduit 1 (power) | 25mm · DB → up W wall → across to cavity → enter cavity from bottom-left |
-| Conduit 2 (data/LV) | 25mm · Staircase niche → horizontal wall chase → cavity bottom-left corner |
-| Conduit 3 (speaker) | 16mm · Staircase niche → ceiling → ceiling rose above foyer centre |
-| Cavity entry height | 1250mm from FFL (enters at cavity bottom edge) |
+| Primary face capture (REVISED) | **Hikvision DS-KV6113-WPE1(C) Video Doorbell PoE** mounted on OUTSIDE face of N wall 1'6" section, 1450mm FFL. Doubles as doorbell + face detection. Conduit: **C-Niche-Doorbell** 25mm GREY, **floor route preferred** (single chase shared with cavity Cat6 + CAM-1 spare). Cable: 1× outdoor LSZH UV Cat6 (PoE). Back box: 3"×3"×2-1/2" GI MS modular recessed flush on outside, smaller than the doorbell bracket so it stays hidden behind the doorbell after install. |
+| CAM-1 dedicated face camera (PROVISION ONLY) | **DROPPED from base install** — conduit + capped IP67 back box provisioned on porch W wall at 1650mm FFL for future Hikvision install. Pull string only, no cable. Conduit: **C-Niche-CAM1** 25mm GREY via floor route. |
+| Porch overview camera CAM-2 (PROVISION ONLY) | Conduit + capped IP67 back box at porch soffit NE corner ~2700mm FFL. Pull string only. Conduit: **C-Niche-CAM2** 25mm GREY via false ceiling route (only viable path — soffit can't be reached via floor). |
+| Video doorbell/intercom | **Merged with the Hikvision doorbell above** — the Hikvision DS-KV6113-WPE1(C) is the doorbell + camera + intercom (built-in mic + speaker for 2-way audio). No separate doorbell wiring. Chime is via the Hik-Connect app push, HA playing a tone on any networked speaker, or a paired Hikvision DS-KH-series indoor station (separate purchase); unlike the Reolink it had before, there is no cheap plug-in wireless chime accessory. |
+| Door contact sensor | Future provision (no current conduit; the Hikvision doorbell handles "someone at door" detection). |
+| Screen-bezel camera (CAM-0) | **Raspberry Pi Camera Module 3** mounted on top-centre of monitor bezel; CSI ribbon to RPi (no conduit needed — entirely inside cavity). Used as secondary close-range face check at the welcome screen. |
+| Waveshare staircase panel (Screen 1, LOCKED 2026-05-25 v2.0; cavity dims corrected 2026-05-29 v3.1) | Conduit **C-Niche-Waveshare** 25mm GREY, ~2m, from niche short vertical run to staircase South wall at 1500mm FFL. **Terminates at a custom 280 × 195 × 80 mm masonry cavity** (NOT a standard modular back box — earlier v2.0 spec called for a 75×75mm box which was wrong; corrected v3.1). Cavity vertically aligned above existing 2M staircase light-switch box (~200 mm clear gap). 9" wall = 150 mm structural margin behind cavity. **Conduit carries:** (a) 1× slim HDMI 2.0 cable (3m, from Beelink HDMI 2 → screen) + (b) 1× USB-A to micro-USB cable (3m, touch + 5V power from Beelink USB-A) + (c) existing Cat6 (kept as SPARE for future Pi migration option). Architecture: Beelink-direct (no Pi at panel). Screen: Waveshare 10.1" HDMI LCD (B) with case, 1280×800 (locked v3.1). See [WAVESHARE_INDOOR_PANEL.md](WAVESHARE_INDOOR_PANEL.md). |
+| Waveshare dining panel (Screen 2, PROVISION 2026-05-25 v3.0) | **NEW** conduit **C-Niche-Dining** 25mm GREY, **~12m / 35-40 ft** (per electrician walk-through), from niche → vertical up niche wall → long horizontal east through GF slab ceiling chase across kitchen/dining → drop down into dining hall E wall (**near breakfast counter / kitchen-dining partition**) → terminate at back box. Cable: **1× indoor Cat6** + 1× pull-string. Back box: 3"×3"×2½" GI MS modular, **height + exact position defer to interior designer** (screen will mount on plywood under cantilever kitchen shelves). Architecture (refined 2026-05-25): **Pi-at-screen, wired** — matching foyer welcome system pattern. Pi (Zero 2W or 4) behind the screen gets PoE power + Ethernet data over the single Cat6, renders HA dashboard locally, drives Waveshare via short HDMI cable. |
+| Dining hall ceiling speaker (PROVISION 2026-05-29, refined to foyer-pattern Option B same day) | **NEW** conduit **C-Niche-DiningSpeaker** **25mm GREY PVC (LV-25, data conduit family)**, ~10m, from staircase niche → up niche wall → horizontal east across GF slab ceiling chase → terminate at a capped ceiling junction box centered above the future dining table position. Cable: **1× indoor Cat6** (PoE-capable, can power a future Pi at the ceiling) + 1× pull-string. **Mono architecture, foyer-pattern** (Pi + PAM8403 amp + 3" flush-mount commercial ceiling speaker — same as the current foyer audio chain locked 2026-05-22 when cavity speaker was dropped in favour of ceiling speaker — ~₹4-6K future spend, vs ~₹22K premium WiiM/Polk path I'd originally specced). Exact ceiling position defer to interior designer. **At install time, choose:** (a) shared dining-screen Pi drives BOTH screen + speaker (Cat6 in this conduit stays as spare; audio runs through false ceiling void from screen Pi to ceiling speaker, ~2-3m) — saves ~₹2K vs dedicated Pi; OR (b) dedicated Pi Zero 2W at ceiling powered by PoE on this conduit's Cat6 — independent of screen Pi, cleaner failure isolation. |
 
-#### Staircase Niche to Entrance Face Detection / Doorbell (Low Voltage)
-| Item | Value |
-|---|---|
-| Primary face-capture camera | LV-25 · staircase/server niche → outside main-door latch-side wall/jamb; pull 1× Cat6 + draw wire |
-| Primary camera termination | Weatherproof 4×4" back box at **1600–1700mm FFL**, 150–250mm from latch-side door frame, protected under porch/eave |
-| Primary camera aim | Aim at a capture line **1000–1800mm outside the threshold**; keep vertical tilt within ~15–20° and horizontal angle within ~30° |
-| Porch overview camera | LV-25 · staircase/server niche → porch ceiling/soffit corner; pull 1× Cat6 + draw wire |
-| Porch overview termination | Weatherproof camera box at **2400–2700mm FFL**; wide 2.8mm lens is OK here because this camera is for context, not face ID |
-| Video doorbell/intercom | LV-16 · staircase/server niche/low-voltage PSU → latch-side doorbell box; pull 1× Cat6 + 2-core bell/12V cable |
-| Doorbell termination | Modular/doorbell box at **1400–1450mm FFL**, 150–200mm from latch-side frame |
-| Door contact sensor | LV-16 · staircase/server niche → top of main-door frame; pull 2-core sensor cable |
-| Screen-bezel camera (CAM-0) | LV-16 sleeve · screen cavity back wall → top-centre of screen bezel; **Raspberry Pi Camera Module 3 via CSI ribbon cable** — no PoE, powered by RPi Zero 2W; streams RTSP over existing Cat6 in cavity |
-| Screen camera height | **1600–1650mm FFL** lens height, facing into foyer; secondary face verification when person stands at welcome screen |
-
-> **Face recognition rule:** do not rely on the high porch CCTV camera for identity. It will see the top of heads. The face-recognition camera must be close to face level and view people front-on as they approach or pause at the door.
+> **Face recognition rule (UPDATED 2026-05-20):** primary face detection is now via the **Hikvision doorbell** (at the door, face level). This is a "reactive welcome" (screen lights up at door) instead of "anticipatory welcome" (screen lights up at approach). The CAM-1 conduit + back box remain provisioned on porch W wall for a future face camera if recognition reliability becomes a concern.
 
 #### Additional CCTV Camera Conduit Stubs (CAM-3, CAM-4, CAM-5)
 
@@ -325,9 +439,9 @@ Panel dimensions (without stand):
 #### DB to Master Bedroom (Circuits C1, C2, E3)
 | Item | Value |
 |---|---|
-| C1 (lights) | 25mm · DB → W wall → ceiling → bedroom ceiling box (centred) + bedside light boxes |
-| C2 (sockets) | 25mm · DB → horizontal chase at 600mm FFL along S wall → bedside socket boxes |
-| E3 (AC) | 25mm · DB → vertical up W wall → AC socket at 1850mm FFL on S or W wall |
+| C1 (lights) | 25mm · DB → W wall → ceiling → bedroom ceiling box (centred) + E-wall bedside light boxes + wardrobe-strip driver |
+| C2 (sockets) | 25mm · DB → horizontal chase at 600mm FFL to E-wall bedside socket boxes + W/N utility sockets |
+| E3 (AC) | 25mm · DB → vertical / ceiling route → AC socket at 1850mm FFL on N wall above door/nook |
 
 #### DB to GF Bathroom (Circuits A1, A2)
 | Item | Value |
@@ -390,9 +504,24 @@ DB (GF, 1500mm)
 
 ### 🆕 FF ROUTER / WI-FI ACCESS POINT — NEW CONDUIT RUNS
 
-> **Why this is needed:** A single GF router (in staircase niche) cannot give reliable 5GHz / Wi-Fi 6 coverage to the FF bedrooms — the FF slab + walls attenuate the signal too much. Plan a **second access point on FF**, wired-backhauled via Cat6 from the staircase niche. This is best done with conduit *now*, before plastering closes the walls.
+> **Why this is needed:** A single GF router (in staircase niche) cannot give reliable 5GHz / Wi-Fi 6 coverage to the FF bedrooms — the FF slab + walls attenuate the signal too much. Plan a **second access point on FF**, wired-backhauled via Cat6 from the staircase niche. **Updated 2026-05-29:** A THIRD AP is also added on the **GF false ceiling** (above dining/living junction) because the niche router alone has limited coverage in the dining area — the staircase wall + intermediate walls attenuate enough to make it worth a dedicated ceiling AP. NEW conduit `R-GF-1` covers this (see below).
 
-#### Run R-FF-1: Staircase Niche → FF Living Wall (Primary FF Router/AP)
+#### Run R-GF-1: Staircase Niche → GF False Ceiling (NEW GF Ceiling AP — LOCKED 2026-05-29)
+
+| Property | Value |
+|---|---|
+| Route | Staircase niche → vertical up niche wall → at GF slab level branch east → across GF false ceiling void → terminate at junction box centered in the false ceiling above the open dining/living junction zone |
+| Conduit | 25mm GREY PVC (LV-25, data conduit family) |
+| Length | ~6-8m (verify on-site) |
+| Cables | 1× indoor Cat6 + 1× pull-string for future spare |
+| Termination | Capped ceiling junction box flush with false ceiling at central GF dining/living position |
+| Power | PoE only — no separate socket needed (AP draws ~12W via PoE on Cat6 from niche TL-SG1210P) |
+| AP model | "Ubiquiti UniFi U6-Lite or equivalent" (homeowner placeholder lock 2026-05-29; alternatives: TP-Link EAP670, Aruba Instant On AP22) |
+| Purpose | Primary GF Wi-Fi 6 coverage for dining, living, foyer, MBed |
+
+#### Run R-FF-1: Staircase Niche → FF Living **CEILING** (Primary FF AP — UPDATED 2026-05-29)
+
+> **Updated 2026-05-29 v2:** AP termination moved from **wall plate at 2400mm FFL** → **ceiling junction box in FF false ceiling, central position** (over the FF Living open area between BR1/BR2 doors). Same conduit + same 2× Cat6 + pull-string — the cable just continues UP from the originally-planned wall position into the false ceiling void instead of terminating at a wall plate. Drop the 5A power socket beside (was specced at 2400mm) — no longer needed because ceiling APs are PoE-only. AP model: "Ubiquiti UniFi U6-Lite or equivalent" (homeowner placeholder lock 2026-05-29).
 
 | Item | Value |
 |---|---|
@@ -519,14 +648,14 @@ Living area has two zones: **solid slab zone** (left/west) and **double-height v
 
 ### Master Bedroom (11ft ceiling, no false ceiling)
 
-| Fitting | Type | From door wall | From window wall | Height | Notes |
-|---|---|---|---|---|---|
-| Main ceiling light | Recessed COB 12W, 2700K | Centred in room | Centred in room | 3353mm | |
-| Bedside light L | Recessed adjustable GU10, 5W | 600mm from L side of bed headboard | 400mm from headboard wall | 3353mm, angled down | Aimed at pillow zone |
-| Bedside light R | Recessed adjustable GU10, 5W | 600mm from R side of bed headboard | 400mm from headboard wall | 3353mm, angled down | Aimed at pillow zone |
-| Wardrobe strip | 24V LED strip | Inside wardrobe (N wall + W wall) | — | Wardrobe top rail | Door-activated sensor |
+| Fitting | Type | Position | Height | Notes |
+|---|---|---|---|---|
+| Main ceiling light | Recessed COB 12W, 2700K | Centred in room, checked against final bed/wardrobe marking | 3353mm | No false ceiling. |
+| Bedside light N side | Wall sconce or recessed adjustable GU10, 5W | E wall, north side of headboard | 1400mm for wall sconce, 3353mm for ceiling spot | Aim at pillow zone after bed centreline is marked. |
+| Bedside light S side | Wall sconce or recessed adjustable GU10, 5W | E wall, south side of headboard | 1400mm for wall sconce, 3353mm for ceiling spot | Keep clear of S-wall wardrobe path. |
+| Wardrobe strip | 24V LED strip | Inside S-wall wardrobe + W-wall tail | Wardrobe top rail | Door-activated sensor. |
 
-**Bed position assumption:** headboard against N wall (below wardrobes). Confirm with furniture layout before fixing ceiling box positions.
+**Bed position assumption:** headboard against E wall, queen 75" x 60". Confirm the 3ft door swing before fixing light and socket boxes.
 
 ---
 
@@ -644,3 +773,13 @@ Before plastering, verify each cavity is:
 - [ ] **DB cupboard** built (lockable, ventilated, ≥600×400×250mm internal) adjacent to existing DB; houses both Magnum Pradhaan starters + Sonoff DUALR3 + float terminal blocks
 - [ ] Pull string in EVERY water-automation conduit
 - [ ] Both ends of each conduit labelled with conduit ID (C-Sintex-1, etc.) using paint marker on permanent tag
+
+---
+
+## Conduit-map review notes (2026-05-30)
+
+Captured while building the interactive conduit map (`conduit-map/`). Flag for review; fold into the sections above when confirmed.
+
+- **CAM-2 overview camera MOVED.** Dropped the porch-ceiling NE-corner position (and its false-ceiling stub). The same overview camera now mounts in the **MIDDLE of the Living Hall NORTH (entrance-facing) wall**, watching the porch + main approach. **Conduit route is the technician's choice on site** (pull from the niche, or tap the nearest data run) — not pre-specced.
+- **CAM-4 (E-wall exterior, kitchen/utility) DROPPED** as redundant — remove its LV-25 stub from the camera list.
+- **Foyer ceiling speaker is now FIXED (not a future provision).** It sits in the **middle of the foyer ceiling, between the two GU10 spotlights**, fed by a 2-core speaker wire from the PAM8403 amp inside the screen cavity (up through the cavity TOP conduit into the false ceiling).

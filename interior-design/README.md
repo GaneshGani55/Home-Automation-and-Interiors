@@ -23,7 +23,7 @@ Style direction, mood, palette, and room-by-room interior decisions. Image rende
 - **TV wall** on the W side of Living Area, usable TV-unit length about 11'6".
 - **Living north wall** is 16'11" with a centred teak window composition.
 - **Pooja room** is 5'×5' — designs must respect that footprint.
-- **Master-bedroom wardrobes** run 12'0" + 12'3" (L-shape on N + W walls).
+- **Master-bedroom wardrobes** run 10'3" on S wall + ~3' tail on W wall.
 - **Cut-out edge on FF** has a beam — visible on the FF Living ceiling/floor edge.
 
 ## Open questions
