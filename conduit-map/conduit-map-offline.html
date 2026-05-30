@@ -423,10 +423,10 @@ const CO = {
  P4:{o:NODE.FOYERPANEL,d:[235,945]}, P5:{o:NODE.FOYERPANEL,d:[270,1040]}, P6:{o:HUB.DB,d:[745,720]},
  P7:{o:HUB.DB,d:[760,855]}, P8:{o:HUB.DB,d:[210,205]}, P9:{o:HUB.DB,d:[210,520]},
  P10:{o:HUB.DB,d:[770,230]}, P11:{o:HUB.DB,d:[770,500]}, P12:{o:HUB.DB,d:[148,812]}, P13:{o:HUB.DB,d:[700,700]},
- H1:{o:HUB.DB,d:[195,955]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
+ H1:{o:HUB.DB,d:[200,914]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
  H5:{o:HUB.DB,d:[85,80]}, H6:{o:HUB.DB,d:[145,118]}, H7:{o:HUB.DB,d:[448,345]}, H8:{o:HUB.DB,d:[585,300]},
  H9:{o:HUB.DB,d:[700,418]}, H10:{o:HUB.DB,d:[835,452]},
- D1:{o:HUB.NICHE,d:[205,955]}, D2:{o:HUB.NICHE,d:[205,1010]}, D3:{o:HUB.NICHE,d:[235,1038]},
+ D1:{o:HUB.NICHE,d:[210,914]}, D2:{o:HUB.NICHE,d:[205,1010]}, D3:{o:HUB.NICHE,d:[235,1038]},
  D4:{o:HUB.NICHE,d:[745,1000]}, D5:{o:HUB.NICHE,d:[618,618]}, D6:{o:HUB.NICHE,d:[68,470]},
  D7:{o:HUB.NICHE,d:[210,560]}, D9:{o:HUB.NICHE,d:[845,720]}, D10:{o:HUB.NICHE,d:[470,700]},
  D11:{o:[80,470],d:[210,560]},
@@ -471,7 +471,7 @@ const DEVICES = [
  {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB",        xy:[505,1040]},
  {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[150,975]},
  {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server niche",   xy:[820,772]},
- {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[200,952]},
+ {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[205,915]},
  {id:"AP-GF",        floor:"GF",   svc:"data",  label:"GF ceiling AP",  xy:[470,705]},
  {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[650,600]},
  {id:"WAVESHARE-DINING",floor:"GF",svc:"data",  label:"Dining panel",   xy:[140,455]},
@@ -636,7 +636,7 @@ const ROOMS = {
   [60,380,360,690,"Dining"],
   [560,60,940,430,"Master Bedroom","12' x 12'3\""],
   [560,430,940,575,"Common Bath","9' x 4'6\""],
-  [710,610,860,830,"",""],
+  [560,610,860,700,"",""],
   [860,610,940,790,"Landing"],
   [60,720,235,905,"Pooja","5' x 5'"],
   [60,905,300,1005,"Foyer"],
@@ -651,7 +651,7 @@ const ROOMS = {
   [880,230,940,560,"Wd"],
   [880,560,940,720,"W Balcony"],
   [60,620,470,1005,"FF Living"],
-  [710,660,870,820,"",""],
+  [640,660,880,755,"",""],
   [60,840,340,1020,"Front Balcony","11'9\" x 7'"]
  ]
 };
@@ -687,9 +687,9 @@ function drawPlan(floor,g){
       if(sub)g.appendChild(txt((x1+x2)/2,(y1+y2)/2+16,sub,"rsub"));
     }
   });
-  if(floor==="GF") drawStair(g,710,610,860,830,14,"UP",true);
-  if(floor==="FF"){ drawStair(g,710,660,870,820,12,"UP TERRACE",false);
-    g.appendChild(txt(790,650,"to terrace","rsub")); }
+  if(floor==="GF") drawStair(g,560,610,860,700,22,"UP",true);
+  if(floor==="FF"){ drawStair(g,640,660,880,755,12,"UP TERRACE",false);
+    g.appendChild(txt(760,650,"to terrace","rsub")); }
   const doors = floor==="GF"
    ? [[475,955,40,"M475,995 A40,40 0 0,1 435,955"],
       [560,455,34,"M560,489 A34,34 0 0,1 594,455"]]
@@ -908,7 +908,9 @@ function buildChips(){
   auto.onclick=()=>{active=new Set(DEFAULT_ACTIVE);syncChips();apply();};
   const all=mk("All"); all.dataset.key="preset-all";
   all.onclick=()=>{active=new Set();syncChips();apply();};
-  c.appendChild(auto); c.appendChild(all);
+  const none=mk("None"); none.dataset.key="preset-none";
+  none.onclick=()=>{active=new Set(["__none__"]);syncChips();apply();};
+  c.appendChild(auto); c.appendChild(all); c.appendChild(none);
   SVC_ORDER.forEach(k=>{
     const b=mk(`<span class="sw" style="background:${SVC[k].color}"></span>${SVC[k].label}`);
     b.dataset.svc=k;
@@ -926,6 +928,7 @@ function syncChips(){
     let on=false;
     if(b.dataset.key==="preset-auto") on=isAuto;
     else if(b.dataset.key==="preset-all") on=active.size===0;
+    else if(b.dataset.key==="preset-none") on=active.has("__none__");
     else if(b.dataset.svc) on=active.has(b.dataset.svc);
     else if(b.dataset.key==="components") on=active.has("components");
     b.classList.toggle("on",on); b.classList.toggle("off",!on);
