@@ -9,6 +9,8 @@ Format:
 
 Areas: `floor-plan` · `electrical` · `furniture` · `automation` · `interior` · `materials` · `vendor` · `budget` · `timeline`
 
+> ⚠️ **If a decision changes a conduit, a device/hardware choice, a sensor, or a routing/position, update the electrician's conduit map in the SAME change** — edit `conduit-map/app.js`, run `python3 conduit-map/build_offline.py`, then commit + push `conduit-map/`. The map is a standalone offline copy and does **not** auto-update. Full how-to: `conduit-map/README.md`.
+
 ---
 
 ## 2026
