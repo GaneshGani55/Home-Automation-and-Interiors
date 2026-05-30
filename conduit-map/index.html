@@ -188,6 +188,8 @@ button{font-family:inherit; cursor:pointer;}
 #zoomctl button{width:40px; height:40px; font-size:21px; font-weight:600; line-height:1;
   background:rgba(255,255,255,.92); border:1.5px solid var(--ink); border-radius:9px; color:var(--ink);}
 #zoomctl button:active{background:var(--ink); color:var(--paper);}
+/* maximize mode (paired with fullscreen) hides the legend strip to free vertical space */
+body.maxed #legend{display:none;}
 
 /* phone responsive */
 @media (max-width:760px){
@@ -270,6 +272,7 @@ button{font-family:inherit; cursor:pointer;}
     <button id="zin" title="Zoom in">+</button>
     <button id="zout" title="Zoom out">&minus;</button>
     <button id="zreset" title="Reset view">&#8635;</button>
+    <button id="zfull" title="Full screen / fit">&#9974;</button>
   </div>
 </div>
 

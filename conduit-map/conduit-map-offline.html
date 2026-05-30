@@ -188,6 +188,8 @@ button{font-family:inherit; cursor:pointer;}
 #zoomctl button{width:40px; height:40px; font-size:21px; font-weight:600; line-height:1;
   background:rgba(255,255,255,.92); border:1.5px solid var(--ink); border-radius:9px; color:var(--ink);}
 #zoomctl button:active{background:var(--ink); color:var(--paper);}
+/* maximize mode (paired with fullscreen) hides the legend strip to free vertical space */
+body.maxed #legend{display:none;}
 
 /* phone responsive */
 @media (max-width:760px){
@@ -270,6 +272,7 @@ button{font-family:inherit; cursor:pointer;}
     <button id="zin" title="Zoom in">+</button>
     <button id="zout" title="Zoom out">&minus;</button>
     <button id="zreset" title="Reset view">&#8635;</button>
+    <button id="zfull" title="Full screen / fit">&#9974;</button>
   </div>
 </div>
 
@@ -412,29 +415,29 @@ const CONDUITS = [
 /* ============================================================
    ENDPOINT COORDINATES (viewBox 1000 x 1085)
    ============================================================ */
-const HUB = { DB:[262,930], NICHE:[820,800], DBCUP:[262,978], RISER:[800,705] };
-const NODE = { FOYERPANEL:[385,992], MBRJB:[750,205], CAVTOP:[430,905], FFAP:[490,648] };
+const HUB = { DB:[88,935], NICHE:[820,805], DBCUP:[88,978], RISER:[800,705] };
+const NODE = { FOYERPANEL:[185,990], MBRJB:[750,205], CAVTOP:[185,905], FFAP:[490,648] };
 
 const CO = {
- P1:{o:HUB.DB,d:[385,985]}, P2:{o:NODE.FOYERPANEL,d:[345,945]}, P3:{o:NODE.FOYERPANEL,d:[300,930]},
- P4:{o:NODE.FOYERPANEL,d:[430,945]}, P5:{o:NODE.FOYERPANEL,d:[440,1035]}, P6:{o:HUB.DB,d:[745,720]},
+ P1:{o:HUB.DB,d:[185,988]}, P2:{o:NODE.FOYERPANEL,d:[150,945]}, P3:{o:NODE.FOYERPANEL,d:[120,930]},
+ P4:{o:NODE.FOYERPANEL,d:[235,945]}, P5:{o:NODE.FOYERPANEL,d:[270,1040]}, P6:{o:HUB.DB,d:[745,720]},
  P7:{o:HUB.DB,d:[760,855]}, P8:{o:HUB.DB,d:[210,205]}, P9:{o:HUB.DB,d:[210,520]},
  P10:{o:HUB.DB,d:[770,230]}, P11:{o:HUB.DB,d:[770,500]}, P12:{o:HUB.DB,d:[148,812]}, P13:{o:HUB.DB,d:[700,700]},
- H1:{o:HUB.DB,d:[408,958]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
+ H1:{o:HUB.DB,d:[195,955]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
  H5:{o:HUB.DB,d:[85,80]}, H6:{o:HUB.DB,d:[145,118]}, H7:{o:HUB.DB,d:[448,345]}, H8:{o:HUB.DB,d:[585,300]},
  H9:{o:HUB.DB,d:[700,418]}, H10:{o:HUB.DB,d:[835,452]},
- D1:{o:HUB.NICHE,d:[420,958]}, D2:{o:HUB.NICHE,d:[345,1015]}, D3:{o:HUB.NICHE,d:[400,1040]},
+ D1:{o:HUB.NICHE,d:[205,955]}, D2:{o:HUB.NICHE,d:[205,1010]}, D3:{o:HUB.NICHE,d:[235,1038]},
  D4:{o:HUB.NICHE,d:[745,1000]}, D5:{o:HUB.NICHE,d:[618,618]}, D6:{o:HUB.NICHE,d:[68,470]},
  D7:{o:HUB.NICHE,d:[210,560]}, D9:{o:HUB.NICHE,d:[845,720]}, D10:{o:HUB.NICHE,d:[470,700]},
  D11:{o:[80,470],d:[210,560]},
- L1:{o:NODE.FOYERPANEL,d:[430,905]}, L2:{o:NODE.FOYERPANEL,d:[452,920]}, L3:{o:NODE.FOYERPANEL,d:[300,920]},
- L4:{o:NODE.CAVTOP,d:[355,952]}, L5:{o:HUB.NICHE,d:[360,1012]}, L6:{o:NODE.MBRJB,d:[750,72]}, L7:{o:NODE.MBRJB,d:[928,200]},
- W1:{o:HUB.NICHE,d:[845,660]}, W2:{o:HUB.DBCUP,d:[835,715]}, W3:{o:HUB.NICHE,d:[450,1045]},
- W4:{o:HUB.DBCUP,d:[495,1045]}, W5:{o:HUB.NICHE,d:[300,978]}, W6:{o:HUB.DBCUP,d:[45,985]}, W7:{o:HUB.DBCUP,d:[470,1060]},
+ L1:{o:NODE.FOYERPANEL,d:[235,905]}, L2:{o:NODE.FOYERPANEL,d:[258,918]}, L3:{o:NODE.FOYERPANEL,d:[110,918]},
+ L4:{o:NODE.CAVTOP,d:[185,950]}, L5:{o:HUB.NICHE,d:[210,1006]}, L6:{o:NODE.MBRJB,d:[750,72]}, L7:{o:NODE.MBRJB,d:[928,200]},
+ W1:{o:HUB.NICHE,d:[845,660]}, W2:{o:HUB.DBCUP,d:[835,715]}, W3:{o:HUB.NICHE,d:[505,1042]},
+ W4:{o:HUB.DBCUP,d:[505,1058]}, W5:{o:HUB.NICHE,d:[150,975]}, W6:{o:HUB.DBCUP,d:[60,1042]}, W7:{o:HUB.DBCUP,d:[520,1062]},
  F1:{o:HUB.RISER,d:[700,400]}, F2:{o:HUB.RISER,d:[560,348]}, F3:{o:HUB.RISER,d:[700,255]},
  F4:{o:HUB.RISER,d:[650,128]}, F5:{o:HUB.RISER,d:[260,400]}, F6:{o:HUB.RISER,d:[440,348]},
  F7:{o:HUB.RISER,d:[260,255]}, F8:{o:HUB.RISER,d:[300,128]}, F9:{o:HUB.RISER,d:[250,770]},
- F10:{o:HUB.RISER,d:[490,648]}, F11:{o:HUB.RISER,d:[565,612]}, F12:{o:HUB.RISER,d:[445,612]},
+ F10:{o:HUB.RISER,d:[490,648]}, F11:{o:HUB.RISER,d:[700,612]}, F12:{o:HUB.RISER,d:[270,612]},
  F14:{o:HUB.RISER,d:[110,1000]}, F15:{o:HUB.RISER,d:[762,730]}
 };
 
@@ -465,20 +468,19 @@ const MMWAVE = [
 
 /* Device / install-guide markers (tag pinned on the plan -> opens a guide). */
 const DEVICES = [
- {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB",        xy:[470,1042]},
- {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[315,978]},
- {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server niche",   xy:[820,768]},
- {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[420,945]},
+ {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB",        xy:[505,1040]},
+ {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[150,975]},
+ {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server niche",   xy:[820,772]},
+ {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[200,952]},
  {id:"AP-GF",        floor:"GF",   svc:"data",  label:"GF ceiling AP",  xy:[470,705]},
- {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[650,598]},
+ {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[650,600]},
  {id:"WAVESHARE-DINING",floor:"GF",svc:"data",  label:"Dining panel",   xy:[140,455]},
- {id:"CAM-DOORBELL", floor:"GF",   svc:"data",  label:"Doorbell",       xy:[330,1008]},
+ {id:"CAM-DOORBELL", floor:"GF",   svc:"data",  label:"Doorbell",       xy:[210,1010]},
  {id:"CAM-N",        floor:"GF",   svc:"data",  label:"Living N cam",   xy:[745,982]},
- {id:"SMART-SWITCH", floor:"GF",   svc:"power_light", label:"Smart switch box", xy:[330,908]},
+ {id:"SMART-SWITCH", floor:"GF",   svc:"power_light", label:"Smart switch box", xy:[215,912]},
  {id:"AP-FF",        floor:"FF",   svc:"data",  label:"FF ceiling AP",  xy:[490,692]},
  {id:"CAM-3",        floor:"FF",   svc:"data",  label:"CAM-3",          xy:[120,998]},
- {id:"JB-SINTEX",    floor:"TERRACE",svc:"water", label:"Sintex JB",    xy:[790,262]},
- {id:"CAM-5R",       floor:"TERRACE",svc:"data",  label:"CAM-5",        xy:[640,772]}
+ {id:"CAM-5R",       floor:"TERRACE",svc:"data",  label:"CAM-5",        xy:[640,790]}
 ];
 
 /* ============================================================
@@ -634,12 +636,12 @@ const ROOMS = {
   [60,380,360,690,"Dining"],
   [560,60,940,430,"Master Bedroom","12' x 12'3\""],
   [560,430,940,575,"Common Bath","9' x 4'6\""],
-  [560,610,860,830,"",""],
+  [710,610,860,830,"",""],
   [860,610,940,790,"Landing"],
   [60,720,235,905,"Pooja","5' x 5'"],
-  [235,905,475,1005,"Foyer"],
+  [60,905,300,1005,"Foyer"],
   [540,615,940,1005,"Living Hall","16'11\" x 16'11\""],
-  [320,1008,560,1072,"Porch","main door + sump (W wall)"]
+  [40,1008,540,1075,"Porch","main door + sump (W wall)"]
  ],
  FF:[
   [180,60,470,230,"Toilet 1","sink-toilet-shower"],
@@ -649,7 +651,7 @@ const ROOMS = {
   [880,230,940,560,"Wd"],
   [880,560,940,720,"W Balcony"],
   [60,620,470,1005,"FF Living"],
-  [640,660,880,820,"",""],
+  [710,660,870,820,"",""],
   [60,840,340,1020,"Front Balcony","11'9\" x 7'"]
  ]
 };
@@ -685,9 +687,9 @@ function drawPlan(floor,g){
       if(sub)g.appendChild(txt((x1+x2)/2,(y1+y2)/2+16,sub,"rsub"));
     }
   });
-  if(floor==="GF") drawStair(g,560,610,860,830,22,"UP",true);
-  if(floor==="FF"){ drawStair(g,640,660,880,820,12,"UP TERRACE",false);
-    g.appendChild(txt(760,650,"to terrace","rsub")); }
+  if(floor==="GF") drawStair(g,710,610,860,830,14,"UP",true);
+  if(floor==="FF"){ drawStair(g,710,660,870,820,12,"UP TERRACE",false);
+    g.appendChild(txt(790,650,"to terrace","rsub")); }
   const doors = floor==="GF"
    ? [[475,955,40,"M475,995 A40,40 0 0,1 435,955"],
       [560,455,34,"M560,489 A34,34 0 0,1 594,455"]]
@@ -856,27 +858,39 @@ function drawTerrace(g){
   // corner tags (orientation: S top, N bottom, E left, W right)
   g.appendChild(txt(170,196,"SE","rsub")); g.appendChild(txt(830,196,"SW","rsub"));
   g.appendChild(txt(170,892,"NE","rsub")); g.appendChild(txt(830,892,"NW","rsub"));
-  // Sintex tank at the SW corner (top-right)
-  g.appendChild(el("circle",{cx:800,cy:255,r:58,fill:"#EAF4EF",stroke:SVC.water.color,"stroke-width":2}));
-  g.appendChild(txt(800,250,"SINTEX","rsub")); g.appendChild(txt(800,266,"1500L","rsub"));
-  // stair exit from FF
+  // stair exit from FF + riser arrival
   g.appendChild(el("rect",{x:600,y:710,width:130,height:95,class:"wall"}));
   g.appendChild(txt(665,700,"stair up from FF","rsub"));
-  // riser bundle arrival on the terrace
   const ax=662,ay=722;
   function tl(x1,y1,x2,y2,color,dash,wd){
     const p=el("path",{d:`M${x1},${y1} L${x1},${y2} L${x2},${y2}`,fill:"none",stroke:color,
       "stroke-width":wd||4,"stroke-linecap":"round","stroke-linejoin":"round"});
     if(dash)p.setAttribute("stroke-dasharray","7,5"); g.appendChild(p);
   }
-  tl(ax,ay,792,300,SVC.water.color,false,5);      // W1 Sintex sensor Cat6
-  tl(ax-22,ay,650,778,SVC.data.color,true,4);      // CAM-5 to parapet
+  tl(ax,ay,790,318,SVC.water.color,false,5);      // W1 sensor TERMINATES at the tank JB
+  tl(ax-24,ay,648,790,SVC.data.color,true,4);     // CAM-5 to parapet
+  // W2 float DEPARTS the tank back down the riser to the DB cupboard
+  const w2=el("path",{d:"M828,316 L860,316 L860,650 L700,650",fill:"none",stroke:SVC.water.color,
+    "stroke-width":4,"stroke-dasharray":"7,5","stroke-linecap":"round","stroke-linejoin":"round"});
+  g.appendChild(w2);
+  g.appendChild(txt(745,395,"W1 ↑","rsub")); g.appendChild(txt(885,470,"W2 ↓","rsub"));
+  g.appendChild(txt(610,775,"CAM-5","rsub"));
   g.appendChild(el("circle",{cx:ax,cy:ay,r:6,fill:"#1C1C1E"}));
   g.appendChild(txt(ax,ay+20,"riser arrives (D9 + W1 + CAM-5)","rsub"));
+  // Sintex tank at the SW corner (top-right) — TAPPABLE, opens the Sintex JB guide
+  const tank=el("g",{class:"dev","data-id":"JB-SINTEX"});
+  tank.appendChild(el("circle",{cx:800,cy:262,r:58,fill:"#EAF4EF",stroke:SVC.water.color,"stroke-width":2}));
+  tank.appendChild(txt(800,250,"SINTEX","rsub"));
+  tank.appendChild(txt(800,265,"1500L","rsub"));
+  const jb=txt(800,286,"⊙ Sintex JB",""); jb.setAttribute("font-size","10"); jb.setAttribute("font-weight","700"); jb.setAttribute("fill",SVC.water.color);
+  tank.appendChild(jb);
+  tank.addEventListener("click",e=>{e.stopPropagation();openGuide("JB-SINTEX");});
+  g.appendChild(tank);
   // mini legend
-  g.appendChild(txt(250,470,"W1 = Sintex sensor Cat6 (PoE)","rsub")).setAttribute("text-anchor","start");
-  g.appendChild(txt(250,492,"W2 = Sintex float → down to DB cupboard","rsub")).setAttribute("text-anchor","start");
+  g.appendChild(txt(250,470,"W1 = Sintex sensor Cat6 (PoE) — terminates at the tank JB","rsub")).setAttribute("text-anchor","start");
+  g.appendChild(txt(250,492,"W2 = Sintex float — departs down to the DB cupboard","rsub")).setAttribute("text-anchor","start");
   g.appendChild(txt(250,514,"CAM-5 = terrace parapet camera","rsub")).setAttribute("text-anchor","start");
+  g.appendChild(txt(250,540,"Tap the tank for the full Sintex JB install guide","rsub")).setAttribute("text-anchor","start");
 }
 
 /* ============================================================
@@ -884,22 +898,37 @@ function drawTerrace(g){
    ============================================================ */
 let floor="GF", active=new Set(DEFAULT_ACTIVE), selRef=null, query="";
 
+/* Filter model (mobile-friendly):
+   - tap a service/Components chip = SOLO it (show only that). Tap it again = back to Automation.
+   - "Automation" preset = the 4 automation layers. "All" preset = everything incl. power. */
 function buildChips(){
-  const c=document.getElementById("chips");
+  const c=document.getElementById("chips"); c.innerHTML="";
+  const mk=(html,cls)=>{const b=document.createElement("button");b.className="chip"+(cls||"");b.innerHTML=html;return b;};
+  const auto=mk("Automation"); auto.dataset.key="preset-auto";
+  auto.onclick=()=>{active=new Set(DEFAULT_ACTIVE);syncChips();apply();};
+  const all=mk("All"); all.dataset.key="preset-all";
+  all.onclick=()=>{active=new Set();syncChips();apply();};
+  c.appendChild(auto); c.appendChild(all);
   SVC_ORDER.forEach(k=>{
-    const b=document.createElement("button");
-    b.className="chip"; b.dataset.svc=k;
-    b.innerHTML=`<span class="sw" style="background:${SVC[k].color}"></span>${SVC[k].label}`;
-    b.onclick=()=>{active.has(k)?active.delete(k):active.add(k); syncChips(); apply();};
+    const b=mk(`<span class="sw" style="background:${SVC[k].color}"></span>${SVC[k].label}`);
+    b.dataset.svc=k;
+    b.onclick=()=>{ active=(active.size===1&&active.has(k))?new Set(DEFAULT_ACTIVE):new Set([k]); syncChips(); apply(); };
     c.appendChild(b);
   });
+  const comp=mk(`<span class="sw" style="background:#2F2C28"></span>Components`); comp.dataset.key="components";
+  comp.onclick=()=>{ active=(active.size===1&&active.has("components"))?new Set(DEFAULT_ACTIVE):new Set(["components"]); syncChips(); apply(); };
+  c.appendChild(comp);
   syncChips();
 }
 function syncChips(){
+  const isAuto = active.size===DEFAULT_ACTIVE.length && DEFAULT_ACTIVE.every(k=>active.has(k));
   document.querySelectorAll(".chip").forEach(b=>{
-    const on=active.has(b.dataset.svc);
-    b.classList.toggle("on",on);
-    b.classList.toggle("off",active.size>0&&!on);
+    let on=false;
+    if(b.dataset.key==="preset-auto") on=isAuto;
+    else if(b.dataset.key==="preset-all") on=active.size===0;
+    else if(b.dataset.svc) on=active.has(b.dataset.svc);
+    else if(b.dataset.key==="components") on=active.has("components");
+    b.classList.toggle("on",on); b.classList.toggle("off",!on);
   });
 }
 function buildLegend(){
@@ -939,7 +968,7 @@ function apply(){
   // component tags follow the service filter + search; dimmed ones are non-clickable
   document.querySelectorAll(`#view-${floor} .dev`).forEach(g=>{
     const id=g.dataset.id; const d=DEVICES.find(x=>x.id===id);
-    const passSvc = active.size===0 || (d && active.has(d.svc));
+    const passSvc = active.size===0 || active.has("components") || (d && active.has(d.svc));
     const passQ=!query || id.toLowerCase().includes(query) || (d&&d.label.toLowerCase().includes(query));
     g.classList.toggle("dim", !(passSvc&&passQ));
   });
@@ -1093,7 +1122,7 @@ let vb={x:0,y:0,w:1000,h:1085};
 const planEl=document.getElementById("plan");
 function applyVB(){planEl.setAttribute("viewBox",`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);}
 function clampVB(){
-  const minW=BASE.w*0.32, maxW=BASE.w;
+  const minW=BASE.w*0.16, maxW=BASE.w;
   vb.w=Math.max(minW,Math.min(maxW,vb.w));
   vb.h=vb.w*(BASE.h/BASE.w);
   const ox=BASE.w*0.12, oy=BASE.h*0.12;
@@ -1107,9 +1136,16 @@ function metrics(){
   return {r,scale,offX:(r.width-vb.w*scale)/2, offY:(r.height-vb.h*scale)/2};
 }
 function toVB(cx,cy){const m=metrics();return {x:vb.x+(cx-m.r.left-m.offX)/m.scale, y:vb.y+(cy-m.r.top-m.offY)/m.scale};}
-function zoomAt(vx,vy,f){const nw=Math.max(BASE.w*0.32,Math.min(BASE.w,vb.w*f));
+function zoomAt(vx,vy,f){const nw=Math.max(BASE.w*0.16,Math.min(BASE.w,vb.w*f));
   vb.x=vx-(vx-vb.x)*(nw/vb.w); vb.y=vy-(vy-vb.y)*(nw/vb.w); vb.w=nw; clampVB(); applyVB();}
 function zoomCenter(f){const m=metrics();const c=toVB(m.r.left+m.r.width/2,m.r.top+m.r.height/2);zoomAt(c.x,c.y,f);}
+function toggleFull(){
+  const el=document.documentElement;
+  const fs=document.fullscreenElement||document.webkitFullscreenElement;
+  if(!fs){ const rq=el.requestFullscreen||el.webkitRequestFullscreen; if(rq)try{rq.call(el);}catch(e){} document.body.classList.add("maxed"); }
+  else { const ex=document.exitFullscreen||document.webkitExitFullscreen; if(ex)try{ex.call(document);}catch(e){} document.body.classList.remove("maxed"); }
+  setTimeout(resetVB,180);
+}
 
 let dragging=false,moved=false,sx=0,sy=0,sox=0,soy=0,suppress=false,pinchD=0;
 function tdist(t){return Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);}
@@ -1156,6 +1192,7 @@ function init(){
   document.getElementById("zin").onclick=()=>zoomCenter(0.7);
   document.getElementById("zout").onclick=()=>zoomCenter(1.43);
   document.getElementById("zreset").onclick=resetVB;
+  document.getElementById("zfull").onclick=toggleFull;
   document.getElementById("rotdismiss").onclick=()=>{document.getElementById("rotate").style.display="none";};
 
   setFloor("GF");
