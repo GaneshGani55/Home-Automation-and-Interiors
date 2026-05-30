@@ -337,8 +337,8 @@ const SVC = {
 };
 /* Automation services are listed first; power is toggled on when needed. */
 const SVC_ORDER = ["data","lv16","water","presence","power_light","power_heavy"];
-/* Filter active on load (automation-first). */
-const DEFAULT_ACTIVE = ["data","lv16","water","presence"];
+/* Filter active on load (automation-first). Components are an independent layer. */
+const DEFAULT_ACTIVE = ["data","lv16","water","presence","components"];
 
 /* ============================================================
    CONDUIT DATA
@@ -379,6 +379,7 @@ const CONDUITS = [
  {ref:"D9",floor:"GF",service:"data",size:"25mm x 3",status:"live",from:"Niche",to:"Vertical riser -> FF -> Terrace (3 bundles)",contents:"3x LV-25: R-FF-1 (2x Cat6), R-FF-2, R-FF-3. CAM-3, CAM-5 and the Sintex run continue UP to terrace.",note:"Dedicated 150mm-wide chase channel up the staircase wall.",explain:"The vertical data spine. 3 grey conduits up the staircase wall carry ALL First-Floor and Terrace data - FF APs, the two study drops, the balcony + terrace cameras, and the Sintex tank sensor run all continue up here. See the Riser and Terrace tabs for what reaches the top."},
  {ref:"D10",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"GF false-ceiling AP, central JB above dining/living junction (R-GF-1)",contents:"1x Cat6 UTP (PoE) + draw wire",note:"Ubiquiti UniFi U6-Lite or equiv. PoE only - no socket. Primary GF Wi-Fi 6.",explain:"Cat6 (PoE) from the niche to the GF ceiling Wi-Fi AP above the dining/living junction. One cable powers the AP and backhauls it - no socket needed in the ceiling."},
  {ref:"D11",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Dining panel (Pi)",to:"Dining ceiling speaker JB",contents:"Short AV / control link (2-core or 3.5mm)",note:"NEW 2026-05-30.",explain:"Lets the dining panel's Raspberry Pi play and control audio on the dining ceiling speaker. Short hop - can be pulled through the false-ceiling void between the panel and the speaker JB, so no wall break is needed."},
+ {ref:"D12",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"TV unit (W wall of Living)",contents:"1x Cat6 (UTP)",note:"Wired network point behind the TV unit.",explain:"Cat6 from the server to the TV unit on the W wall of the Living Hall - a wired drop behind the TV for a smart-TV / streaming box / console, so the main screen doesn't depend on Wi-Fi."},
 
  {ref:"L1",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Cove LED driver in false ceiling",contents:"24V DC 2-core",note:"Driver in false ceiling perimeter. Accessible via inspection hatch.",explain:"24V DC from the foyer panel (Gang 2) to the cove LED driver hidden in the false ceiling. The driver converts 230V->24V; this 2-core only carries the low-voltage OUTPUT to the strip. Runs inside the foyer panel's existing ceiling chase - no extra wall break."},
  {ref:"L2",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Halo driver above false ceiling near cavity top",contents:"24V DC 2-core",note:"Halo strip wraps cavity reveal. Amber 2200K.",explain:"24V to the amber halo strip that frames the screen cavity. Driven from the same panel gang as the cove; the driver sits above the false ceiling near the cavity top."},
@@ -415,7 +416,7 @@ const CONDUITS = [
 /* ============================================================
    ENDPOINT COORDINATES (viewBox 1000 x 1085)
    ============================================================ */
-const HUB = { DB:[88,935], NICHE:[900,760], DBCUP:[88,978], RISER:[800,705] };
+const HUB = { DB:[88,935], NICHE:[900,730], DBCUP:[88,978], RISER:[800,705] };
 const NODE = { FOYERPANEL:[185,990], MBRJB:[750,205], CAVTOP:[185,905], FFAP:[490,648] };
 
 const CO = {
@@ -429,10 +430,10 @@ const CO = {
  D1:{o:HUB.NICHE,d:[210,914]}, D2:{o:HUB.NICHE,d:[205,1010]}, D3:{o:HUB.NICHE,d:[490,1038]},
  D4:{o:HUB.NICHE,d:[745,1000]}, D5:{o:HUB.NICHE,d:[618,618]}, D6:{o:HUB.NICHE,d:[68,470]},
  D7:{o:HUB.NICHE,d:[210,560]}, D9:{o:HUB.NICHE,d:[845,720]}, D10:{o:HUB.NICHE,d:[470,700]},
- D11:{o:[80,470],d:[210,560]},
+ D11:{o:[80,470],d:[210,560]}, D12:{o:HUB.NICHE,d:[928,825]},
  L1:{o:NODE.FOYERPANEL,d:[235,905]}, L2:{o:NODE.FOYERPANEL,d:[258,918]}, L3:{o:NODE.FOYERPANEL,d:[110,918]},
  L4:{o:NODE.CAVTOP,d:[185,950]}, L5:{o:HUB.NICHE,d:[210,1006]}, L6:{o:NODE.MBRJB,d:[750,72]}, L7:{o:NODE.MBRJB,d:[928,200]},
- W1:{o:HUB.NICHE,d:[845,660]}, W2:{o:HUB.DBCUP,d:[835,715]}, W3:{o:HUB.NICHE,d:[505,1042]},
+ W1:{o:HUB.NICHE,d:[845,660]}, W2:{o:[920,72],via:[[75,72],[75,985]],d:[130,985]}, W3:{o:HUB.NICHE,d:[505,1042]},
  W4:{o:HUB.DBCUP,d:[505,1058]}, W5:{o:HUB.NICHE,d:[150,975]}, W6:{o:HUB.DBCUP,d:[60,1042]}, W7:{o:HUB.DBCUP,d:[520,1062]},
  F1:{o:HUB.RISER,d:[700,400]}, F2:{o:HUB.RISER,d:[560,348]}, F3:{o:HUB.RISER,d:[700,255]},
  F4:{o:HUB.RISER,d:[650,128]}, F5:{o:HUB.RISER,d:[260,400]}, F6:{o:HUB.RISER,d:[440,348]},
@@ -470,7 +471,7 @@ const MMWAVE = [
 const DEVICES = [
  {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB",        xy:[505,1040]},
  {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[150,975]},
- {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server",         xy:[900,800]},
+ {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server",         xy:[900,770]},
  {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[205,915]},
  {id:"AP-GF",        floor:"GF",   svc:"data",  label:"GF ceiling AP",  xy:[470,705]},
  {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[650,600]},
@@ -749,7 +750,8 @@ function drawConduits(floor,g){
     const color=SVC[c.service].color;
     const jit=((i%9)-4)*9;
     const grp=el("g",{class:"cond"+(c.status==="provision"?" prov":""),"data-ref":c.ref});
-    const dpath=routeD(co.o,co.d,jit);
+    // co.via = explicit waypoints (used to hug the wall boundary, e.g. the Sintex float W2)
+    const dpath=co.via ? "M"+[co.o,...co.via,co.d].map(p=>p[0]+","+p[1]).join(" L") : routeD(co.o,co.d,jit);
     grp.appendChild(el("path",{class:"hit",d:dpath}));
     grp.appendChild(el("path",{class:"ln",d:dpath,stroke:color}));
     grp.appendChild(el("circle",{class:"dot",cx:co.d[0],cy:co.d[1],r:11,
@@ -918,11 +920,11 @@ function buildChips(){
   SVC_ORDER.forEach(k=>{
     const b=mk(`<span class="sw" style="background:${SVC[k].color}"></span>${SVC[k].label}`);
     b.dataset.svc=k;
-    b.onclick=()=>{ active=(active.size===1&&active.has(k))?new Set(DEFAULT_ACTIVE):new Set([k]); syncChips(); apply(); };
+    b.onclick=()=>{ active.delete("__none__"); active.has(k)?active.delete(k):active.add(k); syncChips(); apply(); };
     c.appendChild(b);
   });
   const comp=mk(`<span class="sw" style="background:#2F2C28"></span>Components`); comp.dataset.key="components";
-  comp.onclick=()=>{ active=(active.size===1&&active.has("components"))?new Set(DEFAULT_ACTIVE):new Set(["components"]); syncChips(); apply(); };
+  comp.onclick=()=>{ active.delete("__none__"); active.has("components")?active.delete("components"):active.add("components"); syncChips(); apply(); };
   c.appendChild(comp);
   syncChips();
 }
@@ -975,7 +977,7 @@ function apply(){
   // component tags follow the service filter + search; dimmed ones are non-clickable
   document.querySelectorAll(`#view-${floor} .dev`).forEach(g=>{
     const id=g.dataset.id; const d=DEVICES.find(x=>x.id===id);
-    const passSvc = active.size===0 || active.has("components") || (d && active.has(d.svc));
+    const passSvc = active.size===0 || active.has("components"); // components are their own layer
     const passQ=!query || id.toLowerCase().includes(query) || (d&&d.label.toLowerCase().includes(query));
     g.classList.toggle("dim", !(passSvc&&passQ));
   });
