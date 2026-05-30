@@ -415,7 +415,7 @@ const CONDUITS = [
 /* ============================================================
    ENDPOINT COORDINATES (viewBox 1000 x 1085)
    ============================================================ */
-const HUB = { DB:[88,935], NICHE:[820,805], DBCUP:[88,978], RISER:[800,705] };
+const HUB = { DB:[88,935], NICHE:[900,760], DBCUP:[88,978], RISER:[800,705] };
 const NODE = { FOYERPANEL:[185,990], MBRJB:[750,205], CAVTOP:[185,905], FFAP:[490,648] };
 
 const CO = {
@@ -426,7 +426,7 @@ const CO = {
  H1:{o:HUB.DB,d:[200,914]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
  H5:{o:HUB.DB,d:[85,80]}, H6:{o:HUB.DB,d:[145,118]}, H7:{o:HUB.DB,d:[448,345]}, H8:{o:HUB.DB,d:[585,300]},
  H9:{o:HUB.DB,d:[700,418]}, H10:{o:HUB.DB,d:[835,452]},
- D1:{o:HUB.NICHE,d:[210,914]}, D2:{o:HUB.NICHE,d:[205,1010]}, D3:{o:HUB.NICHE,d:[235,1038]},
+ D1:{o:HUB.NICHE,d:[210,914]}, D2:{o:HUB.NICHE,d:[205,1010]}, D3:{o:HUB.NICHE,d:[490,1038]},
  D4:{o:HUB.NICHE,d:[745,1000]}, D5:{o:HUB.NICHE,d:[618,618]}, D6:{o:HUB.NICHE,d:[68,470]},
  D7:{o:HUB.NICHE,d:[210,560]}, D9:{o:HUB.NICHE,d:[845,720]}, D10:{o:HUB.NICHE,d:[470,700]},
  D11:{o:[80,470],d:[210,560]},
@@ -470,14 +470,14 @@ const MMWAVE = [
 const DEVICES = [
  {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB",        xy:[505,1040]},
  {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[150,975]},
- {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server niche",   xy:[820,772]},
+ {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server",         xy:[900,800]},
  {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[205,915]},
  {id:"AP-GF",        floor:"GF",   svc:"data",  label:"GF ceiling AP",  xy:[470,705]},
  {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[650,600]},
  {id:"WAVESHARE-DINING",floor:"GF",svc:"data",  label:"Dining panel",   xy:[140,455]},
  {id:"CAM-DOORBELL", floor:"GF",   svc:"data",  label:"Doorbell",       xy:[210,1010]},
  {id:"CAM-N",        floor:"GF",   svc:"data",  label:"Living N cam",   xy:[745,982]},
- {id:"SMART-SWITCH", floor:"GF",   svc:"power_light", label:"Smart switch box", xy:[215,912]},
+ {id:"SMART-SWITCH", floor:"GF",   svc:"power_light", label:"Smart switch box", xy:[630,890]},
  {id:"AP-FF",        floor:"FF",   svc:"data",  label:"FF ceiling AP",  xy:[490,692]},
  {id:"CAM-3",        floor:"FF",   svc:"data",  label:"CAM-3",          xy:[120,998]},
  {id:"CAM-5R",       floor:"TERRACE",svc:"data",  label:"CAM-5",        xy:[640,790]}
@@ -706,7 +706,7 @@ function drawStair(g,x1,y1,x2,y2,n,label,up){
 
 function drawHubs(floor,g){
   const list = floor==="GF"
-    ? [["NICHE",HUB.NICHE,"#FFE650","NICHE",90,26],
+    ? [["NICHE",HUB.NICHE,"#FFE650","SERVER",90,26],
        ["DB",HUB.DB,"#FFC8C8","DB",58,24],
        ["DBCUP",HUB.DBCUP,"#C8F0DC","DB CUPBD",78,22]]
     : [["RISER",HUB.RISER,"#FFE650","RISER",78,26]];
@@ -734,7 +734,11 @@ function drawHubs(floor,g){
 }
 
 function routeD(o,d,jit){
-  const my=o[1]+jit;
+  // horizontal trunk sits BETWEEN origin and destination (clamped) so a run never
+  // dips past its endpoint — e.g. foyer-panel LV lines no longer loop down to the porch.
+  let my=(o[1]+d[1])/2 + jit*0.45;
+  const lo=Math.min(o[1],d[1])-6, hi=Math.max(o[1],d[1])+6;
+  my=Math.max(lo,Math.min(hi,my));
   return `M${o[0]},${o[1]} L${o[0]},${my} L${d[0]},${my} L${d[0]},${d[1]}`;
 }
 
@@ -794,7 +798,7 @@ function drawDevices(floor,g){
     grp.appendChild(el("circle",{class:"gear",cx:x+11,cy:cy,r:3.4}));
     grp.appendChild(el("circle",{cx:x+11,cy:cy,r:1.6,fill:col}));
     const t=txt(cx+7,cy+3.4,d.label,"lab"); grp.appendChild(t);
-    grp.addEventListener("click",e=>{e.stopPropagation();openGuide(d.id);});
+    grp.addEventListener("click",e=>{e.stopPropagation();openDeviceAt(d.id);});
     g.appendChild(grp);
   });
 }
@@ -944,7 +948,7 @@ function buildLegend(){
   h+=`<span class="it"><svg width="20" height="14"><rect x="1" y="2" width="18" height="11" rx="3" fill="#2F2C28"/><circle cx="6" cy="7.5" r="2.6" fill="#fff"/></svg>Dark box = component (tap for install guide)</span>`;
   h+=`<span class="it"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1C1C1E" stroke-width="4"/></svg>Solid = pull cable now</span>`;
   h+=`<span class="it"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1C1C1E" stroke-width="4" stroke-dasharray="6,4"/></svg>Dashed = pull string only</span>`;
-  h+=`<span class="it"><svg width="14" height="14"><rect x="1" y="1" width="12" height="12" rx="2" fill="#FFE650" stroke="#1C1C1E"/></svg>Niche</span>`;
+  h+=`<span class="it"><svg width="14" height="14"><rect x="1" y="1" width="12" height="12" rx="2" fill="#FFE650" stroke="#1C1C1E"/></svg>Server</span>`;
   h+=`<span class="it"><svg width="14" height="14"><rect x="1" y="1" width="12" height="12" rx="2" fill="#C8F0DC" stroke="#1C1C1E"/></svg>DB cupboard</span>`;
   lg.innerHTML=h;
 }
@@ -1046,6 +1050,21 @@ function renderGuide(G){
   document.getElementById("scrim").classList.add("on");
 }
 function openGuide(id){const G=GUIDES[id]; if(G)renderGuide(G);}
+/* if components overlap at the tapped spot, show a chooser first; otherwise open directly */
+function devCluster(id){const d=DEVICES.find(x=>x.id===id); if(!d)return [];
+  return DEVICES.filter(x=>x.floor===d.floor && Math.hypot(x.xy[0]-d.xy[0],x.xy[1]-d.xy[1])<30);}
+function openDeviceAt(id){const cl=devCluster(id); if(cl.length>1) renderChooser(cl); else openGuide(id);}
+function renderChooser(list){
+  document.getElementById("panel").classList.remove("open");
+  document.getElementById("g-title").textContent="Components here";
+  document.getElementById("g-sub").textContent="A few components overlap — pick one";
+  const ic=document.getElementById("g-icon"); ic.style.background="#2F2C28"; ic.textContent="▤";
+  document.getElementById("g-body").innerHTML=`<div class="gsec"><div class="grel" style="flex-direction:column;align-items:stretch;gap:8px">`+
+    list.map(d=>`<button data-pick="${d.id}" style="text-align:left;padding:11px 13px;font-size:13px">${GUIDES[d.id]?GUIDES[d.id].title:d.label}</button>`).join("")+`</div></div>`;
+  document.querySelectorAll("#g-body [data-pick]").forEach(b=>b.onclick=()=>openGuide(b.dataset.pick));
+  document.getElementById("guide").classList.add("open");
+  document.getElementById("scrim").classList.add("on");
+}
 function openMmwave(ref){
   const m=MMWAVE.find(x=>x.ref===ref); if(!m)return;
   renderGuide({
