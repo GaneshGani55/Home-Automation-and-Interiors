@@ -356,7 +356,7 @@ const CONDUITS = [
  {ref:"P10",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"MBR ceiling + bedsides (E wall) + wardrobe driver (S+W walls)",contents:"1.5sqmm L + N + E",note:"Centre on bed after headboard line is marked."},
  {ref:"P11",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"GF Bath ceiling + mirror + exhaust + PIR outside door",contents:"1.5sqmm L + N + E",note:"PIR outside door at 1200mm FFL. Geyser switch BELOW at 1050mm."},
  {ref:"P12",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"Pooja ceiling spotlights + decorative strip",contents:"1.5sqmm L + N + E",note:"Confirm fixture spec on-site."},
- {ref:"P13",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"Step lights + mid-flight wall light + niche + landing",contents:"1.5sqmm L + N + E",note:"Step lights (3W each) on each riser left side."},
+ {ref:"P13",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"Step lights + mid-flight wall light + server + landing",contents:"1.5sqmm L + N + E",note:"Step lights (3W each) on each riser left side."},
 
  {ref:"H1",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Foyer screen cavity (back wall) - 2x 5A sockets",contents:"2.5sqmm L + N + E",note:"Sonoff Mini R2 inside socket box switches Monitor only."},
  {ref:"H2",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"TV wall (W wall of Living) - 3 boxes (16A + double 5A + Cat6 keystone)",contents:"2.5sqmm L + N + E",note:"All at 300mm FFL. Keystone box 150mm from power boxes."},
@@ -364,20 +364,20 @@ const CONDUITS = [
  {ref:"H4",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Kitchen counter - 4x sockets at 1100mm FFL",contents:"2.5sqmm L + N + E",note:"Above counter, behind backsplash. Confirm with kitchen designer."},
  {ref:"H5",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Chimney socket above hob at 1900mm FFL",contents:"2.5sqmm L + N + E",note:"16A socket centred over hob."},
  {ref:"H6",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Hob position at 150mm FFL (floor screed route)",contents:"4sqmm L + N + E (25A direct hardwire)",note:"NO socket - direct hardwire. 25A MCB."},
- {ref:"H7",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Fridge niche socket at 300mm FFL",contents:"2.5sqmm L + N + E",note:"Confirm height after fridge model is picked."},
+ {ref:"H7",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Fridge alcove socket at 300mm FFL",contents:"2.5sqmm L + N + E",note:"Confirm height after fridge model is picked."},
  {ref:"H8",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"MBR bedside sockets (E wall) at 600mm FFL + utility",contents:"2.5sqmm L + N + E",note:"Flank the headboard."},
  {ref:"H9",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"MBR AC socket at 1850mm FFL on N wall above door",contents:"4sqmm L + N + E (20A RCBO)",note:"Confirm AC manual for socket position relative to outdoor unit."},
  {ref:"H10",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Bath geyser outlet at 1850mm FFL inside bathroom",contents:"2.5sqmm L + N + E (20A RCBO)",note:"Geyser SWITCH (DP) outside door at 1050mm FFL."},
 
- {ref:"D1",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Foyer screen cavity (back wall, bottom-RIGHT)",contents:"1x indoor Cat6 (UTP)",note:"FLOOR route under screed (not ceiling). ~12m.",explain:"Cat6 (floor route under the screed) from the niche to the foyer screen cavity. It powers (PoE) and feeds the Raspberry Pi behind the welcome monitor. Shares one floor chase with D2 + D3 - no separate break."},
- {ref:"D2",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Main-door outside face (Hikvision DS-KV6113-WPE1(C) video doorbell, PoE)",contents:"1x outdoor LSZH UV-rated Cat6 (PoE)",note:"Doorbell at 1450mm FFL, latch side. Shared floor route with D1+D3. Updated 2026-05-22: Hikvision DS-KV6113-WPE1(C) replaces the earlier Reolink TC541.",explain:"Outdoor Cat6 (PoE) to the video doorbell. ONE cable both powers the doorbell and carries its video back to the server for face detection - no power needed at the door."},
- {ref:"D3",floor:"GF",service:"data",size:"25mm",status:"provision",from:"Niche",to:"Porch W wall (future face-detection camera, CAM-1)",contents:"PULL STRING ONLY - capped IP67 back-box, 1650mm FFL",note:"DROPPED from base install (doorbell handles face capture).",explain:"Spare conduit for a future dedicated face camera if the doorbell's face detection ever proves unreliable. Pull-string only now; a Cat6 can be drawn later - no wall break."},
- {ref:"D4",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Living Hall N wall, MIDDLE (overview camera, CAM-2)",contents:"1x outdoor Cat6 (PoE) - conduit route chosen on site",note:"Moved 2026-05-30: was porch ceiling NE corner; now mid of the Living Hall NORTH wall. Technician picks the conduit route.",explain:"Overview camera relocated to the middle of the Living Hall north (entrance-facing) wall - it watches the porch / main approach. Conduit route is left to the technician: pull from the niche, or tap the nearest data run, whatever is cleanest on site."},
- {ref:"D5",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Staircase S wall, 1500mm FFL (Waveshare 10.1in panel)",contents:"1x HDMI 2.0 (3m) + 1x USB-A->micro-USB (3m) + existing Cat6 spare",note:"CUSTOM 280x195x80mm masonry cavity (not modular). Above existing 2M switch with ~200mm gap.",explain:"Two cables (HDMI + USB) from the Beelink in the niche carry picture + touch straight to the staircase panel - no computer at the screen. The old Cat6 in this conduit is kept as a labelled spare."},
- {ref:"D6",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Dining E wall (Waveshare dining panel)",contents:"1x indoor Cat6 + 1x pull string",note:"~12m / 35-40ft. Pi-at-screen pattern.",explain:"Cat6 from the niche to the dining wall panel. A small Pi behind the screen gets PoE power + data on this ONE cable and renders the Home Assistant dashboard. The interior designer will try to fit this screen into the cantilevered kitchen shelves, so box height/position is kept flexible (500mm slack)."},
- {ref:"D7",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"Dining ceiling JB (mono speaker)",contents:"1x indoor Cat6 (PoE-capable) + 1x pull string",note:"Pi + PAM8403 + 3in ceiling speaker. ~10m. This is the LOW-voltage speaker run via the niche.",explain:"Cat6 from the niche to a ceiling junction box above the dining table for a mono ceiling speaker. PoE-capable, so a small Pi/amp can sit at the ceiling - or the dining panel's Pi can drive it (see D11)."},
- {ref:"D9",floor:"GF",service:"data",size:"25mm x 3",status:"live",from:"Niche",to:"Vertical riser -> FF -> Terrace (3 bundles)",contents:"3x LV-25: R-FF-1 (2x Cat6), R-FF-2, R-FF-3. CAM-3, CAM-5 and the Sintex run continue UP to terrace.",note:"Dedicated 150mm-wide chase channel up the staircase wall.",explain:"The vertical data spine. 3 grey conduits up the staircase wall carry ALL First-Floor and Terrace data - FF APs, the two study drops, the balcony + terrace cameras, and the Sintex tank sensor run all continue up here. See the Riser and Terrace tabs for what reaches the top."},
- {ref:"D10",floor:"GF",service:"data",size:"25mm",status:"live",from:"Niche",to:"GF false-ceiling AP, central JB above dining/living junction (R-GF-1)",contents:"1x Cat6 UTP (PoE) + draw wire",note:"Ubiquiti UniFi U6-Lite or equiv. PoE only - no socket. Primary GF Wi-Fi 6.",explain:"Cat6 (PoE) from the niche to the GF ceiling Wi-Fi AP above the dining/living junction. One cable powers the AP and backhauls it - no socket needed in the ceiling."},
+ {ref:"D1",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Foyer screen cavity (back wall, bottom-RIGHT)",contents:"1x indoor Cat6 (UTP)",note:"FLOOR route under screed (not ceiling). ~12m.",explain:"Cat6 (floor route under the screed) from the server to the foyer screen cavity. It powers (PoE) and feeds the Raspberry Pi behind the welcome monitor. Shares one floor chase with D2 + D3 - no separate break."},
+ {ref:"D2",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Main-door outside face (Hikvision DS-KV6113-WPE1(C) video doorbell, PoE)",contents:"1x outdoor LSZH UV-rated Cat6 (PoE)",note:"Doorbell at 1450mm FFL, latch side. Shared floor route with D1+D3. Updated 2026-05-22: Hikvision DS-KV6113-WPE1(C) replaces the earlier Reolink TC541.",explain:"Outdoor Cat6 (PoE) to the video doorbell. ONE cable both powers the doorbell and carries its video back to the server for face detection - no power needed at the door."},
+ {ref:"D3",floor:"GF",service:"data",size:"25mm",status:"provision",from:"Server",to:"Porch W wall (future face-detection camera, CAM-1)",contents:"PULL STRING ONLY - capped IP67 back-box, 1650mm FFL",note:"DROPPED from base install (doorbell handles face capture).",explain:"Spare conduit for a future dedicated face camera if the doorbell's face detection ever proves unreliable. Pull-string only now; a Cat6 can be drawn later - no wall break."},
+ {ref:"D4",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Living Hall N wall, MIDDLE (overview camera, CAM-2)",contents:"1x outdoor Cat6 (PoE) - conduit route chosen on site",note:"Moved 2026-05-30: was porch ceiling NE corner; now mid of the Living Hall NORTH wall. Technician picks the conduit route.",explain:"Overview camera relocated to the middle of the Living Hall north (entrance-facing) wall - it watches the porch / main approach. Conduit route is left to the technician: pull from the server, or tap the nearest data run, whatever is cleanest on site."},
+ {ref:"D5",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Staircase S wall, 1500mm FFL (Waveshare 10.1in panel)",contents:"1x HDMI 2.0 (3m) + 1x USB-A->micro-USB (3m) + existing Cat6 spare",note:"CUSTOM 280x195x80mm masonry cavity (not modular). Above existing 2M switch with ~200mm gap.",explain:"Two cables (HDMI + USB) from the Beelink in the server carry picture + touch straight to the staircase panel - no computer at the screen. The old Cat6 in this conduit is kept as a labelled spare."},
+ {ref:"D6",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Dining E wall (Waveshare dining panel)",contents:"1x indoor Cat6 + 1x pull string",note:"~12m / 35-40ft. Pi-at-screen pattern.",explain:"Cat6 from the server to the dining wall panel. A small Pi behind the screen gets PoE power + data on this ONE cable and renders the Home Assistant dashboard. The interior designer will try to fit this screen into the cantilevered kitchen shelves, so box height/position is kept flexible (500mm slack)."},
+ {ref:"D7",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Dining ceiling JB (mono speaker)",contents:"1x indoor Cat6 (PoE-capable) + 1x pull string",note:"Pi + PAM8403 + 3in ceiling speaker. ~10m. This is the LOW-voltage speaker run via the server.",explain:"Cat6 from the server to a ceiling junction box above the dining table for a mono ceiling speaker. PoE-capable, so a small Pi/amp can sit at the ceiling - or the dining panel's Pi can drive it (see D11)."},
+ {ref:"D9",floor:"GF",service:"data",size:"25mm x 3",status:"live",from:"Server",to:"Vertical riser -> FF -> Terrace (3 bundles)",contents:"3x LV-25: R-FF-1 (2x Cat6), R-FF-2, R-FF-3. CAM-3, CAM-5 and the Sintex run continue UP to terrace.",note:"Dedicated 150mm-wide chase channel up the staircase wall.",explain:"The vertical data spine. 3 grey conduits up the staircase wall carry ALL First-Floor and Terrace data - FF APs, the two study drops, the balcony + terrace cameras, and the Sintex tank sensor run all continue up here. See the Riser and Terrace tabs for what reaches the top."},
+ {ref:"D10",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"GF false-ceiling AP, central JB above dining/living junction (R-GF-1)",contents:"1x Cat6 UTP (PoE) + draw wire",note:"Ubiquiti UniFi U6-Lite or equiv. PoE only - no socket. Primary GF Wi-Fi 6.",explain:"Cat6 (PoE) from the server to the GF ceiling Wi-Fi AP above the dining/living junction. One cable powers the AP and backhauls it - no socket needed in the ceiling."},
  {ref:"D11",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Dining panel (Pi)",to:"Dining ceiling speaker JB",contents:"Short AV / control link (2-core or 3.5mm)",note:"NEW 2026-05-30.",explain:"Lets the dining panel's Raspberry Pi play and control audio on the dining ceiling speaker. Short hop - can be pulled through the false-ceiling void between the panel and the speaker JB, so no wall break is needed."},
  {ref:"D12",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"TV unit (W wall of Living)",contents:"1x Cat6 (UTP)",note:"Wired network point behind the TV unit.",explain:"Cat6 from the server to the TV unit on the W wall of the Living Hall - a wired drop behind the TV for a smart-TV / streaming box / console, so the main screen doesn't depend on Wi-Fi."},
 
@@ -385,15 +385,15 @@ const CONDUITS = [
  {ref:"L2",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Halo driver above false ceiling near cavity top",contents:"24V DC 2-core",note:"Halo strip wraps cavity reveal. Amber 2200K.",explain:"24V to the amber halo strip that frames the screen cavity. Driven from the same panel gang as the cove; the driver sits above the false ceiling near the cavity top."},
  {ref:"L3",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Walnut shelf 24V driver",contents:"24V DC 2-core",note:"Shelf strip 6W/m, warm white.",explain:"24V DC to the under-strip driver of the walnut floating shelf, switched by foyer panel Gang 3. Floor route preferred so the shelf gets a hidden feed."},
  {ref:"L4",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer screen cavity (amp)",to:"Foyer ceiling speaker (centre, between the 2 spotlights)",contents:"2-core speaker wire",note:"FIXED - not future. Speaker sits in the MIDDLE of the foyer ceiling, between the two GU10 spotlights.",explain:"Carries audio from the PAM8403 amp INSIDE the screen cavity up to the foyer ceiling speaker. The cavity Pi plays sound -> amp -> this 2-core -> ceiling speaker. Pull it up through the cavity's TOP conduit into the false ceiling, then across to the centre point between the two spotlights."},
- {ref:"L5",floor:"GF",service:"lv16",size:"16mm",status:"provision",from:"Niche",to:"Main door frame TOP (concealed door-contact sensor)",contents:"PULL STRING ONLY",note:"Future provision - pull-string now.",explain:"For a FUTURE hidden magnetic door-contact sensor at the top of the main-door frame. It simply tells Home Assistant whether the door is OPEN or SHUT - two thin wires, one reed switch on the frame + a magnet on the door leaf. HA uses it for the 'Away' alarm and the welcome logic (e.g. only greet when the door actually opens). Just a pull-string today; a thin 2-core can be drawn later through THIS 16mm conduit, or piggy-backed on the adjacent doorbell conduit, so no wall-breaking later."},
+ {ref:"L5",floor:"GF",service:"lv16",size:"16mm",status:"provision",from:"Server",to:"Main door frame TOP (concealed door-contact sensor)",contents:"PULL STRING ONLY",note:"Future provision - pull-string now.",explain:"For a FUTURE hidden magnetic door-contact sensor at the top of the main-door frame. It simply tells Home Assistant whether the door is OPEN or SHUT - two thin wires, one reed switch on the frame + a magnet on the door leaf. HA uses it for the 'Away' alarm and the welcome logic (e.g. only greet when the door actually opens). Just a pull-string today; a thin 2-core can be drawn later through THIS 16mm conduit, or piggy-backed on the adjacent doorbell conduit, so no wall-breaking later."},
  {ref:"L6",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"MBR ceiling JB",to:"S-wall wardrobe top rail LED driver",contents:"24V DC 2-core",note:"Door-activated sensor on each leaf.",explain:"24V to the master-bedroom S-wall wardrobe top-rail LED. A small door sensor on each leaf turns the strip on when the wardrobe opens."},
  {ref:"L7",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"MBR ceiling JB",to:"W-wall wardrobe tail LED driver",contents:"24V DC 2-core",note:"Tail of L-shaped wardrobe.",explain:"24V to the W-wall wardrobe tail LED (the short return of the L-shaped wardrobe). Same door-sensor idea as L6."},
 
- {ref:"W1",floor:"GF",service:"water",size:"20mm",status:"live",from:"Niche",to:"Terrace SW Sintex JB (up the riser)",contents:"1x outdoor LSZH Cat6 (PoE)",note:"Up the staircase riser to the terrace, then embedded under terrace screed BEFORE tiling to the SW corner. See the Terrace tab.",explain:"Cat6 (data + 48V PoE) from the niche, up the riser, across the terrace to the Sintex tank JB at the SW corner. It powers the tank's ESP32 and carries the ultrasonic water-level reading back to the server. Sensor run only - the float is separate (W2)."},
+ {ref:"W1",floor:"GF",service:"water",size:"20mm",status:"live",from:"Server",to:"Terrace SW Sintex JB (up the riser)",contents:"1x outdoor LSZH Cat6 (PoE)",note:"Up the staircase riser to the terrace, then embedded under terrace screed BEFORE tiling to the SW corner. See the Terrace tab.",explain:"Cat6 (data + 48V PoE) from the server, up the riser, across the terrace to the Sintex tank JB at the SW corner. It powers the tank's ESP32 and carries the ultrasonic water-level reading back to the server. Sensor run only - the float is separate (W2)."},
  {ref:"W2",floor:"GF",service:"water",size:"16mm",status:"live",from:"Terrace Sintex HIGH float",to:"DB starter cupboard",contents:"2-core 1.5mm2 double-insulated",note:"Comes DOWN the riser, then around to the cupboard. Parallel to W1, MIN 50mm separation on the shared legs.",explain:"The Sintex HIGH-level float is a hardware safety cut-off: tank full -> stop BOTH motors. Its 2-core runs from the tank straight to the DB starter cupboard and sits in series with both motor coils, so it works even if the server/Wi-Fi are down. It does NOT need to pass through the server - route it the shortest safe way to the cupboard."},
- {ref:"W3",floor:"GF",service:"water",size:"20mm",status:"live",from:"Niche",to:"Sump JB (porch W wall, 300mm AGL)",contents:"1x outdoor LSZH Cat6 (PoE)",note:"Sleeve through the wall sloping outward. JB beside the manhole (cover hinges W).",explain:"Cat6 (data + 48V PoE) from the niche to the sump JB on the porch. Powers the sump ESP32 and reads the pressure-probe water level. Sensor run only - the float is separate (W4)."},
+ {ref:"W3",floor:"GF",service:"water",size:"20mm",status:"live",from:"Server",to:"Sump JB (porch W wall, 300mm AGL)",contents:"1x outdoor LSZH Cat6 (PoE)",note:"Sleeve through the wall sloping outward. JB beside the manhole (cover hinges W).",explain:"Cat6 (data + 48V PoE) from the server to the sump JB on the porch. Powers the sump ESP32 and reads the pressure-probe water level. Sensor run only - the float is separate (W4)."},
  {ref:"W4",floor:"GF",service:"water",size:"16mm",status:"live",from:"Sump LOW float",to:"DB starter cupboard",contents:"2-core 1.5mm2",note:"Short run from the sump JB around to the cupboard. Parallel to W3, MIN 50mm separation.",explain:"The sump LOW-level float stops the booster pump running dry. Its 2-core goes from the sump JB to the DB starter cupboard, in series with the P2 (booster) coil ONLY. Like the Sintex float it's a mechanical failsafe - no reason to route it via the server; take it straight around the walls to the cupboard."},
- {ref:"W5",floor:"GF",service:"water",size:"20mm",status:"provision",from:"Niche",to:"DB starter cupboard (future backup link)",contents:"PULL STRING ONLY",note:"Both ends capped + labelled WATER AUTOMATION - FUTURE Cat6.",explain:"Spare conduit between the niche and the cupboard. If the Wi-Fi link to the motor controller ever proves unreliable, a Cat6 can be pulled here later for a wired ESP32 motor controller - no wall break."},
+ {ref:"W5",floor:"GF",service:"water",size:"20mm",status:"provision",from:"Server",to:"DB starter cupboard (future backup link)",contents:"PULL STRING ONLY",note:"Both ends capped + labelled WATER AUTOMATION - FUTURE Cat6.",explain:"Spare conduit between the server and the cupboard. If the Wi-Fi link to the motor controller ever proves unreliable, a Cat6 can be pulled here later for a wired ESP32 motor controller - no wall break."},
  {ref:"W6",floor:"GF",service:"water",size:"25mm",status:"live",from:"DB starter cupboard",to:"Borewell head outside",contents:"4sqmm armoured (16A Type C)",note:"CONFIRM existing run can be repurposed.",explain:"Purely the POWER feed to RUN the borewell motor - 4sqmm armoured from the P1 starter in the cupboard out to the borewell head. No data or sensor in this conduit."},
  {ref:"W7",floor:"GF",service:"water",size:"25mm",status:"live",from:"DB starter cupboard",to:"Sump (submersible booster motor)",contents:"3-core 2.5mm2",note:"The sump motor is a SUBMERSIBLE sitting INSIDE the sump - cable goes into the sump, not to an outdoor cage.",explain:"POWER feed to RUN the sump booster pump from the P2 starter. Per the electrician the pump is submerged inside the sump, so this power cable goes to the sump itself."},
 
@@ -424,13 +424,13 @@ const CO = {
  P4:{o:NODE.FOYERPANEL,d:[235,945]}, P5:{o:NODE.FOYERPANEL,d:[270,1040]}, P6:{o:HUB.DB,d:[745,720]},
  P7:{o:HUB.DB,d:[760,855]}, P8:{o:HUB.DB,d:[210,205]}, P9:{o:HUB.DB,d:[210,520]},
  P10:{o:HUB.DB,d:[770,230]}, P11:{o:HUB.DB,d:[770,500]}, P12:{o:HUB.DB,d:[148,812]}, P13:{o:HUB.DB,d:[700,700]},
- H1:{o:HUB.DB,d:[200,914]}, H2:{o:HUB.DB,d:[928,800]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
+ H1:{o:HUB.DB,d:[200,914]}, H2:{o:HUB.DB,d:[928,880]}, H3:{o:HUB.DB,d:[650,985]}, H4:{o:HUB.DB,d:[112,150]},
  H5:{o:HUB.DB,d:[85,80]}, H6:{o:HUB.DB,d:[145,118]}, H7:{o:HUB.DB,d:[448,345]}, H8:{o:HUB.DB,d:[585,300]},
  H9:{o:HUB.DB,d:[700,418]}, H10:{o:HUB.DB,d:[835,452]},
  D1:{o:HUB.NICHE,d:[210,914]}, D2:{o:HUB.NICHE,d:[205,1010]}, D3:{o:HUB.NICHE,d:[490,1038]},
  D4:{o:HUB.NICHE,d:[745,1000]}, D5:{o:HUB.NICHE,d:[618,618]}, D6:{o:HUB.NICHE,d:[68,470]},
  D7:{o:HUB.NICHE,d:[210,560]}, D9:{o:HUB.NICHE,d:[845,720]}, D10:{o:HUB.NICHE,d:[470,700]},
- D11:{o:[80,470],d:[210,560]}, D12:{o:HUB.NICHE,d:[928,825]},
+ D11:{o:[80,470],d:[210,560]}, D12:{o:HUB.NICHE,d:[928,902]},
  L1:{o:NODE.FOYERPANEL,d:[235,905]}, L2:{o:NODE.FOYERPANEL,d:[258,918]}, L3:{o:NODE.FOYERPANEL,d:[110,918]},
  L4:{o:NODE.CAVTOP,d:[185,950]}, L5:{o:HUB.NICHE,d:[210,1006]}, L6:{o:NODE.MBRJB,d:[750,72]}, L7:{o:NODE.MBRJB,d:[928,200]},
  W1:{o:HUB.NICHE,d:[845,660]}, W2:{o:[920,72],via:[[75,72],[75,985]],d:[130,985]}, W3:{o:HUB.NICHE,d:[505,1042]},
@@ -493,7 +493,7 @@ const GUIDES = {
   title:"Sump JB — sensor hub", sub:"Porch W wall · 300mm AGL · IP66", glyph:"JB", svc:"water",
   badge:"Pull cable now",
   inside:["WT32-ETH01 (ESP32 + Ethernet) — the local sensor brain","PoE splitter (48V → 5V) — powers the ESP32","3-way terminal block — pressure transducer wires","2-way terminal block — float wire transit to DB cupboard","2-way LV tap — float telemetry to an ESP32 GPIO ('sump low' status)"],
-  power:"PoE only. One Cat6 (C-Sump-1 / W3) from the niche carries data + 48V. NO 230V at this box. The PoE splitter drops 48V → 5V to the ESP32; the ESP32's 5V rail feeds the sensor.",
+  power:"PoE only. One Cat6 (C-Sump-1 / W3) from the server carries data + 48V. NO 230V at this box. The PoE splitter drops 48V → 5V to the ESP32; the ESP32's 5V rail feeds the sensor.",
   mount:"Surface-mount IP66 box on the porch W wall at 300mm AGL (1 ft), BESIDE the manhole — not above it (the cover hinges on the W side and lies flat against this wall when open). 4 glands at the bottom: M20 Cat6 (C-Sump-1), M16 float (C-Sump-2), M12 pressure probe, M12 low-float.",
   sensor:"DFRobot SEN0257 hydrostatic pressure probe, suspended through a manhole gland ~10cm above the sump floor. Drill the side-of-sump glands BEFORE waterproofing; sensor + float cables run up the W wall in a short surface conduit into the JB bottom glands.",
   steps:["Fix the IP66 box backplate at 300mm AGL beside the manhole.","Land C-Sump-1 Cat6 → PoE splitter; take its 5V to the WT32-ETH01.","Pressure-probe cable → 3-way block → ESP32 ADC. Keep this analog run under 30cm.","Low-level float: 2 wires in series into C-Sump-2 (to DB cupboard, P2 coil) for dry-run cutoff, PLUS a parallel LV tap to an ESP32 GPIO for 'sump low' telemetry.","Seal every gland; fit the gasket lid (screw lid, not snap-fit)."],
@@ -503,7 +503,7 @@ const GUIDES = {
   title:"Sintex JB — tank sensor hub", sub:"Terrace SW parapet · ~1.2m AGL · IP66", glyph:"JB", svc:"water",
   badge:"Pull cable now",
   inside:["WT32-ETH01 (ESP32 + Ethernet)","PoE splitter (48V → 5V)","4-way terminal block — ultrasonic sensor wires","2-way terminal block — high-level float transit to DB cupboard"],
-  power:"PoE only, via C-Sintex-1 (W1) Cat6 from the niche. No 230V at the JB.",
+  power:"PoE only, via C-Sintex-1 (W1) Cat6 from the server. No 230V at the JB.",
   mount:"On the SW parapet inner face at ~1.2m AGL. Add a sun shield if directly exposed. 4 bottom glands (Cat6, float, sensor, float-to-tank). The horizontal terrace run for W1/W2 MUST be embedded under the screed BEFORE tiling/waterproofing.",
   sensor:"JSN-SR04T ultrasonic on a 30cm PVC riser screwed into the tank cap (30cm clears the 25cm dead-zone + 10cm air-gap at full). Sensor in an acrylic enclosure at the riser top, cable exits sideways. Camsco vertical SS high-level float (NC, ~95% level) runs via C-Sintex-2 (W2) to the DB cupboard, in series with BOTH motor coils — a mechanical, server-independent failsafe.",
   steps:["Embed C-Sintex-1 + C-Sintex-2 under the terrace screed before tiling (50mm apart).","Mount the IP66 box on the SW parapet; land Cat6 → PoE splitter → 5V to ESP32.","Drill the Sintex cap, fit the 30cm PVC riser, mount the JSN-SR04T on top.","Run the ultrasonic cable into the JB 4-way block → ESP32 (keep analog <30cm).","Transit the high-level float through the JB into C-Sintex-2 down to the DB cupboard."],
@@ -520,11 +520,11 @@ const GUIDES = {
   imgs:["water-overview.jpg"], pdf:"WATER_AUTOMATION_VISUAL_v2.pdf", related:["W6","W7","W5","W2","W4"]
  },
  "NICHE-SERVER":{
-  title:"Server niche (the brain)", sub:"Staircase · HA + Frigate + PoE backbone", glyph:"HA", svc:"data",
+  title:"Server (the brain)", sub:"Staircase · HA + Frigate + PoE backbone", glyph:"HA", svc:"data",
   badge:"Pull cable now",
   inside:["Beelink EQ12 mini-PC — Home Assistant + Frigate NVR + CompreFace","1TB SSD (HA storage + NVR), APC UPS","TP-Link TL-SG1210P PoE switch (8× PoE) — powers cameras / APs / JBs","TP-Link Archer AX55 router (GF Wi-Fi 6)","Sonoff Zigbee 3.0 USB dongle — coordinator for the 45 Sonoff relays","12-port Cat6 keystone patch panel"],
   power:"20A UPS socket at 300mm FFL; 2× double 5A at 400mm. Everything out of here is LV / PoE — this is the hub every data + camera + JB Cat6 returns to.",
-  mount:"Niche shelving; Cat6 patch panel + speaker terminal strip at 700mm FFL on the side wall. This is the origin hub for all D-series (data), W1/W3 (water sensors) and the FF riser bundle.",
+  mount:"Server shelving; Cat6 patch panel + speaker terminal strip at 700mm FFL on the side wall. This is the origin hub for all D-series (data), W1/W3 (water sensors) and the FF riser bundle.",
   steps:["Terminate every incoming Cat6 onto the 12-port patch panel.","Patch the PoE switch to: doorbell, CAM-3/4/5, GF + FF ceiling APs, Sintex + Sump JBs.","Uplink the router; Beelink runs HA + Frigate + CompreFace.","Plug in the Zigbee dongle — it coordinates all hidden Sonoff relays.","Sit everything on the UPS so a power blip doesn't drop the brain."],
   imgs:["staircase-spine.jpg"], pdf:"FOYER_ELECTRICIAN_MASTER_PLAN.pdf", related:["D9","D10","D5","W1","W3"]
  },
@@ -532,7 +532,7 @@ const GUIDES = {
   title:"Foyer welcome screen", sub:"S feature wall · stone cavity 580×380×100mm", glyph:"TV", svc:"data",
   badge:"Pull cable now",
   inside:["Samsung LS22F320GAW 21.5\" monitor (VESA 100, no speakers)","Raspberry Pi Zero 2W + PoE splitter (5V)","Pi Camera Module 3 (CAM-0) on the top bezel — CSI ribbon","Visaton FR 8 speaker + PAM8403 amp + USB sound card","Sonoff Mini R2 (Wi-Fi) inside the socket box — switches the Monitor socket","Halo 24V amber LED around the cavity reveal"],
-  power:"Cavity has 2× 5A sockets on the BACK wall (C-DB-Cavity-Power / H1, from the DB on the E wall). The Pi is PoE-powered: the cavity Cat6 (D1, floor route from the niche) → PoE splitter → 5V to the Pi. Halo 24V from the driver above the false ceiling.",
+  power:"Cavity has 2× 5A sockets on the BACK wall (C-DB-Cavity-Power / H1, from the DB on the E wall). The Pi is PoE-powered: the cavity Cat6 (D1, floor route from the server) → PoE splitter → 5V to the Pi. Halo 24V from the driver above the false ceiling.",
   mount:"Monitor on a VESA 100 bracket, centre 1450mm FFL, on the back wall. Socket pocket centre 1346mm; 3\"dia×1\" speaker pocket; matte-black inside; stone wraps the front 30mm of the reveal.",
   sensor:"Face capture: Hikvision DS-KV6113-WPE1(C) PoE doorbell on the outside N wall at 1450mm → Frigate → CompreFace match → HA wakes the screen. CAM-0 bezel Pi-cam is a secondary close-range check.",
   steps:["Cut the 580×380×100mm cavity, centred on the 6ft feature wall; paint matte black.","Bring POWER (H1) to bottom-LEFT and DATA (D1) to bottom-RIGHT of the back wall; HALO (16mm) to top-centre.","Mount the VESA bracket at 1450mm; fit the 2× 5A socket plate (Sonoff Mini R2 inside, switching Monitor only).","Behind the monitor: Pi + PoE splitter + amp + sound card on the back wall; speaker into its pocket.","Run the stone reveal + halo; commission the welcome flow with the doorbell."],
@@ -541,10 +541,10 @@ const GUIDES = {
  "AP-GF":{
   title:"GF ceiling Wi-Fi AP", sub:"False ceiling, dining/living junction · PoE", glyph:"AP", svc:"data",
   badge:"Pull cable now",
-  inside:["Ubiquiti UniFi U6-Lite (or equivalent) Wi-Fi 6 AP","Fed by 1× Cat6 (R-GF-1 / D10) from the niche"],
-  power:"PoE only — the AP draws ~12W over the Cat6 from the niche PoE switch. No socket needed.",
+  inside:["Ubiquiti UniFi U6-Lite (or equivalent) Wi-Fi 6 AP","Fed by 1× Cat6 (R-GF-1 / D10) from the server"],
+  power:"PoE only — the AP draws ~12W over the Cat6 from the server PoE switch. No socket needed.",
   mount:"Ceiling junction box, flush in the false ceiling, centred above the open dining/living junction. Primary GF Wi-Fi 6 for dining, living, foyer and the master bedroom.",
-  steps:["Run R-GF-1 (D10) from the niche, up the niche wall, east across the GF false-ceiling void.","Terminate at a capped ceiling JB at the central dining/living position.","After ceiling work, clip the AP to the JB and patch its Cat6 to a PoE port in the niche."],
+  steps:["Run R-GF-1 (D10) from the server, up the server wall, east across the GF false-ceiling void.","Terminate at a capped ceiling JB at the central dining/living position.","After ceiling work, clip the AP to the JB and patch its Cat6 to a PoE port in the server."],
   imgs:["wifi-ap.jpg"], pdf:"ELECTRICIAN_REFERENCE.pdf", related:["D10"]
  },
  "AP-FF":{
@@ -553,7 +553,7 @@ const GUIDES = {
   inside:["Ubiquiti UniFi U6-Lite (or equivalent) Wi-Fi 6 AP","Fed by 2× Cat6 (R-FF-1 / F10) — uplink + spare"],
   power:"PoE only (R-FF-1). The old 2400mm wall plate + 5A socket are dropped — ceiling-mount, PoE-fed.",
   mount:"Ceiling JB in the FF Living false ceiling, central between the BR1 and BR2 doors for balanced coverage.",
-  steps:["Carry R-FF-1 up the staircase riser, then east to the central FF Living ceiling.","Terminate 2× Cat6 at a ceiling JB.","Mount the AP after ceiling work; patch one Cat6 to a niche PoE port (keep the 2nd as spare)."],
+  steps:["Carry R-FF-1 up the staircase riser, then east to the central FF Living ceiling.","Terminate 2× Cat6 at a ceiling JB.","Mount the AP after ceiling work; patch one Cat6 to a server PoE port (keep the 2nd as spare)."],
   imgs:["wifi-ap.jpg"], pdf:"ELECTRICIAN_REFERENCE.pdf", related:["F10","F11","F12"]
  },
  "CAM-DOORBELL":{
@@ -563,7 +563,7 @@ const GUIDES = {
   power:"PoE via D2 (outdoor LSZH UV Cat6), floor route shared with the cavity Cat6 (D1).",
   mount:"Latch side of the main door, 1450mm FFL, 150–200mm from the frame.",
   sensor:"RTSP stream → Frigate → CompreFace face match → Home Assistant → foyer welcome screen. Replaces the earlier Reolink TC541 (updated 2026-05-22).",
-  steps:["Recess the small GI box on the outside N wall at 1450mm.","Pull D2 outdoor Cat6 (floor route) to the box; weatherproof the entry with silicone.","Mount the doorbell bracket over the box; patch its Cat6 to a niche PoE port.","Add it to Frigate; train CompreFace on family faces."],
+  steps:["Recess the small GI box on the outside N wall at 1450mm.","Pull D2 outdoor Cat6 (floor route) to the box; weatherproof the entry with silicone.","Mount the doorbell bracket over the box; patch its Cat6 to a server PoE port.","Add it to Frigate; train CompreFace on family faces."],
   imgs:["foyer-xray.jpg"], pdf:"FOYER_ELECTRICIAN_MASTER_PLAN.pdf", related:["D2","D3"]
  },
  "CAM-N":{
@@ -573,7 +573,7 @@ const GUIDES = {
   power:"PoE via D4. One Cat6 powers the camera and carries its video to the server.",
   mount:"Centre of the Living Hall NORTH (entrance-facing) wall — covers the porch and the main approach. Replaces the earlier porch-ceiling position (CAM-2).",
   sensor:"Overview / context camera, not a face camera. Feeds Frigate for motion + general CCTV.",
-  steps:["Pick the conduit route on site (from the niche, or tap the nearest data run) — left to the technician.","Land a Cat6 at a flush / IP-rated box at the middle of the Living N wall.","Mount the camera, aim out over the porch / approach; patch to a niche PoE port."],
+  steps:["Pick the conduit route on site (from the server, or tap the nearest data run) — left to the technician.","Land a Cat6 at a flush / IP-rated box at the middle of the Living N wall.","Mount the camera, aim out over the porch / approach; patch to a server PoE port."],
   imgs:["wifi-ap.jpg"], pdf:"ELECTRICIAN_REFERENCE.pdf", related:["D4"]
  },
  "CAM-3":{
@@ -598,19 +598,19 @@ const GUIDES = {
   title:"Staircase control panel", sub:"S wall · 1500mm FFL · 280×195×80 cavity", glyph:"WS", svc:"data",
   badge:"Pull cable now",
   inside:["Waveshare 10.1\" HDMI LCD (B), 1280×800, with case","ACR122U USB NFC reader behind the bezel","Walnut bezel (~320×235mm) + magnetic service hatch"],
-  power:"Beelink-direct — no Pi, no PoE. HDMI + USB run through the existing C-Niche-Waveshare conduit (D5); 5V to the screen comes over the USB from the Beelink. The existing Cat6 stays as a labelled SPARE.",
+  power:"Beelink-direct — no Pi, no PoE. HDMI + USB run through the existing C-Server-Waveshare conduit (D5); 5V to the screen comes over the USB from the Beelink. The existing Cat6 stays as a labelled SPARE.",
   mount:"Custom 280×195×80mm masonry cavity in the 9\" staircase S wall, centred at 1500mm FFL, ~200mm above the existing 2M light switch. Walnut bezel overhangs to hide the cut; 4 magnets for a pop-forward service hatch; vent slots top + bottom.",
-  steps:["Mason chases the 280×195×80mm cavity (before plaster, 2026-05-30).","Conduit enters the cavity bottom via a ~30mm hole; smooth-finish or black-ply liner.","Tape HDMI + USB to the existing Cat6 and pull all three; leave 200mm service loops.","Niche end: HDMI → Beelink HDMI-2, USB → Beelink USB-A.","Carpenter builds the bezel; mount the screen; Beelink runs a Chromium kiosk on HDMI-2."],
+  steps:["Mason chases the 280×195×80mm cavity (before plaster, 2026-05-30).","Conduit enters the cavity bottom via a ~30mm hole; smooth-finish or black-ply liner.","Tape HDMI + USB to the existing Cat6 and pull all three; leave 200mm service loops.","Server end: HDMI → Beelink HDMI-2, USB → Beelink USB-A.","Carpenter builds the bezel; mount the screen; Beelink runs a Chromium kiosk on HDMI-2."],
   imgs:["waveshare-1.jpg","waveshare-2.jpg","waveshare-3.jpg","waveshare-4.jpg","waveshare-5.jpg","waveshare-6.jpg"],
   pdf:"WAVESHARE_INSTALL_GUIDE.pdf", related:["D5"]
  },
  "WAVESHARE-DINING":{
   title:"Dining panel (provision)", sub:"Dining E wall · Cat6 + back box only", glyph:"WS", svc:"data",
   badge:"Pull string now", live:false,
-  inside:["Today: 1× Cat6 + pull-string + capped 3\"×3\"×2.5\" back box (C-Niche-Dining / D6)","Future: Waveshare 10.1\" + a small Pi behind the screen (Pi-at-screen)"],
+  inside:["Today: 1× Cat6 + pull-string + capped 3\"×3\"×2.5\" back box (C-Server-Dining / D6)","Future: Waveshare 10.1\" + a small Pi behind the screen (Pi-at-screen)"],
   power:"Future: Pi-at-screen, wired — a single Cat6 PoE powers AND drives a Pi behind the screen (matches the foyer pattern). No HDMI extender. Today: just lay the cable.",
   mount:"E wall of the dining hall near the breakfast counter / kitchen-dining partition. Height + exact position defer to the interior designer (plywood under the cantilever shelf). Leave 500mm slack so the box can shift ±300mm later.",
-  steps:["Lay C-Niche-Dining (~12m): niche → up the wall → east through the GF ceiling chase → down the dining E wall.","Pull 1× indoor Cat6 + 1× pull-string; cap the back box with a blank plate.","Also drop a short link (D11) from this panel to the dining ceiling-speaker JB so the panel's Pi can drive + control the speaker.","On the day, walk the dining hall with the electrician to mark the exact wall section + height. The interior designer will try to fit the screen into the cantilevered kitchen shelves, so keep it flexible."],
+  steps:["Lay C-Server-Dining (~12m): server → up the wall → east through the GF ceiling chase → down the dining E wall.","Pull 1× indoor Cat6 + 1× pull-string; cap the back box with a blank plate.","Also drop a short link (D11) from this panel to the dining ceiling-speaker JB so the panel's Pi can drive + control the speaker.","On the day, walk the dining hall with the electrician to mark the exact wall section + height. The interior designer will try to fit the screen into the cantilevered kitchen shelves, so keep it flexible."],
   imgs:["dining-xray.jpg"], pdf:"WAVESHARE_INSTALL_GUIDE.pdf", related:["D6","D7","D11"]
  },
  "SMART-SWITCH":{
@@ -823,14 +823,14 @@ const RISER_BUNDLES=[
 ];
 function drawRiser(g){
   const L=140,R=620,levels=[
-    {y:120,t:"TERRACE"},{y:320,t:"FIRST FLOOR"},{y:620,t:"GF SLAB"},{y:920,t:"GROUND (Niche)"}
+    {y:120,t:"TERRACE"},{y:320,t:"FIRST FLOOR"},{y:620,t:"GF SLAB"},{y:920,t:"GROUND (Server)"}
   ];
   levels.forEach(lv=>{
     g.appendChild(el("line",{x1:L-40,y1:lv.y,x2:R+40,y2:lv.y,stroke:"#333","stroke-width":2}));
     g.appendChild(txt(L-44,lv.y-7,lv.t,"rsub")).setAttribute("text-anchor","end");
   });
   g.appendChild(el("rect",{x:L-12,y:120,width:R-L+24,height:800,fill:"#F4F0E2",stroke:"#E3DECF","stroke-width":1}));
-  g.appendChild(txt((L+R)/2,108,"STAIRCASE RISER CHASE  (GF Niche → FF → Terrace)","rsub"));
+  g.appendChild(txt((L+R)/2,108,"STAIRCASE RISER CHASE  (GF Server → FF → Terrace)","rsub"));
   const n=RISER_BUNDLES.length, gap=(R-L)/(n-1);
   RISER_BUNDLES.forEach((b,i)=>{
     const x=L+gap*i, color=SVC[b.svc].color, topY=b.top==="TERR"?130:330;
@@ -875,11 +875,15 @@ function drawTerrace(g){
   }
   tl(ax,ay,790,318,SVC.water.color,false,5);      // W1 sensor TERMINATES at the tank JB
   tl(ax-24,ay,648,790,SVC.data.color,true,4);     // CAM-5 to parapet
-  // W2 float DEPARTS the tank back down the riser to the DB cupboard
-  const w2=el("path",{d:"M828,316 L860,316 L860,650 L700,650",fill:"none",stroke:SVC.water.color,
+  // W2 float leaves the tank and runs ANTICLOCKWISE along the parapet boundary,
+  // descending at the NE corner (above the GF DB cupboard) — matches the GF view
+  const w2=el("path",{d:"M745,300 L745,182 L162,182 L162,892",fill:"none",stroke:SVC.water.color,
     "stroke-width":4,"stroke-dasharray":"7,5","stroke-linecap":"round","stroke-linejoin":"round"});
   g.appendChild(w2);
-  g.appendChild(txt(745,395,"W1 ↑","rsub")); g.appendChild(txt(885,470,"W2 ↓","rsub"));
+  g.appendChild(el("path",{d:"M155,888 L169,888 L162,903 Z",fill:SVC.water.color})); // descent arrow
+  g.appendChild(txt(745,395,"W1 ↑","rsub"));
+  g.appendChild(txt(300,176,"W2 ↺ along parapet","rsub")).setAttribute("text-anchor","start");
+  g.appendChild(txt(180,920,"W2 ↓ down to DB cupboard","rsub")).setAttribute("text-anchor","start");
   g.appendChild(txt(610,775,"CAM-5","rsub"));
   g.appendChild(el("circle",{cx:ax,cy:ay,r:6,fill:"#1C1C1E"}));
   g.appendChild(txt(ax,ay+20,"riser arrives (D9 + W1 + CAM-5)","rsub"));
