@@ -7,6 +7,8 @@
 
 > **Critical:** This bathroom has an attic above the 8ft lintel. ALL ceiling conduit runs happen in the attic. Core-drill downlight and exhaust fan holes from the attic side. Chase wall conduits before plastering.
 
+> ⚠️ **AUTOMATION UPDATE 2026-05-30:** The PIR timer switch (originally planned for the switch board) is **superseded by a mmWave presence sensor + Sonoff ZBMINI relay**. PIR was inadequate because elderly users may sit very still on the toilet and shower behind the glass partition (PIR misses both). The mmWave sensor (Sonoff SNZB-06PR2) mounts on the existing N-wall hand-basin chase junction box at 7ft FFL, powered by an HLK-PM01 buck converter inside the JB. See § 13 (mmWave addendum) below and `automation-iot/mmwave-presence-sensors.md` for the full design. The 4-module switch board still gets: exhaust fan switch + geyser switch + the Sonoff ZBMINI hidden behind a rocker (instead of the PIR plate).
+
 ---
 
 ## 1. Coordinate System Used in This Doc
@@ -459,3 +461,99 @@ Step 9 — SIGN-OFF
 - [ ] **Geyser exact position in attic:** Needs access hatch in attic for future servicing — decide hatch location before masonry is complete.
 - [ ] **Mirror brand:** Confirm brand/model before electrician sets conduit exit (some mirrors use a plug socket, others need a direct hardwire terminal — affects conduit box type).
 - [ ] **DB slot numbers** for A1 and A2 — confirm with [db-layout.md](db-layout.md).
+
+---
+
+## 13. mmWave Presence Sensor Addendum (NEW 2026-05-30)
+
+**Sensor:** Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0, USB-C 5V powered)
+**Location:** North wall middle (x ≈ 4.5ft on N wall), height 7ft FFL — on the existing circular metal junction box that extends from the hand-basin lighting chase
+**Mount method:** **Method 1 — JB Mount** (see `pdfs/JB_INSTALL_AND_NEW_APPROACHES.pdf`)
+
+### 13.1 Why this location
+
+- Existing chase: hand-basin lighting (L1 mirror line) already extends up the N wall. Extending it to 7ft and terminating in a circular JB requires only ~30cm extra chase.
+- Sensor sight: 7ft height with N-wall facing into the room sees the full dry zone (vanity + commode) AND the shower zone through the glass partition. Both zones covered by a single sensor.
+- Dry zone placement: 7ft on N wall middle is firmly OUTSIDE IP Zone 1 and Zone 2 boundaries (Zone 1 ends at glass partition, Zone 2 extends ~2ft further). No IP rating concern for the sensor's USB-C entry.
+
+### 13.2 Wiring inside the JB
+
+```
+Inside the circular JB (75mm dia × 40mm deep):
+
+       230V from L1 chase (mirror lighting feed)
+                       │
+                       ▼
+            ┌────── Wago 221-413 (L branch) ──────┐
+            │                                      │
+            ▼                                      ▼
+       (to L1 mirror)                        HLK-PM01 AC-L
+                       │
+                       ▼
+            ┌────── Wago 221-413 (N branch) ──────┐
+            │                                      │
+            ▼                                      ▼
+       (to L1 mirror)                        HLK-PM01 AC-N
+                                                   │
+                                       (5V DC OUT, 0.6A)
+                                                   │
+                                            +5V / GND
+                                                   │
+                                            USB-C connector
+                                                   │
+                                          exits JB through
+                                          8mm rubber grommet
+                                          in the JB cover
+                                                   │
+                                                   ▼
+                                          plugs into back of
+                                          Sonoff SNZB-06PR2
+                                          (mounted magnetically
+                                          on outside of JB cover)
+```
+
+### 13.3 Components for this single install
+
+| Item | Qty | Source | Cost (₹) |
+|---|---|---|---|
+| Sonoff SNZB-06PR2 sensor | 1 | iTead / AliExpress | 3,500 |
+| HLK-PM01 buck converter (230V→5V) | 1 | Robu.in | 200 |
+| Wago 221-413 (3-port lever connector) | 2 | Amazon India | 30 |
+| USB-A to USB-C cable (for sacrifice) | 1 | Local mobile shop | 80 |
+| 8mm rubber grommet for JB cover | 1 | Local electrical | 10 |
+| Heat-shrink tubing | minimal | — | — |
+| **Total for this sensor** | | | **~₹3,820** |
+
+### 13.4 Install steps (5-step procedure)
+
+Detailed step-by-step images are in `pdfs/JB_INSTALL_AND_NEW_APPROACHES.pdf` (pages 2–6). Summary:
+
+1. **Step 1 — Inspect cavity:** Verify existing JB at 7ft FFL on N wall is open; confirm L+N from L1 chase are present and stripped.
+2. **Step 2 — Wire HLK-PM01 input:** Connect HLK-PM01 AC-L and AC-N to the L1 line via Wago 221 lever connectors (branch, don't break the L1 mirror feed).
+3. **Step 3 — Connect USB-C cable:** Solder/connect short USB-C cable's red + black wires to HLK-PM01 DC output (+5V red, GND black). Cover joints with heat-shrink.
+4. **Step 4 — Close cover:** Drill 8mm hole in JB cover, fit rubber grommet, route USB-C cable through grommet, screw cover back on.
+5. **Step 5 — Mount sensor:** Sonoff SNZB-06PR2 sticks magnetically to the metal JB cover; plug USB-C into sensor back. Done.
+
+### 13.5 Effect on the existing electrical spec
+
+| Item | Before | After |
+|---|---|---|
+| Switch board modules | 1-2 PIR + 3 EF + 4 Geyser (4M plate) | 1 Sonoff-driven smart rocker (controls A1 lights via ZBMINI hidden) + 2 EF manual + 3 Geyser switch (still 4M plate; PIR module removed, smart rocker added) |
+| Switch board box | 50mm GI MS | **65mm GI MS** (required for Sonoff ZBMINI behind rocker — per project-wide locked spec 2026-05-06) |
+| Lighting circuit (A1) | Driven by PIR timer | Driven by Sonoff ZBMINI R2 (Zigbee), commanded by mmWave sensor via Home Assistant. Manual rocker override retained. |
+| Hand-basin chase | Stops at L1 mirror exit (1.35m) | **Extended up to 7ft FFL** with a circular metal JB at termination |
+| New conduit/cavity | — | 1× circular JB (75mm dia, 40mm deep, metal) embedded at 2100mm FFL on N wall middle |
+
+### 13.6 Failsafe behaviour
+
+- **HA / Wi-Fi down:** The Sonoff ZBMINI is in **direct mode** for this room (per project policy on bathroom + bedside safety). The wall rocker still toggles the lights physically even when HA is offline. mmWave automation degrades gracefully.
+- **Sensor failure:** Rocker keeps working. Sensor swap is a 1-minute job — pop the magnetic sensor off the JB cover, plug a new one in.
+- **HLK-PM01 failure:** Open JB cover (2 screws), replace HLK-PM01 (₹200), close. 5-minute job.
+
+### 13.7 Cross-references
+
+- Master design: [`automation-iot/mmwave-presence-sensors.md`](../automation-iot/mmwave-presence-sensors.md)
+- All mount methods: [`pdfs/SENSOR_MOUNTING_METHODS.pdf`](../pdfs/SENSOR_MOUNTING_METHODS.pdf)
+- JB step-by-step + Methods D + E: [`pdfs/JB_INSTALL_AND_NEW_APPROACHES.pdf`](../pdfs/JB_INSTALL_AND_NEW_APPROACHES.pdf)
+- Consolidated master reference: [`pdfs/MMWAVE_SENSOR_MASTER.pdf`](../pdfs/MMWAVE_SENSOR_MASTER.pdf)
+- Conduit map link: [`conduit-map/`](../conduit-map/) — sensor marker M2 opens this guide.

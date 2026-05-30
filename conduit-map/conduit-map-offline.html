@@ -443,28 +443,43 @@ const CO = {
 };
 
 /* mmWave presence sensors — markers only (no conduit drawn). */
+/* LOCKED 2026-05-30 — see automation-iot/mmwave-presence-sensors.md and the 3 PDFs in assets/pdf/. */
 const MMWAVE = [
- {ref:"M1",floor:"GF",room:"GF Master Bedroom",mount:"Ceiling (centre)",powerShort:"Ceiling - buck 230->5V",
-  power:"Ceiling mount: a 230->5V buck converter off the bedroom lighting line (permanent L+N).",
-  mountNote:"Ceiling centre of the master bedroom, clear of the wardrobe path.",xy:[800,300]},
- {ref:"M2",floor:"GF",room:"GF Common Bathroom",mount:"Wall",powerShort:"Wall - USB off mains",
-  power:"Wall mount: 5V from a USB female socket fed off the normal mains line.",
-  mountNote:"High on a dry-zone wall (east, by the door) with clear sight across the room. Keep out of shower Zone 1/2.",xy:[645,500]},
- {ref:"M3",floor:"GF",room:"Dining / Living mid-ceiling",mount:"Ceiling",powerShort:"Ceiling - buck 230->5V",
-  power:"Ceiling mount: a 230->5V buck converter off the normal line.",
-  mountNote:"Ceiling mid-point between Dining and Living, near the GF ceiling-AP junction box (D10).",xy:[430,655]},
- {ref:"M4",floor:"FF",room:"FF west bedroom (balcony side)",mount:"Ceiling",powerShort:"Ceiling - buck",
-  power:"Ceiling mount: a 230->5V buck converter off the normal line.",
-  mountNote:"Ceiling centre of the west bedroom (the one with the balcony).",xy:[705,430]},
- {ref:"M5",floor:"FF",room:"FF east bedroom",mount:"Wall",powerShort:"Wall - USB off mains",
-  power:"Wall mount: 5V from a USB female socket off the normal mains line.",
-  mountNote:"High wall corner with a clear view of the bed / room.",xy:[265,430]},
- {ref:"M6",floor:"FF",room:"FF west toilet",mount:"Ceiling",powerShort:"Ceiling - buck",
-  power:"Ceiling mount: a 230->5V buck converter off the normal line.",
-  mountNote:"Ceiling, dry zone, clear of the shower.",xy:[675,150]},
- {ref:"M7",floor:"FF",room:"FF east toilet",mount:"Wall",powerShort:"Wall - USB off mains",
-  power:"Wall mount: 5V from a USB female socket off the normal mains line.",
-  mountNote:"High dry-zone wall corner.",xy:[325,150]}
+ {ref:"M1",floor:"GF",room:"GF Master Bedroom",mount:"Ceiling (centre)",powerShort:"Sonoff SNZB-06PR2 · buck 230→5V in switch cavity",
+  sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
+  power:"Ceiling mount: HLK-PM01 buck (230→5V) inside the MBR switch cavity. Thin 2-core 0.75mm² flex copper through 20mm PVC conduit up to the ceiling sensor cavity. USB-C plug at sensor end.",
+  mountNote:"Ceiling centre of the master bedroom, clear of the wardrobe path. False ceiling planned — cavity 86×86×40mm pre-plaster.",xy:[800,300]},
+ {ref:"M2",floor:"GF",room:"GF Common Bathroom",mount:"Wall on existing JB",powerShort:"Sonoff SNZB-06PR2 · Method 1 (JB Mount)",
+  sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
+  power:"Method 1 (JB Mount): HLK-PM01 buck converter sits INSIDE the existing circular metal JB at 7ft FFL on the N wall middle. 230V tapped from L1 mirror chase via Wago 221 lever connectors. USB-C cable emerges through 8mm rubber grommet in JB cover; sensor mounts magnetically on the cover face. Zero visible cable.",
+  mountNote:"N wall middle, 7ft FFL — on the existing circular JB extended from the hand-basin lighting chase. Sensor cone covers both dry zone AND shower zone through the glass partition. Firmly outside IP Zone 1/2.",xy:[645,500]},
+ {ref:"M3",floor:"GF",room:"Dining / Living mid-ceiling",mount:"Ceiling (multi-zone)",powerShort:"Aqara FP2 · buck 230→5V (8m run, 1.0mm² flex)",
+  sensor:"Aqara FP2 (24GHz mmWave, WiFi+Matter, up to 30 zones, built-in lux)",
+  power:"Ceiling mount: HLK-PM01 buck inside nearest switch cavity. 2-core 1.0mm² flex copper (NOT 0.75 — bumped up to handle voltage drop over ~8m run). USB-C at sensor end. Multi-zone Aqara FP2 — zones drawn in Aqara app (sofa / dining table / walkway). Exposed to HA via Matter.",
+  mountNote:"Ceiling mid-point between Dining and Living, near the GF ceiling-AP junction box (D10). 25mm conduit with 1× Cat6 + 2× pull-strings for future ceiling speaker/AP/sensor.",xy:[430,655]},
+ {ref:"M4",floor:"FF",room:"FF Bedroom 2 (W, balcony side)",mount:"Ceiling (centre)",powerShort:"Sonoff SNZB-06PR2 · buck in switch cavity",
+  sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
+  power:"Ceiling mount: HLK-PM01 buck inside BR2 switch cavity. 2-core 0.75mm² flex copper through 20mm conduit up to ceiling cavity (false ceiling present — D11 cove circuit confirms ceiling access).",
+  mountNote:"Ceiling centre of the west/balcony bedroom. False ceiling planned (cove pocket 100×75mm).",xy:[705,430]},
+ {ref:"M5",floor:"FF",room:"FF Bedroom 1 (E side)",mount:"Wall at 7ft FFL",powerShort:"Sonoff SNZB-06PR2 · Method E (buck in 2M GI box)",
+  sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
+  power:"Method E: 2M GI MS back box at 2100mm FFL on the wall facing the bed. HLK-PM01 buck inside the box, 230V via Wago 221 connectors. Short USB-C cable exits through hole in blank Schneider plate. Sensor on supplied bracket directly above the plate.",
+  mountNote:"Wall mount at 7ft FFL — NO false ceiling planned (slab cast, direct paint). Wall position: facing the bed for clear sight line.",xy:[265,430]},
+ {ref:"M6",floor:"FF",room:"FF Toilet 2 (W bedroom's bath)",mount:"Ceiling or Wall (TBD)",powerShort:"Sonoff SNZB-06PR2 · Method 1 / Method E",
+  sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
+  power:"Method 1 if ceiling access verified on site (HLK-PM01 inside ceiling JB). Otherwise Method E (2M GI box at 7ft on wall). Slab cast — verify ceiling chase access during plaster prep.",
+  mountNote:"Dry zone, clear of the shower. Final mount choice on site by electrician.",xy:[675,150]},
+ {ref:"M7",floor:"FF",room:"FF Toilet 1 (E bedroom's bath)",mount:"Wall at 7ft FFL",powerShort:"Sonoff SNZB-06PR2 · Method E (buck in 2M GI box)",
+  sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
+  power:"Method E: 2M GI MS back box at 2100mm FFL on the wall facing the entry door. HLK-PM01 buck inside box, sensor on bracket above.",
+  mountNote:"Wall mount at 7ft FFL — NO false ceiling, slab cast. Position on entry-facing wall, dry zone, outside shower IP Zone 1/2.",xy:[325,150]}
+];
+
+/* mmWave reference PDFs — every sensor popup links to all 3 */
+const MMWAVE_PDFS = [
+ {file:"MMWAVE_SENSOR_MASTER.pdf", label:"Master reference (start here)"},
+ {file:"SENSOR_MOUNTING_METHODS.pdf", label:"All mount methods (overview)"},
+ {file:"JB_INSTALL_AND_NEW_APPROACHES.pdf", label:"JB install step-by-step + Methods D/E"}
 ];
 
 /* Device / install-guide markers (tag pinned on the plan -> opens a guide). */
@@ -1076,12 +1091,13 @@ function openMmwave(ref){
   renderGuide({
     title:`mmWave presence — ${m.room}`, sub:`${m.mount} · ${m.powerShort}`,
     color:SVC.presence.color, glyph:"))",
-    badge:"sensor — location only",
-    inside:["mmWave presence sensor (model TBD: Aqara FP2 (Zigbee) or ESP32 + LD2410C)","Reports presence to Home Assistant"],
+    badge:"sensor — LOCKED 2026-05-30",
+    inside:[m.sensor||"mmWave presence sensor","HLK-PM01 buck converter (230V AC → 5V DC, ₹200, industrial PCB)","Wago 221-413 lever connectors for 230V tap","Reports to Home Assistant via Zigbee2MQTT (or WiFi+Matter for FP2)"],
     power:m.power,
     mount:m.mountNote,
-    note:"No dedicated conduit is being chased for these — power is by wire off the normal line (already discussed with the electrician). They talk to Home Assistant over Wi-Fi via the GF/FF ceiling APs; HA then drives the existing Sonoff lighting relays.",
-    steps:[`Provide 5V at the point: ${m.powerShort}.`,"Mount the sensor with a clear view of the room.","Pair to Home Assistant (Zigbee for FP2, or Wi-Fi / ESPHome for LD2410).","In HA, map presence → the room's existing Sonoff lighting relay."]
+    note:"Sensor LOCKED 2026-05-30. See the 3 PDFs at the bottom of this card for full install instructions including step-by-step images, mount methods, wiring diagrams, and BOM. HA + Z2M handle pairing; in direct mode the room's wall rocker still works even when HA is down.",
+    steps:["Cut the cavity / box at the location described above.","Run 20mm PVC conduit from sensor location to the room's switch cavity, with nylon pull-string inside.","Pull 2-core 0.75mm² flex copper through the conduit.","In the switch cavity (or JB / 2M GI box), wire HLK-PM01 to 230V via Wago 221 connectors.","Solder/connect HLK-PM01 5V output to a sacrificed USB-C cable. Heat-shrink all joints.","Plug USB-C into the sensor; mount sensor magnetically (JB cover) or on its supplied bracket.","Pair to Home Assistant (Z2M for Sonoff, Matter for Aqara FP2)."],
+    pdfs:MMWAVE_PDFS
   });
 }
 /* resolve an asset path: hosted = relative path; offline = inline data URI from window.__ASSETS */
@@ -1099,6 +1115,11 @@ function buildGuideBody(G){
   if(G.imgs&&G.imgs.length) h+=`<div class="gsec gimgs"><h4>Reference images</h4>${G.imgs.map(s=>`<img loading="lazy" src="${assetUrl('assets/img/'+s)}" alt="">`).join("")}</div>`;
   if(G.related&&G.related.length) h+=`<div class="gsec"><h4>Conduits feeding this (tap to find on plan)</h4><div class="grel">${G.related.map(r=>`<button data-rel="${r}">${r}</button>`).join("")}</div></div>`;
   if(G.pdf && !window.__OFFLINE) h+=`<div class="gsec"><a class="gpdf" href="${assetUrl('assets/pdf/'+G.pdf)}" target="_blank" rel="noopener">Open the full PDF</a></div>`;
+  if(G.pdfs && G.pdfs.length && !window.__OFFLINE){
+    h+=`<div class="gsec"><h4>Reference PDFs</h4><div style="display:flex;flex-direction:column;gap:6px">`+
+       G.pdfs.map(p=>`<a class="gpdf" href="${assetUrl('assets/pdf/'+p.file)}" target="_blank" rel="noopener">${p.label}</a>`).join("")+
+       `</div></div>`;
+  }
   return h;
 }
 function closeGuide(){document.getElementById("guide").classList.remove("open"); syncScrim();}
