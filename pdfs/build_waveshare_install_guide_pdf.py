@@ -1,9 +1,11 @@
 """
 Build the Waveshare Indoor Panel - Visual Install Guide PDF.
 
-Generates 6 step-by-step technical illustrations via Gemini Nano Banana 2
+Generates step-by-step technical illustrations via Gemini Nano Banana 2
 (gemini-3.1-flash-image-preview) and assembles them into a single A4 PDF
-site-handout for the carpenter, electrician, and homeowner.
+site-handout for the carpenter, electrician, and homeowner. Step 3 (the plug
+diagram) is drawn in code by waveshare_plug_diagram.py instead - free, exact,
+and redrawn on every run.
 
 Style: IKEA-assembly-instruction-style isometric line illustrations, consistent
 across all 6 frames. Each frame is a numbered install step with a caption.
@@ -11,12 +13,13 @@ across all 6 frames. Each frame is a numbered install step with a caption.
 v2.0 (2026-09-28) matches electrical/WAVESHARE_INDOOR_PANEL.md v3.3: the
 Waveshare 10.1" (G) screen takes its own 12V/2A power (not over the USB), so
 there are 3 L-shaped plugs at the screen; it is a tight fit in the cavity; the
-server is the MSI Cubi 5. A step may carry a "picture_note" - a plain-language
-correction printed under an older picture that doesn't match the text yet.
-Delete the note once that picture is regenerated from the updated prompt.
+server is the MSI Cubi 5. Pictures 1-2 regenerated and 3 drawn 2026-09-29. A
+step may carry a "picture_note" - a plain-language correction printed under an
+older picture that doesn't match the text yet. Delete the note once that
+picture is regenerated from the updated prompt.
 
 Requires:
-  - fpdf2 (`pip3 install --user fpdf2`)
+  - fpdf2 + Pillow (`pip3 install --user fpdf2 pillow`)
   - GOOGLE_AI_API_KEY environment variable OR --api-key arg
   - Internet connection to Gemini API
 
@@ -42,6 +45,8 @@ import urllib.request
 from pathlib import Path
 
 from fpdf import FPDF
+
+from waveshare_plug_diagram import draw as draw_plug_diagram
 
 # --------------------------------------------------------------------------- #
 # Paths
@@ -97,43 +102,38 @@ PROMPTS = [
             "up to the cavity. The 230V stays at the switch box. With (b), "
             "the Cat6 stays spare: fit an RJ45 plug and label it 'SPARE'."
         ),
-        "picture_note": (
-            "This picture is from the old plan. Where it says 'Beelink', "
-            "read 'server' (now the MSI Cubi 5). The Cat6 is NOT spare any "
-            "more - it is the preferred 12V power feed, option (a). The "
-            "picture does not show the 12V power - follow the text below."
-        ),
         "aspect_ratio": "4:3",
         "prompt": (
-            "A clean technical isometric cutaway illustration showing the "
-            "inside of a residential wall. The wall material is shown in "
-            "cutaway with warm beige interior, revealing a large rectangular "
-            "recess chased into the masonry. The recess is labeled as a "
-            "masonry cavity, 280 mm wide by 195 mm tall by 80 mm deep, "
-            "centered at 1500 mm above the floor. A vertical 25mm grey PVC "
-            "conduit enters the bottom of this cavity through a small round "
-            "hole. Three cables come out of the conduit into the cavity: a "
-            "flat black HDMI cable, a thin white USB cable and a blue Cat6 "
-            "ethernet cable. The HDMI and USB cable ends are coiled into a "
-            "neat service loop inside the cavity, ready to plug into a "
-            "future screen. The blue Cat6 cable plugs into a small black "
-            "rectangular PoE splitter box, about the size of a matchbox, "
-            "resting inside the cavity; a short thin black DC power lead "
-            "with a small round barrel plug comes out of the splitter box, "
-            "also coiled with slack. Below the masonry cavity, with about "
-            "200 mm clear gap, sits a smaller existing rectangular 2-module "
-            "switch box for the staircase light (a typical Indian modular "
-            "switch back box, two switches side by side). A thin dashed red "
-            "line runs from the switch box up to the cavity, showing an "
-            "optional short 12V cable route. Below the switch box on the "
-            "wall: the first few stairs of the staircase. Labels with thin "
-            "black leader lines pointing to each part: 'Masonry cavity 280 "
-            "x 195 x 80 mm at 1500 mm FFL', '25 mm grey PVC conduit from "
-            "server', 'HDMI cable to server', 'USB cable to server - touch "
-            "only', 'Cat6 into PoE splitter - 12V for the screen (option a)', "
-            "'Option b: 12V cable from a small supply at the switch box', "
-            "'200 mm gap', 'Existing 2M switch box for staircase light'. "
-            + SHARED_STYLE
+            "A clean technical isometric cutaway illustration of a "
+            "residential staircase wall before the screen is installed. The "
+            "wall is shown in cutaway with a warm beige interior, revealing "
+            "a large rectangular recess chased into the masonry, 280 mm wide "
+            "by 195 mm tall by 80 mm deep, centered at 1500 mm above the "
+            "floor. The cavity edge is plain plaster: there is NO wooden "
+            "frame, NO bezel and NO screen yet. A 25 mm grey PVC conduit is "
+            "buried in the wall - draw it as a grey pipe in the cut-away "
+            "wall section, rising from below and entering the bottom of the "
+            "cavity through a small round hole. Three cables come out of the "
+            "conduit into the cavity: a flat black HDMI cable, a thin white "
+            "USB cable and a blue Cat6 ethernet cable. The HDMI and USB "
+            "cable ends are coiled into a neat service loop. The blue Cat6 "
+            "cable plugs into a small black rectangular PoE splitter box, "
+            "about the size of a matchbox, resting on the cavity floor; a "
+            "short thin black DC power lead with a small round barrel plug "
+            "comes out of the splitter box, also coiled with slack. About "
+            "200 mm below the cavity is a smaller existing 2-module wall "
+            "switch for the staircase light (a typical Indian modular switch "
+            "plate, two rocker switches side by side). A thin dashed red "
+            "line runs up the wall from the switch to the cavity, showing an "
+            "optional short 12V cable route. The first few stairs of the "
+            "staircase are visible at the bottom. Use exactly these eight "
+            "labels, each with a thin black leader line pointing to its "
+            "part, and no other text: 'Masonry cavity 280 x 195 x 80 mm, "
+            "1500 mm FFL', '25 mm grey conduit from server', 'HDMI cable to "
+            "server', 'USB cable to server - touch only', 'Cat6 into PoE "
+            "splitter - 12V for screen (option a)', 'Option b: 12V from a "
+            "small supply at the switch', '200 mm gap', 'Existing 2M light "
+            "switch'. " + SHARED_STYLE
         ),
     },
     {
@@ -153,12 +153,6 @@ PROMPTS = [
             "carpenter decides how once the screen is in hand. Stick the "
             "ACR122U NFC reader inside the lower-right bezel - it reads taps "
             "through the wood."
-        ),
-        "picture_note": (
-            "The picture shows small M3 standoffs at the screen corners. The "
-            "(G) screen has 4 M4 screw holes in a 75 mm square on its back - "
-            "fix it with those. The picture also shows only 2 cables; there "
-            "is a third, the 12V power lead."
         ),
         "aspect_ratio": "4:3",
         "prompt": (
@@ -206,34 +200,11 @@ PROMPTS = [
             "does not power the screen. Don't fix anything yet - you push the "
             "whole unit into the wall next."
         ),
-        "picture_note": (
-            "This picture is from the old plan and is WRONG about power. It "
-            "says the USB carries 5V power - it does not. The USB carries "
-            "touch only. There are 3 plugs, not 2: HDMI + touch USB + a "
-            "separate 12V power plug, all L-shaped."
-        ),
+        # Drawn in code by waveshare_plug_diagram.py, not by Gemini: two AI
+        # attempts (2026-09-29) kept drawing straight HDMI/USB plugs, and
+        # the L-shaped plugs are the whole point of this step.
+        "drawn": True,
         "aspect_ratio": "4:3",
-        "prompt": (
-            "A clean technical isometric close-up illustration showing the "
-            "back of an assembled rectangular walnut-framed touchscreen unit, "
-            "held just in front of a wall cavity. On the back of the screen's "
-            "slim black case there is a recessed port bay along one edge "
-            "with the sockets side by side. Simple outlined hands (no "
-            "detailed skin) are plugging in three cables, each with an "
-            "L-shaped right-angle plug that turns the cable straight back "
-            "toward the wall: a flat black HDMI cable into the HDMI socket, "
-            "a thin white micro-USB cable into the touch USB socket, and a "
-            "thin black DC power lead with a round barrel plug into the 12V "
-            "power socket. A USB-A socket in the same bay, marked '5V 3A "
-            "OUT', is left empty. The three cables trail back into the wall "
-            "cavity behind the unit, with some service loop slack visible. "
-            "Labels with thin black leader lines: 'L-shaped HDMI plug - "
-            "picture', 'L-shaped micro-USB - touch only, no power', "
-            "'L-shaped 12V power plug (12V 2A)', 'Sockets sit in a recess - "
-            "straight plugs will not fit', 'Leave 5V 3A socket empty "
-            "(output only)', 'Service loop - slack for later service'. "
-            + SHARED_STYLE
-        ),
     },
     {
         "step": 4,
@@ -458,7 +429,7 @@ class InstallGuidePDF(FPDF):
         self.set_font("Helvetica", "I", 8)
         self.set_text_color(110, 110, 110)
         self.cell(0, 6,
-                  "v2.0 - 2026-09-28 - (G) screen, 12V power, MSI Cubi 5 - "
+                  "v2.1 - 2026-09-29 - (G) screen, 12V power, MSI Cubi 5 - "
                   "hand to carpenter + electrician + homeowner",
                   align="C")
 
@@ -520,11 +491,15 @@ class InstallGuidePDF(FPDF):
 def build_pdf(api_key: str | None, regenerate: bool) -> int:
     print(f"\nBuilding Waveshare Install Guide PDF → {OUT_PDF}\n")
 
-    # Step 1: Ensure all 6 images exist
+    # Step 1: Ensure all 6 images exist. Steps drawn in code are redrawn on
+    # every run (free, and keeps the PNG in step with the drawing code).
     missing_images = []
     for spec in PROMPTS:
         img_path = IMG_DIR / f"install-step-{spec['step']}.png"
-        if regenerate or not img_path.exists():
+        if spec.get("drawn"):
+            draw_plug_diagram(img_path)
+            print(f"Step {spec['step']}: drew {img_path.name} in code")
+        elif regenerate or not img_path.exists():
             missing_images.append(spec)
 
     if missing_images:
@@ -547,7 +522,7 @@ def build_pdf(api_key: str | None, regenerate: bool) -> int:
                       "Aborting PDF build.")
                 return 2
     else:
-        print("All 6 images already exist; skipping regeneration "
+        print("All Gemini images already exist; skipping regeneration "
               "(use --regenerate to force).")
 
     # Step 2: Assemble PDF
