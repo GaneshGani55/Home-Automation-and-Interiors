@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 779 806" width="779" height="806" font-family="Helvetica, Arial, sans-serif" font-size="11">
+<rect width="779" height="806" fill="#faf7f0"/>
+<line x1="60.0" y1="706.0" x2="619.0" y2="706.0" stroke="#2b241e" stroke-width="3"/>
+<text x="64.0" y="720.0" fill="#2b241e">GF finished floor (0 m)</text>
+<rect x="60.0" y="85.0" width="559.0" height="18.0" fill="#8c8278"/>
+<text x="64.0" y="81.0" fill="#2b241e">roof slab ≈ 6.7 m (22 ft)</text>
+<rect x="60.0" y="390.1" width="226.2" height="14.4" fill="#8c8278"/>
+<text x="73.0" y="386.1" fill="#2b241e">FF corridor slab · GF ceiling 11 ft (3.35 m)</text>
+<rect x="286.2" y="376.6" width="18.19999999999999" height="27.900000000000006" fill="#6b5f4d"/>
+<text x="307.4" y="391.00000000000006" fill="#6b5f4d">edge beam, soffit 11 ft</text>
+<rect x="184.8" y="459.13" width="101.39999999999998" height="7.2" fill="#d9a31a"/>
+<text x="190.0" y="481.13" fill="#8a6a10">9 ft false ceiling (2.74 m)</text>
+<rect x="304.4" y="143.50000000000003" width="286.0" height="7.2" fill="#d9a31a" opacity=".8"/>
+<text x="333.0" y="137.50000000000003" fill="#8a6a10">void lid false ceiling ≈ 20.5 ft (6.25 m) — proposed</text>
+<rect x="590.4" y="85.0" width="12" height="621.0" fill="#3a3129"/>
+<rect x="590.4" y="486.4000000000001" width="12" height="164.70000000000002" fill="#e6b422"/>
+<rect x="590.4" y="157.00000000000006" width="12" height="164.70000000000002" fill="#e6b422"/>
+<text x="440.4" y="99.0" fill="#2b241e">N wall · 8 ft windows (lower + upper)</text>
+<line x1="586.5" y1="157.00000000000006" x2="586.5" y2="704.2" stroke="#a89f8c" stroke-width="3" stroke-dasharray="6 3"/>
+<text x="602.5" y="508.0" fill="#6d6257">curtain</text>
+<polyline points="184.8,706.0 184.8,706.0" stroke="#555" fill="none"/>
+<line x1="86.0" y1="652.0000000000001" x2="179.60000000000002" y2="652.0000000000001" stroke="#777" stroke-width="2" stroke-dasharray="3 3"/>
+<text x="88.60000000000004" y="648.0000000000001" fill="#777">flight 1 (behind, rises W)</text>
+<line x1="184.8" y1="472.00000000000006" x2="281.0" y2="472.00000000000006" stroke="#777" stroke-width="2" stroke-dasharray="3 3"/>
+<text x="187.39999999999998" y="486.00000000000006" fill="#777">flight 2 mid ≈ 2.6 m (seen from living)</text>
+<polygon points="236.8,459.13 156.23321284582562,706.0 317.3667871541744,706.0" fill="#3b6ea5" opacity=".18"/>
+<circle cx="236.8" cy="459.13" r="5" fill="#3b6ea5"/>
+<text x="176.8" y="437.13" fill="#3b6ea5" font-weight="bold">Rega Plus 12W ×2 (x 12 and 15 ft)</text>
+<circle cx="385.0" cy="422.24800000000005" r="5" fill="#b3542a"/>
+<line x1="385.0" y1="422.24800000000005" x2="586.5" y2="418.0" stroke="#b3542a" stroke-width="2" stroke-dasharray="5 3"/>
+<text x="314.8" y="442.24800000000005" fill="#b3542a" font-weight="bold">Axios 20W heads on E beam (x 10.1 ft, 3.15 m): F40→stair, F41→TV wall (both out of plane), F42→curtain 60°</text>
+<rect x="300.1" y="404.50000000000006" width="6" height="6" fill="#d9a31a"/>
+<text x="103.10000000000002" y="418.0" fill="#8a6a10">S10 LED profile under beam edge (11 ft) → ≈ 69 lx on the floor directly below</text>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="472.00000000000006" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="453.4" cy="472.00000000000006" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="445.0" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="444.4" cy="445.0" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="418.0" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="438.4" cy="418.0" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="391.00000000000006" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="450.4" cy="391.00000000000006" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="364.00000000000006" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="441.4" cy="364.00000000000006" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="337.00000000000006" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="450.4" cy="337.00000000000006" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="310.0" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="453.4" cy="310.0" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="283.0" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="444.4" cy="283.0" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="256.0" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="453.4" cy="256.0" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<line x1="447.4" y1="143.50000000000003" x2="447.4" y2="229.00000000000006" stroke="#7a4fa3" stroke-width="1"/>
+<circle cx="444.4" cy="229.00000000000006" r="6" fill="#efe3f7" stroke="#7a4fa3" stroke-width="2"/>
+<text x="461.4" y="202.00000000000006" fill="#7a4fa3" font-weight="bold">pendant cluster: 10 globes, 2.6–5.3 m, anchored to roof slab</text>
+<rect x="574.8" y="143.50000000000003" width="15.600000000000023" height="27.0" fill="#d9a31a"/>
+<text x="463.0" y="112.00000000000006" fill="#8a6a10">S20 pelmet strip (6.1 m) washes the curtain</text>
+<rect x="429.2" y="665.5" width="36.400000000000034" height="40.5" fill="#d6c5a8" stroke="#8b6f4e"/>
+<rect x="512.4" y="629.5000000000001" width="70.20000000000005" height="76.5" fill="#d4c4b0" stroke="#8b6f4e"/>
+<text x="515.0" y="623.5000000000001" fill="#5c432b">N sofa (back 0.85 m)</text>
+<line x1="52.0" y1="706.0" x2="60.0" y2="706.0" stroke="#2b241e"/>
+<text x="20.0" y="710.0" fill="#2b241e">0 m</text>
+<line x1="52.0" y1="616.0" x2="60.0" y2="616.0" stroke="#2b241e"/>
+<text x="20.0" y="620.0" fill="#2b241e">1 m</text>
+<line x1="52.0" y1="526.0" x2="60.0" y2="526.0" stroke="#2b241e"/>
+<text x="20.0" y="530.0" fill="#2b241e">2 m</text>
+<line x1="52.0" y1="436.00000000000006" x2="60.0" y2="436.00000000000006" stroke="#2b241e"/>
+<text x="20.0" y="440.00000000000006" fill="#2b241e">3 m</text>
+<line x1="52.0" y1="346.00000000000006" x2="60.0" y2="346.00000000000006" stroke="#2b241e"/>
+<text x="20.0" y="350.00000000000006" fill="#2b241e">4 m</text>
+<line x1="52.0" y1="256.0" x2="60.0" y2="256.0" stroke="#2b241e"/>
+<text x="20.0" y="260.0" fill="#2b241e">5 m</text>
+<line x1="52.0" y1="166.00000000000003" x2="60.0" y2="166.00000000000003" stroke="#2b241e"/>
+<text x="20.0" y="170.00000000000003" fill="#2b241e">6 m</text>
+<line x1="52.0" y1="76.00000000000003" x2="60.0" y2="76.00000000000003" stroke="#2b241e"/>
+<text x="20.0" y="80.00000000000003" fill="#2b241e">7 m</text>
+<text x="625.0" y="463.112" fill="#8a6a10">9 ft</text>
+<text x="625.0" y="408.248" fill="#8a6a10">11 ft</text>
+<text x="625.0" y="133.928" fill="#8a6a10">21 ft</text>
+<text x="232.8" y="680.0" fill="#1f1a14" font-size="11" text-anchor="start">accent-chair floor ≈ 644 lx (seat)</text>
+<text x="443.4" y="635.0" fill="#1f1a14" font-size="11" text-anchor="start">coffee table ≈ 293 lx</text>
+<text x="537.0" y="608.0" fill="#1f1a14" font-size="11" text-anchor="end">sofa reading plane ≈ 260 lx</text>
+<text x="582.5" y="587.0" fill="#1f1a14" font-size="11" text-anchor="end">curtain 1.5 m ≈ 235 lx (vertical)</text>
+<text x="582.5" y="227.00000000000003" fill="#1f1a14" font-size="11" text-anchor="end">curtain 5.5 m ≈ 157 lx</text>
+<text x="60.0" y="746" fill="#1f1a14" font-size="13" font-weight="bold">N–S section through the void centre line (x = 18.7 ft), looking west · FULL scene values (direct + indirect, modelled)</text>
+<text x="60.0" y="764" fill="#6d6257">Inverse-square at a glance: the same 900 lm downlight gives ≈ 225 lx on the floor from 9 ft, ≈ 151 lx from 11 ft and ≈ 41 lx from 21 ft (nadir, single fixture).</text>
+<text x="60.0" y="780" fill="#6d6257">Only the pendant globes, the pelmet strip and the curtain-motor pelmet sit above 11 ft; every other living-room light is at 9 ft or 11 ft. Nothing is recessed at 21 ft.</text>
+</svg>

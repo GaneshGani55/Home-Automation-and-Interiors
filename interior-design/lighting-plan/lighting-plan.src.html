@@ -1,0 +1,258 @@
+<title>Lighting Ceiling Map</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky tab bar → chip row → full-width plan with pan/zoom → bottom sheet for the tapped item. Site handout, phone first. */
+:root{
+ --bg:#f6f1e8; --paper:#fffdf8; --ink:#1f1a14; --muted:#6d6257; --line:#d9cfc0; --accent:#c8871a; --accent-ink:#5a3a05;
+ --amb:#3b6ea5; --acc:#b3542a; --task:#2f7d5a; --glow:#d9a31a; --deco:#7a4fa3; --svc:#6b6b6b;
+ --room:#fbf7ef; --fc:#fbe7c2; --fc2:#f4d59a; --void:#e8eef5; --wall:#3a3129; --win:#e6b422; --beam:#b8a88f;
+ --sheet:#fffdf8; --chip:#efe6d6; --chip-on:#1f1a14; --chip-on-ink:#fffdf8;
+ --font-display:"Bricolage Grotesque","Trebuchet MS",Arial,sans-serif; --font-body:"IBM Plex Sans",system-ui,Segoe UI,Roboto,sans-serif; --font-mono:"IBM Plex Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#17130f; --paper:#201b16; --ink:#f1e9dc; --muted:#a79a8a; --line:#3d342b; --accent:#e5a43a; --accent-ink:#f6d9a8; --room:#251f19; --fc:#4a3714; --fc2:#6a4e1c; --void:#1b2430; --wall:#e8ddcc; --win:#e6b422; --beam:#6b5f4d; --sheet:#241e18; --chip:#2e2721; --chip-on:#f1e9dc; --chip-on-ink:#1f1a14; --amb:#7fb0e6; --acc:#e08a5c; --task:#63b48c; --glow:#f0c04a; --deco:#b48fd8; --svc:#a3a3a3; color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#17130f; --paper:#201b16; --ink:#f1e9dc; --muted:#a79a8a; --line:#3d342b; --accent:#e5a43a; --accent-ink:#f6d9a8; --room:#251f19; --fc:#4a3714; --fc2:#6a4e1c; --void:#1b2430; --wall:#e8ddcc; --win:#e6b422; --beam:#6b5f4d; --sheet:#241e18; --chip:#2e2721; --chip-on:#f1e9dc; --chip-on-ink:#1f1a14; --amb:#7fb0e6; --acc:#e08a5c; --task:#63b48c; --glow:#f0c04a; --deco:#b48fd8; --svc:#a3a3a3; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--font-body)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:0 96px;padding-inline:16px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0 8px}
+h1{font:700 22px/1.1 var(--font-display);margin:0 0 2px;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--muted);font-size:12.5px;margin:0 0 8px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs button{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:7px 12px;border-radius:999px;font:600 13px var(--font-body);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--chip-on);color:var(--chip-on-ink);border-color:var(--chip-on)}
+.tabs button:focus-visible,.chip:focus-visible,.zoom button:focus-visible,.sheet button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:10px 0 6px}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);padding:4px 10px;border-radius:999px;font:500 12px var(--font-body);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block;background:var(--c)}
+.chip[aria-pressed="false"]{opacity:.45}
+.planbox{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;touch-action:none;user-select:none}
+.planbox svg{display:block;width:100%;height:auto;max-height:78vh}
+.compass{position:absolute;left:10px;top:10px;font:500 11px var(--font-mono);color:var(--muted);background:var(--paper);padding:4px 7px;border-radius:6px;border:1px solid var(--line);line-height:1.35}
+.zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:4px}
+.zoom button{width:34px;height:34px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;font:600 16px var(--font-body);cursor:pointer}
+.hint{font-size:12px;color:var(--muted);margin:8px 0 0}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--sheet);border-top:1px solid var(--line);border-radius:14px 14px 0 0;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 24px rgba(0,0,0,.12);max-height:62vh;overflow:auto}
+.sheet[hidden]{display:none}
+.sheet .row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet h2{font:700 17px/1.2 var(--font-display);margin:0;text-wrap:balance}
+.sheet button.close{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:4px 10px;font:600 13px var(--font-body);cursor:pointer}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;margin:10px 0 0;font-size:13.5px}
+.kv div:nth-child(odd){color:var(--muted);font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding-top:2px}
+.code{font:500 13px var(--font-mono);background:var(--chip);padding:2px 6px;border-radius:5px;display:inline-block}
+.mrp{font:700 15px var(--font-display);color:var(--accent-ink)}
+.tag{display:inline-block;padding:1px 8px;border-radius:999px;font:600 11px var(--font-body);color:#fff;background:var(--c)}
+.why{margin:10px 0 0;padding:8px 10px;border-left:3px solid var(--accent);background:var(--chip);border-radius:0 8px 8px 0;font-size:13.5px}
+section.page{padding:14px 0}
+section.page h2{font:700 19px/1.2 var(--font-display);margin:0 0 6px}
+section.page h3{font:600 15px/1.3 var(--font-body);margin:16px 0 6px}
+section.page p,section.page li{max-width:68ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.card h4{font:700 14px/1.25 var(--font-display);margin:0 0 4px}
+.card .meta{font-size:12.5px;color:var(--muted)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--chip)}
+td.num,th.num{text-align:right;white-space:nowrap}
+tr.total td{font-weight:700;background:var(--chip)}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 14px;font-size:13px}
+.legend div{display:flex;align-items:center;gap:8px}
+.legend svg{flex:0 0 auto}
+.note{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:13.5px}
+ul{padding-left:20px;margin:6px 0}
+.mini{font-size:12px;color:var(--muted)}
+@media (min-width:900px){ .sheet{left:auto;right:16px;bottom:16px;width:400px;border-radius:14px;border:1px solid var(--line);max-height:80vh} }
+@media (prefers-reduced-motion:no-preference){ .sheet{animation:up .18s ease-out} @keyframes up{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}} }
+</style>
+
+<div class="wrap">
+ <header class="top">
+  <h1>Lighting &amp; false-ceiling map</h1>
+  <p class="sub">Two-storey home, Chitradurga · TISVA architectural catalogue (Apr-2025 list) · PROPOSED 2026-09-29 · tap any symbol for its product code, position and switch gang</p>
+  <div class="tabs" role="tablist">
+   <button role="tab" aria-selected="true" data-tab="GF">Ground floor</button>
+   <button role="tab" aria-selected="false" data-tab="FF">First floor</button>
+   <button role="tab" aria-selected="false" data-tab="CEIL">False ceilings</button>
+   <button role="tab" aria-selected="false" data-tab="PROD">Products</button>
+   <button role="tab" aria-selected="false" data-tab="BOM">Buy list</button>
+   <button role="tab" aria-selected="false" data-tab="LUX">Living lux check</button>
+   <button role="tab" aria-selected="false" data-tab="READ">How to read</button>
+  </div>
+ </header>
+
+ <div id="planpage">
+  <div class="chips" id="chips"></div>
+  <div class="planbox" id="planbox">
+   <svg id="plan" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reflected ceiling plan"></svg>
+   <div class="compass">TOP = South<br>BOTTOM = North (main door)<br>LEFT = East · RIGHT = West</div>
+   <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zfit" aria-label="Fit">⤢</button></div>
+  </div>
+  <p class="hint">Drag to pan, pinch or scroll to zoom. Tinted areas are false ceilings; amber lines are LED strips in coves/profiles; grey squares are fans, sensors, AP, speaker. Positions are centre-of-fixture; the electrician marks them from the finished wall faces.</p>
+ </div>
+
+ <section class="page" id="page-CEIL" hidden></section>
+ <section class="page" id="page-PROD" hidden></section>
+ <section class="page" id="page-BOM" hidden></section>
+ <section class="page" id="page-LUX" hidden>
+  <h2>Photometric check — double-height living room</h2>
+  <p>Modelled lux (direct + bounce) from the fixture positions on this map, TISVA's published Axios lumens and optics, and <em>estimated</em> lumens for Rega Plus and the strips (TISVA publishes none). A model, not a measurement; full method, tables and provenance are in the design doc §10.</p>
+  <div class="note" style="margin-bottom:10px"><b>Verdict (accepted design, 2026-10-02):</b> the layered scheme works without any downlight in the 21 ft void. Two changes from the check were accepted and are built in: the half-landing fixture is now an Avia 7 W aimed at the stair wall (the Bolt 12 W would have made a ≈ 1,170 lx pool in climbers' eyes), and the pendant takes 806 lm smart bulbs. Order the Axios heads as 38° (stair), 24° (TV wall), 60° (curtain).</div>
+  <div class="tablewrap" style="margin-bottom:12px">__LUX_TABLE__</div>
+  <div class="cards">
+   <div class="card"><h4>FULL scene — floor lux</h4><img alt="FULL scene heatmap" src="__HEATMAP_FULL__"></div>
+   <div class="card"><h4>EVENING scene — floor lux</h4><img alt="EVENING scene heatmap" src="__HEATMAP_EVENING__"></div>
+  </div>
+  <p class="mini" style="margin-top:10px">Inverse-square at a glance: the same 900 lm downlight gives ≈ 225 lx on the floor from 9 ft, ≈ 150 lx from 11 ft and ≈ 40 lx from 21 ft — the reason the void is lit from the pendant, the beam-edge line and the wall-wash heads, not from the lid.</p>
+ </section>
+ <section class="page" id="page-READ" hidden></section>
+</div>
+
+<div class="sheet" id="sheet" hidden></div>
+
+<script src="lighting-data.js"></script>
+<script>
+(function(){
+ const S=L.scale, NS="http://www.w3.org/2000/svg";
+ const planEl=document.getElementById("plan"), sheet=document.getElementById("sheet");
+ let floor="GF", tab="GF";
+ const active=new Set(["ceiling","ambient","accent","task","glow","deco","svc","labels"]);
+ const chipDefs=[["ceiling","False ceilings","var(--fc2)"],["ambient",L.layers.ambient.label,"var(--amb)"],["accent",L.layers.accent.label,"var(--acc)"],["task",L.layers.task.label,"var(--task)"],["glow",L.layers.glow.label,"var(--glow)"],["deco",L.layers.deco.label,"var(--deco)"],["svc",L.layers.svc.label,"var(--svc)"],["labels","IDs","var(--muted)"]];
+ const layerColor={ambient:"var(--amb)",accent:"var(--acc)",task:"var(--task)",glow:"var(--glow)",deco:"var(--deco)",svc:"var(--svc)"};
+ const stripColor={LS3K:"var(--glow)",LS3K65:"var(--task)",LS4K70:"var(--task)",LS12V:"var(--glow)",AMBER:"var(--acc)"};
+ const mm=ft=>Math.round(ft*304.8);
+ const el=(n,a,txt)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;};
+
+ /* ---------- chips ---------- */
+ const chips=document.getElementById("chips");
+ chipDefs.forEach(([k,label,c])=>{const b=document.createElement("button");b.className="chip";b.style.setProperty("--c",c);b.setAttribute("aria-pressed","true");b.innerHTML=`<i></i>${label}`;b.onclick=()=>{active.has(k)?active.delete(k):active.add(k);b.setAttribute("aria-pressed",active.has(k));draw();};chips.appendChild(b);});
+
+ /* ---------- pan / zoom ---------- */
+ const BASE={x:-20,y:-20,w:31*S+40,h:38*S+40}; let vb={...BASE};
+ function applyVB(){planEl.setAttribute("viewBox",`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);}
+ function zoomAt(f,cx,cy){const nw=Math.max(BASE.w/6,Math.min(BASE.w*1.5,vb.w*f));const nh=nw*BASE.h/BASE.w;const rx=(cx-vb.x)/vb.w,ry=(cy-vb.y)/vb.h;vb={x:cx-rx*nw,y:cy-ry*nh,w:nw,h:nh};applyVB();}
+ function svgPt(clientX,clientY){const r=planEl.getBoundingClientRect();return [vb.x+(clientX-r.left)/r.width*vb.w, vb.y+(clientY-r.top)/r.height*vb.h];}
+ document.getElementById("zin").onclick=()=>zoomAt(0.75,vb.x+vb.w/2,vb.y+vb.h/2);
+ document.getElementById("zout").onclick=()=>zoomAt(1.33,vb.x+vb.w/2,vb.y+vb.h/2);
+ document.getElementById("zfit").onclick=()=>{vb={...BASE};applyVB();};
+ const box=document.getElementById("planbox"); const ptrs=new Map(); let last=null, moved=false, pinch=0;
+ box.addEventListener("pointerdown",e=>{ptrs.set(e.pointerId,[e.clientX,e.clientY]);last=[e.clientX,e.clientY];moved=false;box.setPointerCapture(e.pointerId);});
+ box.addEventListener("pointermove",e=>{if(!ptrs.has(e.pointerId))return;ptrs.set(e.pointerId,[e.clientX,e.clientY]);const r=planEl.getBoundingClientRect();
+  if(ptrs.size===2){const [a,b]=[...ptrs.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(pinch){const [cx,cy]=svgPt((a[0]+b[0])/2,(a[1]+b[1])/2);zoomAt(pinch/d,cx,cy);}pinch=d;moved=true;return;}
+  if(last){const dx=(e.clientX-last[0])/r.width*vb.w,dy=(e.clientY-last[1])/r.height*vb.h;if(Math.abs(e.clientX-last[0])+Math.abs(e.clientY-last[1])>3)moved=true;vb.x-=dx;vb.y-=dy;applyVB();last=[e.clientX,e.clientY];}});
+ const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pinch=0;last=null;};
+ box.addEventListener("pointerup",up);box.addEventListener("pointercancel",up);
+ box.addEventListener("wheel",e=>{e.preventDefault();const [cx,cy]=svgPt(e.clientX,e.clientY);zoomAt(e.deltaY>0?1.15:0.87,cx,cy);},{passive:false});
+
+ /* ---------- drawing ---------- */
+ function draw(){
+  const F=L.floors[floor]; planEl.innerHTML=""; applyVB();
+  const g=k=>{const x=el("g",{"data-layer":k});planEl.appendChild(x);return x;};
+  const gBase=g("base"), gFC=g("fc"), gRoom=g("rooms"), gStrip=g("strips"), gFix=g("fix"), gSvc=g("svc"), gLbl=g("lbl");
+  // rooms
+  F.rooms.forEach(r=>{const [x1,y1,x2,y2]=r.rect;const rect=el("rect",{x:x1*S,y:y1*S,width:(x2-x1)*S,height:(y2-y1)*S,fill:r.id==="VOID"?"var(--void)":"var(--room)",stroke:"var(--line)","stroke-width":1});
+   rect.style.cursor="pointer";rect.addEventListener("click",()=>{if(!moved)showRoom(r);});gBase.appendChild(rect);});
+  // void
+  if(F.voidRect){const [x1,y1,x2,y2]=F.voidRect;const v=el("rect",{x:x1*S,y:y1*S,width:(x2-x1)*S,height:(y2-y1)*S,fill:"var(--void)",stroke:"var(--amb)","stroke-dasharray":"6 4","stroke-width":1.2});gBase.appendChild(v);
+   gBase.appendChild(el("line",{x1:x1*S,y1:y1*S,x2:x2*S,y2:y2*S,stroke:"var(--line)","stroke-dasharray":"4 6"}));gBase.appendChild(el("line",{x1:x2*S,y1:y1*S,x2:x1*S,y2:y2*S,stroke:"var(--line)","stroke-dasharray":"4 6"}));
+   gLbl.appendChild(el("text",{x:(x1+x2)/2*S,y:(y1+y2)/2*S+38,"text-anchor":"middle",fill:"var(--muted)","font-size":10,"font-family":"var(--font-body)"},floor==="GF"?"DOUBLE-HEIGHT VOID — no ceiling here (21 ft)":"VOID — no slab (lid ceiling proposed)"));}
+  // false ceilings
+  if(active.has("ceiling")) F.fc.forEach(fc=>{fc.polys.forEach(poly=>{const p=el("polygon",{points:poly.map(([x,y])=>`${x*S},${y*S}`).join(" "),fill:fc.type==="lid"?"var(--fc)":"var(--fc)",opacity:fc.type==="lid"?.45:.85,stroke:"var(--fc2)","stroke-width":1});p.style.cursor="pointer";p.addEventListener("click",()=>{if(!moved)showFC(fc);});gFC.appendChild(p);});
+   fc.cove.forEach(([x1,y1,x2,y2])=>{gFC.appendChild(el("line",{x1:x1*S,y1:y1*S,x2:x2*S,y2:y2*S,stroke:"var(--glow)","stroke-width":2.2,"stroke-dasharray":"7 3",opacity:.9}));});});
+  // beams
+  (F.beams||[]).forEach(b=>{const [x1,y1,x2,y2]=b.rect;const r=el("rect",{x:x1*S,y:y1*S,width:(x2-x1)*S,height:(y2-y1)*S,fill:"var(--beam)",opacity:.8});r.appendChild(el("title",{},b.label));gRoom.appendChild(r);});
+  // outline + windows + doors
+  gRoom.appendChild(el("path",{d:F.outline.replace(/-?\d+(?:\.\d+)?/g,n=>String(parseFloat(n)*S)),fill:"none",stroke:"var(--wall)","stroke-width":5,"stroke-linejoin":"miter"}));
+  F.windows.forEach(([x1,y1,x2,y2])=>gRoom.appendChild(el("line",{x1:x1*S,y1:y1*S,x2:x2*S,y2:y2*S,stroke:"var(--win)","stroke-width":6})));
+  (F.doors||[]).forEach(d=>{const [x1,y1,x2,y2]=d.at;const ln=el("line",{x1:x1*S,y1:y1*S,x2:x2*S,y2:y2*S,stroke:"var(--paper)","stroke-width":6});ln.appendChild(el("title",{},d.label));gRoom.appendChild(ln);const l2=el("line",{x1:x1*S,y1:y1*S,x2:x2*S,y2:y2*S,stroke:"var(--acc)","stroke-width":1.5,"stroke-dasharray":"3 3"});gRoom.appendChild(l2);});
+  // room labels
+  F.rooms.forEach(r=>{const [x1,y1,x2,y2]=r.rect;if(r.id==="VOID")return;const lx=r.lbl?r.lbl[0]*S:(x1+x2)/2*S,ly=r.lbl?r.lbl[1]*S:y1*S+11;const t=el("text",{x:lx,y:ly,"text-anchor":"middle",fill:"var(--muted)","font-size":9,"font-family":"var(--font-body)","font-weight":600,"pointer-events":"none"},r.name.toUpperCase());gLbl.appendChild(t);});
+  // strips
+  if(active.has("glow")||active.has("task")) F.strips.forEach(s=>{const lay=s.layer||"glow";if(!active.has(lay))return;[s.pts,s.pts2].filter(Boolean).forEach(pts=>{const pl=el("polyline",{points:pts.map(([x,y])=>`${x*S},${y*S}`).join(" "),fill:"none",stroke:stripColor[s.kind]||"var(--glow)","stroke-width":3.2,"stroke-linecap":"round",opacity:.95});pl.style.cursor="pointer";pl.addEventListener("click",()=>{if(!moved)showStrip(s);});gStrip.appendChild(pl);
+   const halo=el("polyline",{points:pts.map(([x,y])=>`${x*S},${y*S}`).join(" "),fill:"none",stroke:stripColor[s.kind]||"var(--glow)","stroke-width":9,opacity:.18,"stroke-linecap":"round","pointer-events":"none"});gStrip.insertBefore(halo,pl);});
+   if(active.has("labels")){const [x,y]=s.pts[0];gLbl.appendChild(el("text",{x:x*S+4,y:y*S-4,fill:"var(--accent-ink)","font-size":7.5,"font-family":"var(--font-mono)","pointer-events":"none"},s.id));}});
+  // fixtures
+  F.fixtures.forEach(f=>{if(!active.has(f.layer))return;const P=L.products[f.p];const sym=f.sym||sym;const c=layerColor[f.layer];const cx=f.x*S,cy=f.y*S;const grp=el("g",{});grp.style.cursor="pointer";grp.addEventListener("click",()=>{if(!moved)showFix(f);});
+   if(sym==="track"&&f.track){const [a,b]=f.track;grp.appendChild(el("line",{x1:a[0]*S,y1:a[1]*S,x2:b[0]*S,y2:b[1]*S,stroke:"var(--ink)","stroke-width":4,"stroke-linecap":"round"}));}
+   else if(sym==="tspot"){grp.appendChild(el("rect",{x:cx-5,y:cy-5,width:10,height:10,fill:"var(--ink)",stroke:c,"stroke-width":1.5}));}
+   else if(sym==="lin"){const w=(f.p==="STELLER"?4:2)*S,h=7;grp.appendChild(el("rect",{x:cx-w/2,y:cy-h/2,width:w,height:h,rx:2,fill:c,stroke:"var(--paper)","stroke-width":1}));}
+   else if(sym==="wall"){const r=6;const side=f.wall||"E";const rot={E:0,W:180,S:90,N:270}[side];grp.appendChild(el("path",{d:`M${cx},${cy-r} A${r},${r} 0 0 1 ${cx},${cy+r} Z`,fill:c,stroke:"var(--paper)","stroke-width":1,transform:`rotate(${rot} ${cx} ${cy})`}));}
+   else if(sym==="cyl"){grp.appendChild(el("circle",{cx,cy,r:7,fill:c,stroke:"var(--paper)","stroke-width":1.5}));grp.appendChild(el("circle",{cx,cy,r:2.5,fill:"var(--paper)"}));}
+   else if(sym==="pan"){grp.appendChild(el("rect",{x:cx-7,y:cy-7,width:14,height:14,rx:3,fill:c,stroke:"var(--paper)","stroke-width":1.5}));}
+   else if(sym==="foot"){grp.appendChild(el("circle",{cx,cy,r:3.5,fill:"var(--paper)",stroke:c,"stroke-width":2}));}
+   else if(sym==="spot"){grp.appendChild(el("circle",{cx,cy,r:6.5,fill:"var(--paper)",stroke:c,"stroke-width":2}));grp.appendChild(el("circle",{cx,cy,r:2.2,fill:c}));}
+   else {grp.appendChild(el("circle",{cx,cy,r:6.5,fill:"var(--paper)",stroke:c,"stroke-width":2}));grp.appendChild(el("circle",{cx,cy,r:2.6,fill:c}));}
+   if(f.aim){const [dx,dy]=f.aim;const n=Math.hypot(dx,dy);const ex=cx+dx/n*22,ey=cy+dy/n*22;grp.appendChild(el("line",{x1:cx,y1:cy,x2:ex,y2:ey,stroke:c,"stroke-width":1.6,"stroke-dasharray":"3 2"}));grp.appendChild(el("circle",{cx:ex,cy:ey,r:2,fill:c}));}
+   if(sym!=="track")grp.appendChild(el("circle",{cx,cy,r:11,fill:"transparent"}));
+   gFix.appendChild(grp);
+   if(active.has("labels")&&sym!=="track"){gLbl.appendChild(el("text",{x:cx+8,y:cy+3,fill:"var(--ink)","font-size":7.5,"font-family":"var(--font-mono)","pointer-events":"none"},f.id));}});
+  // services
+  if(active.has("svc")||active.has("deco")) F.services.forEach(s=>{const isDeco=s.kind==="PENDANT";if(isDeco&&!active.has("deco"))return;if(!isDeco&&!active.has("svc"))return;const cx=s.x*S,cy=s.y*S;const grp=el("g",{});grp.style.cursor="pointer";grp.addEventListener("click",()=>{if(!moved)showSvc(s);});
+   if(s.kind==="PENDANT"){grp.appendChild(el("path",{d:star(cx,cy,9,4),fill:"var(--deco)",stroke:"var(--paper)","stroke-width":1}));}
+   else if(s.kind==="FAN"){grp.appendChild(el("circle",{cx,cy,r:14,fill:"none",stroke:"var(--svc)","stroke-width":1.2,"stroke-dasharray":"3 3"}));grp.appendChild(el("circle",{cx,cy,r:3,fill:"var(--svc)"}));[0,120,240].forEach(a=>grp.appendChild(el("ellipse",{cx:cx+9*Math.cos(a*Math.PI/180),cy:cy+9*Math.sin(a*Math.PI/180),rx:6,ry:2.4,fill:"var(--svc)",transform:`rotate(${a} ${cx+9*Math.cos(a*Math.PI/180)} ${cy+9*Math.sin(a*Math.PI/180)})`})));}
+   else {const lbl={AP:"AP",SENSOR:"S",SPEAKER:"♪",EXHAUST:"EX",MIRROR:"M",MOTOR:"CM"}[s.kind]||"?";grp.appendChild(el("rect",{x:cx-8,y:cy-8,width:16,height:16,rx:3,fill:"var(--svc)",stroke:"var(--paper)","stroke-width":1}));grp.appendChild(el("text",{x:cx,y:cy+3.5,"text-anchor":"middle",fill:"#fff","font-size":8,"font-family":"var(--font-mono)","font-weight":700,"pointer-events":"none"},lbl));}
+   gSvc.appendChild(grp);});
+  // scale bar
+  gLbl.appendChild(el("line",{x1:0,y1:38*S+10,x2:5*S,y2:38*S+10,stroke:"var(--ink)","stroke-width":2}));gLbl.appendChild(el("text",{x:5*S+6,y:38*S+14,fill:"var(--muted)","font-size":9,"font-family":"var(--font-mono)"},"5 ft (1524 mm)"));
+ }
+ function star(cx,cy,R,r){let d="";for(let i=0;i<10;i++){const a=Math.PI/5*i-Math.PI/2,rad=i%2?r:R;d+=(i?"L":"M")+(cx+rad*Math.cos(a))+","+(cy+rad*Math.sin(a));}return d+"Z";}
+
+ /* ---------- detail sheet ---------- */
+ function roomOf(F,id){return F.rooms.find(r=>r.id===id);}
+ function posText(F,f){const r=roomOf(F,f.room);if(!r)return "";const [x1,y1,x2,y2]=r.rect;const dE=f.x-x1,dW=x2-f.x,dS=f.y-y1,dN=y2-f.y;
+  if(f.wall){const h=f.p==="AVIA12"?"1800 mm":(f.p==="SPOTLIT"?"300 mm above the tread/landing":"1400 mm");const along=(f.wall==="E"||f.wall==="W")?`${mm(Math.min(dS,dN))} mm from the ${dS<dN?"south":"north"} wall`:`${mm(Math.min(dE,dW))} mm from the ${dE<dW?"east":"west"} wall`;return `On the ${({E:"EAST",W:"WEST",S:"SOUTH",N:"NORTH"})[f.wall]} wall of ${r.name}, centre ${h} above floor, ${along}.`;}
+  return `${r.name}: ${mm(Math.min(dE,dW))} mm from the ${dE<dW?"EAST":"WEST"} wall, ${mm(Math.min(dS,dN))} mm from the ${dS<dN?"SOUTH":"NORTH"} wall (centre of fixture).`;}
+ function open(html){sheet.innerHTML=html+`<div style="margin-top:10px"><button class="close" id="closeS">Close</button></div>`;sheet.hidden=false;document.getElementById("closeS").onclick=()=>sheet.hidden=true;}
+ function esc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+ function showFix(f){const F=L.floors[floor],P=L.products[f.p];open(`<div class="row"><h2>${f.id} · ${esc(P.fam)} <span class="tag" style="--c:${layerColor[f.layer]}">${esc(L.layers[f.layer].label)}</span></h2></div>
+  <div class="kv"><div>Product</div><div>${esc(P.name)}</div><div>Order code</div><div><span class="code">${esc(P.code)}</span> <button class="close" data-copy="${esc(P.code)}">copy</button> <span class="mini">catalogue p.${P.page}</span></div><div>MRP</div><div class="mrp">₹${P.mrp.toLocaleString("en-IN")}</div><div>Light</div><div>${P.w} W · ${esc(P.k)} · ${esc(P.beam)}</div><div>Mount</div><div>${esc(P.mount)} · ${esc(P.cut)}</div><div>Switch gang</div><div>${esc(f.gang)}</div><div>Position</div><div>${posText(F,f)}</div>${f.note?`<div>Site note</div><div>${esc(f.note)}</div>`:""}</div><div class="why"><b>Why this one:</b> ${esc(P.why)}</div>`);bindCopy();}
+ function showStrip(s){const P=L.products[s.kind];const drv=s.drivers.map(d=>`${L.products[d].name} <span class="code">${L.products[d].code}</span> ₹${L.products[d].mrp}`).join("<br>")||"generic 24V driver (not TISVA)";open(`<div class="row"><h2>${s.id} · ${esc(s.label)} <span class="tag" style="--c:${layerColor[s.layer]}">strip</span></h2></div>
+  <div class="kv"><div>Strip</div><div>${P?esc(P.name):"Generic 24V 2200K amber strip 4.8 W/m (not in TISVA catalogue)"}</div>${P?`<div>Order code</div><div><span class="code">${P.code}</span> <button class="close" data-copy="${P.code}">copy</button> · ₹${P.mrp} per 5 m roll · p.${P.page}</div>`:""}<div>Length</div><div>${s.len_m} m (order ${Math.ceil(s.len_m*1.1)} m incl. 10% waste)</div><div>Driver(s)</div><div>${drv}</div><div>Dimming</div><div>${s.zdim?"Zigbee 24V strip dimmer (generic, ~₹1,500) between driver and strip → Home Assistant scenes":"On/off with its gang (no dimmer)"}</div><div>Switch gang</div><div>${esc(s.gang)}</div>${s.note?`<div>Site note</div><div>${esc(s.note)}</div>`:""}</div><div class="why">Every visible strip sits in an aluminium profile with an opal diffuser (no dots). Drivers go where a hatch can reach them.</div>`);bindCopy();}
+ function showSvc(s){open(`<div class="row"><h2>${esc(s.label)} <span class="tag" style="--c:${s.kind==="PENDANT"?"var(--deco)":"var(--svc)"}">${s.kind==="PENDANT"?"decorative":"service"}</span></h2></div><div class="kv"><div>Position</div><div>x ${mm(s.x)} mm from the E wall line · y ${mm(s.y)} mm from the S wall line (plan grid)</div>${s.note?`<div>Note</div><div>${esc(s.note)}</div>`:""}</div>${s.kind==="PENDANT"?`<div class="why">${esc(L.generic[s.id==="PEND"?"PEND_DIN":"PEND_LIV"].name)} — ${esc(L.generic[s.id==="PEND"?"PEND_DIN":"PEND_LIV"].est)}. ${esc(L.generic[s.id==="PEND"?"PEND_DIN":"PEND_LIV"].note)}</div>`:""}`);}
+ function showFC(fc){open(`<div class="row"><h2>${esc(fc.label)}</h2></div><ul>${fc.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`);}
+ function showRoom(r){open(`<div class="row"><h2>${esc(r.name)}</h2></div><div class="kv"><div>Ceiling</div><div>${esc(r.h)}</div><div>Size</div><div>${(r.rect[2]-r.rect[0]).toFixed(1)} × ${(r.rect[3]-r.rect[1]).toFixed(1)} ft (plan grid, approximate — site dimensions rule)</div></div>`);}
+ function bindCopy(){sheet.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>{const t=b.getAttribute("data-copy");if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{b.textContent="copied";},()=>{b.textContent=t;});}else{b.textContent=t;}});}
+
+ /* ---------- static pages ---------- */
+ function buildCeil(){const p=document.getElementById("page-CEIL");let h=`<h2>False-ceiling schedule</h2><p>Gypsum board on GI channel grid unless noted. Finished levels are from finished floor. Every cove pocket is 100 mm wide × 75 mm deep with the strip on the wall side throwing light up, and an inspection hatch within 1 m of each driver group.</p>`;
+  for(const fl of ["GF","FF"]){h+=`<h3>${fl==="GF"?"Ground floor (11 ft slab)":"First floor (10 ft slab)"}</h3><div class="cards">`;L.floors[fl].fc.forEach(fc=>{h+=`<div class="card"><h4>${esc(fc.label)}</h4><ul>${fc.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul></div>`;});h+=`</div>`;}
+  h+=`<h3>Rooms with NO false ceiling</h3><div class="note">Kitchen (11 ft, surface fittings + suspended bar) · Utility · Store · GF common bath (8 ft RCC, fittings recessed from the attic) · staircase flights + landings (surface cylinders on the slab soffit, foot-lights in the walls) · porch + balconies (surface cylinders).</div>`;p.innerHTML=h;}
+ function buildProd(){const p=document.getElementById("page-PROD");const used={};for(const fl of Object.values(L.floors)){fl.fixtures.forEach(f=>{(used[f.p]=used[f.p]||[]).push(f.id);});fl.strips.forEach(s=>{if(L.products[s.kind])(used[s.kind]=used[s.kind]||[]).push(s.id);s.drivers.forEach(d=>{(used[d]=used[d]||[]).push(s.id);});});}
+  let h=`<h2>Products chosen from the TISVA catalogue</h2><p>One family per job, so the ceiling reads calm: white-trim/black-reflector recessed downlights everywhere there is a false ceiling, black surface cylinders where there is bare slab, black aimable spots for walls and reading, one linear bar in the kitchen, and one strip family for every glow line. All warm areas are 3000K; kitchen 4000K.</p><div class="cards">`;
+  Object.entries(L.products).forEach(([k,P])=>{if(!used[k])return;h+=`<div class="card"><h4>${esc(P.fam)} — ${P.w?P.w+" W · ":""}${esc(P.k)}</h4><div class="meta">${esc(P.name)}</div><div style="margin:6px 0"><span class="code">${P.code}</span> <span class="mrp">₹${P.mrp.toLocaleString("en-IN")}</span> <span class="mini">p.${P.page}</span></div><div class="meta">${esc(P.mount)}</div><div style="margin-top:6px;font-size:13px">${esc(P.why)}</div><div class="mini" style="margin-top:6px">Used: ${used[k].length}× (${used[k].slice(0,8).join(", ")}${used[k].length>8?"…":""})</div></div>`;});
+  h+=`</div><h3>Not in this catalogue (buy elsewhere)</h3><div class="cards">`;Object.values(L.generic).forEach(g=>{h+=`<div class="card"><h4>${esc(g.name)}</h4><div class="meta">${esc(g.est)}</div><div style="margin-top:6px;font-size:13px">${esc(g.note)}</div></div>`;});h+=`</div>`;p.innerHTML=h;}
+ function bom(){const q={};const add=(k,n)=>{q[k]=(q[k]||0)+n;};const stripLen={};for(const fl of Object.values(L.floors)){fl.fixtures.forEach(f=>add(f.p,1));fl.strips.forEach(s=>{if(L.products[s.kind])stripLen[s.kind]=(stripLen[s.kind]||0)+s.len_m;s.drivers.forEach(d=>add(d,1));});}
+  Object.entries(stripLen).forEach(([k,m])=>add(k,Math.ceil(m*1.1/5)));return {q,stripLen};}
+ function buildBOM(){const p=document.getElementById("page-BOM");const {q,stripLen}=bom();let tot=0;let rows="";const order=Object.keys(L.products);order.forEach(k=>{if(!q[k])return;const P=L.products[k];const t=q[k]*P.mrp;tot+=t;rows+=`<tr><td>${esc(P.fam)}</td><td>${esc(P.name)}${stripLen[k]?` <span class="mini">(${stripLen[k].toFixed(1)} m needed)</span>`:""}</td><td><span class="code">${P.code}</span></td><td class="num">${q[k]}</td><td class="num">₹${P.mrp.toLocaleString("en-IN")}</td><td class="num">₹${t.toLocaleString("en-IN")}</td></tr>`;});
+  let h=`<h2>Buy list — TISVA (catalogue MRP)</h2><p>Quantities are exact counts from the plan plus 10% on strip length. Ask the TISVA dealer for the project discount (typically 25–40% off MRP) and confirm each code against the Apr-2025 list before ordering; cut-out sizes come from the dealer's datasheet.</p><div class="tablewrap"><table><thead><tr><th>Family</th><th>Item</th><th>Code</th><th class="num">Qty</th><th class="num">MRP</th><th class="num">Total</th></tr></thead><tbody>${rows}<tr class="total"><td colspan="5">TISVA total at MRP</td><td class="num">₹${tot.toLocaleString("en-IN")}</td></tr></tbody></table></div>`;
+  h+=`<h3>Plus, from other vendors (allowances)</h3><div class="tablewrap"><table><thead><tr><th>Item</th><th>Estimate</th><th>Note</th></tr></thead><tbody>${Object.values(L.generic).map(g=>`<tr><td>${esc(g.name)}</td><td class="num">${esc(g.est)}</td><td>${esc(g.note)}</td></tr>`).join("")}</tbody></table></div><p class="mini" style="margin-top:8px">Rough all-in lighting budget: TISVA at a 30% dealer discount ≈ ₹${Math.round(tot*0.7).toLocaleString("en-IN")} + decor pendants/lamps/mirrors/smart parts ≈ ₹1.0–1.6 lakh + profiles/drivers/labour.</p>`;p.innerHTML=h;}
+ function buildRead(){const p=document.getElementById("page-READ");const sw=(c,extra)=>`<svg width="26" height="18" viewBox="0 0 26 18">${extra||`<circle cx="13" cy="9" r="6.5" fill="var(--paper)" stroke="${c}" stroke-width="2"/><circle cx="13" cy="9" r="2.6" fill="${c}"/>`}</svg>`;
+  p.innerHTML=`<h2>How to read this map</h2><div class="legend">
+   <div>${sw("var(--amb)")}Recessed downlight (ambient)</div>
+   <div>${sw("var(--acc)",`<circle cx="9" cy="9" r="6" fill="var(--paper)" stroke="var(--acc)" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="var(--acc)"/><line x1="9" y1="9" x2="24" y2="9" stroke="var(--acc)" stroke-dasharray="3 2"/>`)}Aimable spot (arrow = aim)</div>
+   <div>${sw("var(--task)",`<path d="M8,3 A6,6 0 0 1 8,15 Z" fill="var(--task)"/>`)}Wall-mounted light (flat side on the wall)</div>
+   <div>${sw("var(--amb)",`<circle cx="13" cy="9" r="7" fill="var(--amb)"/><circle cx="13" cy="9" r="2.5" fill="var(--paper)"/>`)}Surface cylinder on bare slab</div>
+   <div>${sw("var(--task)",`<rect x="2" y="6" width="22" height="6" rx="2" fill="var(--task)"/>`)}Linear bar / grazer</div>
+   <div>${sw("var(--ink)",`<line x1="3" y1="9" x2="23" y2="9" stroke="var(--ink)" stroke-width="4"/><rect x="10" y="4" width="8" height="10" fill="var(--ink)" stroke="var(--acc)"/>`)}Track + track spot</div>
+   <div>${sw("var(--task)",`<circle cx="13" cy="9" r="3.5" fill="var(--paper)" stroke="var(--task)" stroke-width="2"/>`)}Stair foot-light (2 W)</div>
+   <div>${sw("var(--glow)",`<line x1="2" y1="9" x2="24" y2="9" stroke="var(--glow)" stroke-width="3"/>`)}LED strip / cove line</div>
+   <div>${sw("var(--fc2)",`<rect x="2" y="3" width="22" height="12" fill="var(--fc)" stroke="var(--fc2)"/>`)}False ceiling (tinted)</div>
+   <div>${sw("var(--glow)",`<line x1="2" y1="9" x2="24" y2="9" stroke="var(--glow)" stroke-width="2" stroke-dasharray="6 3"/>`)}Cove pocket edge</div>
+   <div>${sw("var(--svc)",`<rect x="5" y="1" width="16" height="16" rx="3" fill="var(--svc)"/><text x="13" y="12" text-anchor="middle" font-size="8" fill="#fff" font-family="monospace">AP</text>`)}Service: AP · S sensor · ♪ speaker · EX exhaust · M mirror · CM curtain motor</div>
+   <div>${sw("var(--deco)",`<path d="M13,1 L15.5,6.5 L21.5,7 L17,11 L18.3,17 L13,14 L7.7,17 L9,11 L4.5,7 L10.5,6.5 Z" fill="var(--deco)"/>`)}Decorative pendant (not TISVA)</div>
+  </div>
+  <h3>Six things to know about light (2-minute version)</h3><ul>
+   <li><b>Watts don't tell brightness, lumens do.</b> A 12 W LED downlight ≈ 1,100 lm; a 7 W ≈ 650 lm. A living room wants ~100–150 lux on the floor, a kitchen counter 300–500, a study desk 300+, a bedroom 80–150 with dimming.</li>
+   <li><b>Colour temperature (K) is the mood.</b> 2700–3000K = warm (homes), 4000K = neutral (kitchens, work), 6500K = cool (shops). This house: 3000K everywhere you sit, 4000K only in the kitchen, never mixed in one sightline.</li>
+   <li><b>CRI is colour honesty.</b> CRI 90+ makes wood, stone, food and skin look right. Rega Plus and Avia are CRI&gt;90 in the catalogue.</li>
+   <li><b>Layers beat one big light.</b> Ambient (downlights), task (reading, counter, mirror), accent (stone, art, stair), decorative (pendant, lamps), glow (coves). Each on its own switch/scene.</li>
+   <li><b>Quiet ceiling = no glare.</b> Deep-recessed, black-reflector downlights, spaced roughly 1.2–1.8 m apart and 500–600 mm off walls; never a downlight straight over a pillow or a TV viewer's eyes.</li>
+   <li><b>Dimming is where the luxury is.</b> Here it comes from Zigbee strip dimmers on every cove and smart bulbs in the pendants; the wall gangs stay simple on/off relays as already locked.</li>
+  </ul><div class="note">Reading a TISVA code: <span class="code">806DLR12338912</span> = Rega Plus · 12W · 3K (3000K) · RR (Round Recessed) · BWHT (white body) · RBLK (black reflector). SR = surface round, RS/SS = square, 4K = 4000K, 65K = 6500K, DM/DIM = dimmable, ND = not dimmable, TUN = tunable white, TRMLS = trimless, IP65 = water-jet safe.</div>`;}
+
+ /* ---------- tabs ---------- */
+ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));const isPlan=(tab==="GF"||tab==="FF");document.getElementById("planpage").hidden=!isPlan;["CEIL","PROD","BOM","LUX","READ"].forEach(k=>document.getElementById("page-"+k).hidden=(tab!==k));if(isPlan){floor=tab;vb={...BASE};draw();}sheet.hidden=true;try{localStorage.setItem("lp-tab",tab);}catch(e){}});
+ buildCeil();buildProd();buildBOM();buildRead();draw();
+ try{const t=localStorage.getItem("lp-tab");if(t){const b=document.querySelector(`.tabs button[data-tab="${t}"]`);if(b)b.click();}}catch(e){}
+})();
+</script>

@@ -8,6 +8,7 @@ Style direction, mood, palette, and room-by-room interior decisions. Image rende
 - **[../materials-finishes/master-color-palette.md](../materials-finishes/master-color-palette.md)** — colour palette (hex codes + Asian Paints SKUs) for every zone.
 
 ## Per-room files (existing)
+- **★ [lighting-and-false-ceiling-design.md](lighting-and-false-ceiling-design.md)** — whole-house lighting + false-ceiling design from the TISVA catalogue (PROPOSED 2026-09-29; § 10 photometric check of the living room 2026-10-02, its two changes accepted): plain-language primer, room-by-room fixtures with order codes, gang map, buy list. Interactive map: [lighting-plan/lighting-plan.html](lighting-plan/lighting-plan.html) (edit `lighting-plan/lighting-data.js` → `python3 lighting-plan/build.py`).
 - [living-area.md](living-area.md) — full design proposal, layout, palette, lighting
 - [gf-common-bathroom.md](gf-common-bathroom.md) — locked light luxury spa direction
 - (more rooms to be added as decisions land)
@@ -30,3 +31,4 @@ Style direction, mood, palette, and room-by-room interior decisions. Image rende
 - Overall style direction not yet chosen — pick before generating room renders.
 - Budget tier (premium / mid / value) for finishes — drives material spec.
 - Climate constraints (Bangalore? Chennai? Hyderabad?) — affects flooring, AC, materials.
+- Lighting design (2026-09-29) proposes extra false ceilings — MBR perimeter band, Bed 1 band, FF living/corridor, FF toilets, and a lid over the void — plus 3000K instead of 2700K house-wide. Accept/reject → decision-log.

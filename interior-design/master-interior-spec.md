@@ -310,6 +310,8 @@ All built-ins use the same construction recipe to ensure life and consistency:
 
 ## L — Lighting Design (whole house — layered)
 
+> **2026-09-29:** a full product-level design from the TISVA catalogue now lives in [lighting-and-false-ceiling-design.md](lighting-and-false-ceiling-design.md) (+ interactive map `lighting-plan/`). It proposes 3000K house-wide (catalogue has no 2700K) and extra false ceilings (§ C). The table below is the earlier generic brief — superseded once that design is locked.
+
 Each room has 4 layers. Mix appropriately.
 
 | Layer | Purpose | Example fittings |

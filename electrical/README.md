@@ -51,11 +51,11 @@ Complete electrical plan for the 2-floor home. Start with the DB layout, then di
 Before the electrician chases conduits, confirm these:
 
 - [ ] **Number and location of ACs** — currently assumed 4 (Living, MBR, BR1, BR2). Confirm.
-- [ ] **False ceiling** — GF Living and/or bedrooms? Drives cove lighting circuits.
+- [ ] **False ceiling** — GF Living and/or bedrooms? Drives cove lighting circuits. → **Proposed answer 2026-09-29:** [../interior-design/lighting-and-false-ceiling-design.md](../interior-design/lighting-and-false-ceiling-design.md) § 3 (adds MBR band, Bed 1 band, FF living/corridor, FF toilets, void lid) — awaiting user lock.
 - [ ] **Sanctioned load** — check with your EB (electricity board) what kW is allowed. Determines main MCB rating.
 - [ ] **Geyser sizes** — 15L or 25L per bathroom?
 - [ ] **Study table positions** in each bedroom — drives socket + Cat6 placement.
-- [ ] **Chandelier in double-height void** — needs conduit from FF slab level.
+- [ ] **Chandelier in double-height void** — needs conduit from FF slab level. → Lighting design routes it through the proposed void-lid false ceiling to a ROOF-slab anchor (no slab exists over the void); see lighting design § 4.6.
 - [ ] **Smart switch brand/series** — Wipro / Philips Wiz / Aqara / Schneider Wiser? Must decide before switch board boxes are fixed (modular frame size varies by brand).
 
 ---
