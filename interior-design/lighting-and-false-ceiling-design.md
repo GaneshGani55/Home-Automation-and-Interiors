@@ -1,6 +1,6 @@
 # Lighting + False-Ceiling Design — whole house (TISVA catalogue)
 
-**Status: PROPOSED 2026-09-29 — not yet decision-logged as a whole.** Photometric check of the living room added 2026-10-02 (§ 10); its two changes (half-landing fixture → Avia 7 W aimed at the stair wall; 806 lm pendant bulbs) and the Axios optics are **accepted and decision-logged**. Products are chosen from the TISVA *ARCHITECTURAL Product list – May 25* (Usha International, April-2025 MRP list). Codes and prices are copied from that PDF; **verify every code with the dealer before ordering** (the list says prices change without notice).
+**Status: PROPOSED 2026-09-29 — not yet decision-logged as a whole.** Staircase wall revised 2026-10-11 (three foot lamps, three soffit accents, landing spot re-aimed) — full design in [staircase-feature-wall.md](staircase-feature-wall.md). Photometric check of the living room added 2026-10-02 (§ 10); its two changes (half-landing fixture → Avia 7 W aimed at the stair wall; 806 lm pendant bulbs) and the Axios optics are **accepted and decision-logged**. Products are chosen from the TISVA *ARCHITECTURAL Product list – May 25* (Usha International, April-2025 MRP list). Codes and prices are copied from that PDF; **verify every code with the dealer before ordering** (the list says prices change without notice).
 
 **Interactive ceiling map (tap any light for its code, position and switch gang):** https://claude.ai/artifact/E8pURfRVXApDEXaeP6uM3E (private link; share from its Share menu) · offline copy [`lighting-plan/lighting-plan.html`](lighting-plan/lighting-plan.html) — single offline file, works on a phone. Source data = [`lighting-plan/lighting-data.js`](lighting-plan/lighting-data.js) (edit that, then `python3 lighting-plan/build.py`).
 
@@ -117,12 +117,13 @@ Positions below are centre-of-fixture from finished wall faces and are approxima
 - **Floor lamp** by the accent chairs (decor).
 - **Fan**: on the S-beam soffit with a 12" rod (blades ~9'8"); the room also has AC, so drop the fan if blades near the 9 ft edge bother you.
 
-### 4.7 Staircase (both flights open to the living)
-- **5× Spotlit Pro 2 W** in the lower flight's south wall (the bath's north wall) 300 mm above treads 2, 4, 6, 8, 10; **1×** on the half-landing W wall.
-- **1× Avia 7 W black surface spot** (`806DLA7338992`) on the FF-landing slab soffit (11 ft) over the half-landing, aimed at the stair feature wall above the upper treads of flight 1 (aim point ≈ 2.6 m above GF floor). **Accepted 2026-10-02** after the photometric check (§ 10): it replaces a Bolt 12 W that would have made a ≈ 1,170 lx pool with a bare chip 1.4 m above climbers' heads; the wall now carries a ≈ 350 lx pool and the landing sits at ≈ 270 lx.
-- The upper flight is lit by the living track spot (above). All on the 2-way staircase gang (add a PIR later if wanted).
-- Upper (terrace) flights: **5× Spotlit Pro** in Bed 2's north wall face + 1 on the FF landing wall, **1× Bolt 12 W** on the roof slab over the FF landing. Terrace exit: generic IP65 bulkhead. Check the same geometry there: if the slab over the FF landing is within ~1.5 m of that landing's floor, use the same Avia-aimed-at-the-wall solution instead of the Bolt.
-- Wiring the foot-lights needs a 20 mm conduit loop in the stair wall before the wall's feature finish (grooved plaster/cladding) goes on — or run it behind the cladding.
+### 4.7 Staircase (both flights open to the living) — revised 2026-10-11, see [staircase-feature-wall.md](staircase-feature-wall.md)
+- **Three foot lamps** (Ganesh: three, evenly spread, no strips on the stairs): **Spotlit Pro 2 W** in the stair feature wall 300 mm above treads 2, 6 and 10 (F31, F33, F35; the earlier F32/F34 and the landing-wall F36 are dropped). The terrace flight mirrors the rule with three lamps in Bed 2's north wall face (confirm).
+- **Three soffit accents (proposed)**: **Avia 7 W black** (`806DLA7338992`) on Ø130 mm matte-black plates over the three core cuts in the sawtooth underside of the terrace flight (above GF treads 3 / 6 / 9, ≈ 3.3 m over the treads, ≈ 0.4 m off the wall — positions assumed, measure). Heads C1 and C2 turned ≈ 50° toward the landing and tilted 25–30° so the light slides along the wall's grooves; C3 toward the wall only. Own Sonoff ZBMINI R2 channel in the niche junction box, no wall switch. The core becomes the back box; the driver coils inside. Modelled crowns ≈ 380–390 lx on the wall (FULL), ≈ 250 lx between them.
+- **Half-landing light**: the accepted **Avia 7 W** (F37) stays, re-aimed at the landing back wall (x ≈ 25.5 ft, 2.5 m) — ≈ 490 lx direct pool, the calm bright end of the sofa's view; landing floor ≈ 240 lx from spill and bounce. If the landing turns out to be open up to the terrace landing (no slab 1.4 m above it), move it to the W wall above the window head, aimed east-down at the same wall.
+- The upper flight is also raked by the living track spot F40. All stair lights on the 2-way staircase gang except the accents (own channel).
+- Upper (terrace) flights: **3× Spotlit Pro** in Bed 2's north wall face + 1 on the FF landing wall (F55), **1× Bolt 12 W** on the roof slab over the FF landing (F49). Terrace exit: generic IP65 bulkhead. Check the same geometry there: if the slab over the FF landing is within ~1.5 m of that landing's floor, use the same Avia-aimed-at-the-wall solution instead of the Bolt.
+- Wiring the foot lamps needs a 20 mm conduit loop and 45 mm boxes in the stair wall before the feature render goes on; the accents need a Ø16–20 mm passage from each core to the wall face (never chase the RCC soffit) and a ≤ 30 mm chase in the brick — plumber marks the bath-side pipes first.
 
 ### 4.8 Master bedroom (12 × 12'3", 11 ft; proposed 10 ft perimeter band)
 - **Band downlights (gang G1)**: **2× Rega Plus 7 W** over the two bedside tables (E band, never over pillows), **2× Rega Plus 12 W** 250 mm in front of the S-wall wardrobe shutters, **1× Rega Plus 12 W** in front of the W-wall dressing unit.
@@ -172,7 +173,8 @@ Positions below are centre-of-fixture from finished wall faces and are approxima
 | Bed 1 12M | 6 band downlights | Avia L | Avia R | Avia study | Fan | (cove: Zigbee dimmer on socket circuit) |
 | Bed 2 18M | 4 Rega 12 | Avia L | Avia R | Cove (D11) | 2 Venza grazers + shelf strips | Fan |
 | FF corridor 6M | 4 Rega 12 (FF living) | 2 Rega 7 (corridor) | | | | |
-| Staircase 2-way | all foot-lights + Avia 7 W (half landing, aimed at the stair wall) + Bolt 12 W (FF landing) | | | | | |
+| Staircase 2-way | 3 foot lamps (GF) + 3 (FF) + landing lamp F55 + Avia 7 W (half landing → landing back wall) + Bolt 12 W (FF landing) | | | | | |
+| Staircase ACCENTS (new ZBMINI in the niche JB, no wall switch) | 3× Avia 7 W on the terrace-flight soffit (proposed 2026-10-11) | | | | | |
 | Balconies 3M each | Bolt(s) | | | | | |
 | Kitchen 4M (dumb) | Steller bar + Ezio | Under-cabinet strip | Exhaust | spare | | |
 
@@ -190,7 +192,7 @@ Scenes (HA): *Evening* = coves 40%, pendants 30%, downlights off, void frame 60%
 | Orrin Plus | Orrin Plus LED COB 7.5W 3000K SPOT 15°, round, white | `806DL73015112` | p.9 | 1 | 1,490 | 1,490 |
 | Linos | Linos LED COB 3W 3000K 15°, mini recessed (white + silver) | `8159320905` | p.5 | 2 | 1,050 | 2,100 |
 | Venza Ultra Slim | Venza Ultra Slim linear 7.5W 6-head 3000K, black | `806DL0833US09` | p.6 | 2 | 2,690 | 5,380 |
-| Avia | Avia LED COB 7W 3000K surface spot, rotate + tilt, black body/black reflector | `806DLA7338992` | p.11 | 7 | 850 | 5,950 |
+| Avia | Avia LED COB 7W 3000K surface spot, rotate + tilt, black body/black reflector | `806DLA7338992` | p.11 | 10 | 850 | 8,500 |
 | Avia | Avia LED COB 12W 3000K surface spot, rotate + tilt, black | `806DLA12338992` | p.11 | 1 | 1,100 | 1,100 |
 | Axios Pro | Axios Pro track 1 m, 2-wire, black | `824TK1M2WR09` | p.11 | 1 | 790 | 790 |
 | Axios Pro | Axios Pro track spot 20W 3000K, black | `823TKL2030094` | p.11 | 3 | 2,990 | 8,970 |
@@ -200,7 +202,7 @@ Scenes (HA): *Evening* = coves 40%, pendants 30%, downlights off, void frame 60%
 | Ezio | Ezio LED panel 8W 4000K, surface round | `81670823203M` | p.13 | 2 | 780 | 1,560 |
 | Steller Pro | Steller Pro suspended linear 36W 4000K 1200 mm, black | `821PL36400912` | p.8 | 1 | 4,590 | 4,590 |
 | Veros Pro | Veros Pro IP65 deep-recessed COB 10W 3000K, dimmable | `81671011201` | p.4 | 3 | 3,190 | 9,570 |
-| Spotlit Pro | Spotlit Pro 2W 3000K 120°, mini round recessed | `806DL23120R` | p.10 | 12 | 180 | 2,160 |
+| Spotlit Pro | Spotlit Pro 2W 3000K 120°, mini round recessed | `806DL23120R` | p.10 | 7 | 180 | 1,260 |
 | Lumelace | Lumelace LED strip 24V 3000K 10 W/m (120 LED/m) 5 m roll, IP20 (79.6 m needed) | `816LS50302420` | p.14 | 18 | 1,690 | 30,420 |
 | Lumelace | Lumelace LED strip 24V 3000K 10 W/m 5 m roll, IP65 (2.0 m needed) | `816LS50302425` | p.14 | 1 | 2,490 | 2,490 |
 | Lumelace | Lumelace LED strip 24V 4000K 14 W/m (180 LED/m) 5 m roll, IP20 (4.2 m needed) | `816LS70402420` | p.14 | 1 | 1,790 | 1,790 |
@@ -208,11 +210,11 @@ Scenes (HA): *Evening* = coves 40%, pendants 30%, downlights off, void frame 60%
 | Lume driver | Lume LED driver 96W 24V DC, IP20 | `8169962402CV` | p.14 | 5 | 1,950 | 9,750 |
 | Lume driver | Lume LED driver 72W 24V, IP20 | `816923A24VP1` | p.14 | 11 | 1,499 | 16,489 |
 | Lume driver | Lume LED driver 25W 12V 2A | `8169225012CV` | p.14 | 5 | 590 | 2,950 |
-| **TISVA total at MRP** | | | | | | **1,59,998** |
+| **TISVA total at MRP** | | | | | | **1,61,648** |
 
-Expect ₹1.05–1.2 lakh after the dealer's project discount (25–40% off MRP is normal). Updated 2026-10-02 for the accepted half-landing change (Bolt 12 W ×5, Avia 7 W ×7). This replaces §6 "Lighting fittings" of [../electrical/materials-checklist.md](../electrical/materials-checklist.md) (₹48,030 generic estimate) once locked.
+Expect ₹1.05–1.2 lakh after the dealer's project discount (25–40% off MRP is normal). Updated 2026-10-02 (half-landing Avia) and 2026-10-11 (stair wall: Spotlit ×7, Avia ×10 incl. the three proposed soffit accents). This replaces §6 "Lighting fittings" of [../electrical/materials-checklist.md](../electrical/materials-checklist.md) (₹48,030 generic estimate) once locked.
 
-**Not in this catalogue (allowances):** living pendant cluster ₹25–45k · dining pendant ₹8–15k · ~16 Zigbee smart bulbs of the 806 lm class, tunable, ₹900–1,600 each · ~11 Zigbee 24 V strip dimmers ₹900–2,000 each · ~75 m aluminium profile ₹150–250/m · 2200K amber strip 4.5 m · 3 LED mirrors ₹6–9k each · terrace IP65 bulkhead · lamps ₹30–50k · wardrobe reed switches · generic 24 V IP67 drivers for the 3 shower niches + 2 amber strips.
+**Not in this catalogue (allowances):** living pendant cluster ₹25–45k · dining pendant ₹8–15k · ~16 Zigbee smart bulbs of the 806 lm class, tunable, ₹900–1,600 each · 4 Ø130 mm black cover plates for the stair-soffit cores ₹300–500 each · 1 extra Sonoff ZBMINI R2 for the accent channel ₹1,100–1,200 · ~11 Zigbee 24 V strip dimmers ₹900–2,000 each · ~75 m aluminium profile ₹150–250/m · 2200K amber strip 4.5 m · 3 LED mirrors ₹6–9k each · terrace IP65 bulkhead · lamps ₹30–50k · wardrobe reed switches · generic 24 V IP67 drivers for the 3 shower niches + 2 amber strips.
 
 ---
 
@@ -258,7 +260,7 @@ Expect ₹1.05–1.2 lakh after the dealer's project discount (25–40% off MRP 
 
 ## 10. Photometric Verification — Double-Height Living Room
 
-**Status: PARTIALLY VERIFIED (model, not measurement). Updated 2026-10-02 for the accepted design.** The track spots are calculated from TISVA's own published lumens and optics; the recessed downlights, the Avia spot and all LED strips are calculated from *estimated* lumens because TISVA publishes none for those products (basis stated for every number). No site measurement exists yet. The living room is **not** declared "photometrically verified" until TISVA supplies Rega Plus and Lumelace data or a lux meter confirms the key points after installation (§ 10.13). What the model shows robustly across the whole uncertainty range tested in § 10.5: no downlights are needed in the 21 ft void; the earlier Bolt 12 W over the half landing was over-bright (now replaced by an Avia 7 W aimed at the stair wall — accepted); the curtain pelmet strip lights only the top metre.
+**Status: PARTIALLY VERIFIED (model, not measurement). Updated 2026-10-02 for the accepted design; stair items updated 2026-10-11 (three foot lamps, three soffit accents, landing spot re-aimed — see `staircase-feature-wall.md`, PROPOSED).** The track spots are calculated from TISVA's own published lumens and optics; the recessed downlights, the Avia spot and all LED strips are calculated from *estimated* lumens because TISVA publishes none for those products (basis stated for every number). No site measurement exists yet. The living room is **not** declared "photometrically verified" until TISVA supplies Rega Plus and Lumelace data or a lux meter confirms the key points after installation (§ 10.13). What the model shows robustly across the whole uncertainty range tested in § 10.5: no downlights are needed in the 21 ft void; the earlier Bolt 12 W over the half landing was over-bright (now replaced by an Avia 7 W aimed at the stair wall — accepted); the curtain pelmet strip lights only the top metre.
 
 Two changes from this check were **accepted on 2026-10-02 and are built into the tables below**: (1) F37 half-landing fixture = Avia 7 W black surface spot aimed at the stair feature wall (was Bolt 12 W); (2) pendant smart bulbs = 806 lm class, tunable, set to 3000 K (was 470 lm). The previous design is kept as a comparison row in the sensitivity table.
 
@@ -272,7 +274,7 @@ Reproduce: `python3 interior-design/lighting-plan/photometric/photometric_living
 | Luminous flux | lm (lumen) | Total light leaving the fixture in all directions. | Axios 20 W = **1600 lm** (TISVA); Rega Plus 12 W ≈ 900 lm (estimate) |
 | Luminous intensity | cd (candela) | Light per unit solid angle in one direction; the beam's "punch". Same lumens into a narrow beam = higher candela. | Axios 1600 lm: 24° optic ≈ 7,400 cd on axis, 60° optic ≈ 1,250 cd |
 | Beam angle | ° | Full cone angle where intensity has fallen to 50 % of the on-axis value. Set by the optic (reflector/lens), not by the LED. | Rega 38° (inferred), Axios 15/24/38/60 selectable, Spotlit 120° |
-| Illuminance | lx (lux = lm/m²) | Light landing on a surface. **This is what a room "feels" like.** Depends on candela, distance² and angle. | Coffee table ≈ 293 lx FULL, ≈ 86 lx EVENING |
+| Illuminance | lx (lux = lm/m²) | Light landing on a surface. **This is what a room "feels" like.** Depends on candela, distance² and angle. | Coffee table ≈ 299 lx FULL, ≈ 94 lx EVENING |
 | CRI | — | How truthfully colours appear under the light (100 = daylight). | Rega Plus and Avia >90 (price list); Axios >80 (catalogue); Lumelace not published |
 | Colour temperature | K | Warm (2700–3000 K) to cool (6500 K). Mood, not brightness. | Whole living 3000 K; smart bulbs set to 3000 K |
 
@@ -290,8 +292,9 @@ Positions are the ones in `lighting-data.js` (same as the ceiling map). Heights 
 | Pendant cluster (10 globes modelled) | hung from the roof slab through the void lid, x 18.7, y 31.4 ft | globes **2.6 m to 5.3 m**; anchor 6.25 m | anchor yes; light sources no |
 | S20 curtain pelmet strip | recessed pelmet in the void lid, N wall | **6.10 m (20 ft)** | **yes** |
 | S11 TV-unit strips | vertical reveals of the TV unit | 0.4–5.5 m (modelled at 1.6 m, 50 % of flux into the room) | no |
-| F37 Avia 7 W (accepted) | FF-landing slab soffit, aimed at the stair feature wall above flight 1 (aim point x 23 ft, 2.6 m) | 3.25 m above GF floor = **1.4 m above the landing** | no |
-| F31–F36 Spotlit Pro 2 W | stair wall, 0.3 m above alternate treads | 0.3–1.9 m | no |
+| F37 Avia 7 W (accepted; re-aimed 2026-10-11) | FF-landing slab soffit, aimed at the landing back wall (x 25.5 ft, 2.5 m) | 3.25 m above GF floor = **1.4 m above the landing** (if the landing is open to the terrace landing, it moves to the W wall — measure) | no |
+| F80–F82 Avia 7 W soffit accents (proposed 2026-10-11) | on Ø130 black plates over the core cuts in the terrace-flight underside, ≈ 0.4 m off the stair wall, above GF treads 3 / 6 / 9 (assumed) | ≈ 3.8 / 4.3 / 4.8 m above GF floor (≈ 3.3 m above the tread below) | no |
+| F31, F33, F35 Spotlit Pro 2 W (three, per Ganesh) | stair wall, 0.3 m above treads 2 / 6 / 10 | 0.6–1.9 m | no |
 | F6–F9 Rega Plus 7 W (passage/hall) | 9 ft false ceiling outside the living | 2.74 m | no |
 
 Only the pelmet strip and the pendant anchor are at the top of the void. Nothing is recessed at 21 ft.
@@ -305,7 +308,7 @@ Other assumptions: room per § 4.6 (void 16.6 × 11 ft, strip 7.1 × 3.9 ft); re
 | Axios Pro 20 W track spot `823TKL2030094` | 20 | **1600** | 3,000 (38°) / 7,400 (24°) / 1,250 (60°) | 15/24/38/60° selectable | >80 | 3000 K | track under beam, 11 ft | **TISVA Architectural Catalogue 2023 p.59** (lumens, beam options, CRI, size). No polar curve published → intensity shape = Gaussian at the chosen optic with a 0.91 peak factor (the factor TISVA's own Fugl data shows: documented 1812 lx at 1 m vs 1995 lx for an ideal Gaussian). |
 | Rega Plus 12 W `806DLR12338912` | 12 | **900 (est. 850–950)** | ≈ 1,700 | 38° (inferred from code pattern) | >90 (price list) | 3000 K | recessed, 9 ft | **Estimate.** Not in the 2023 catalogue; the May-25 price list gives W, CCT, finish, CRI only. Lumens from TISVA's consistent 79–81 lm/W on COB downlights (Orrin 13 W 1050 lm, Galaxy Pro 12 W 960 lm, GVO 12 W 950 lm) less ~10 % for CRI>90 chips. Intensity shape **fitted to TISVA's published Orrin 13 W polar curve and illuminance table** (deep-recessed analogue); soft case uses the Orrin 7.5 W fit. |
 | Rega Plus 7 W `806DLR733892` | 7 | 520 (est.) | ≈ 600 | 38° (inferred) | >90 | 3000 K | recessed, 9 ft | Estimate; shape fitted to Orrin 7.5 W (600 lm, peak 1227 cd/klm, catalogue p.37–38). |
-| Avia 7 W surface spot `806DLA7338992` (half landing, accepted) | 7 | 520 (est.) | ≈ 1,060 | 36° (assumed) | >90 (price list) | 3000 K | landing soffit, aimed at the wall | Estimate: Avia is not in the 2023 catalogue; 7 W × ~75 lm/W; beam assumed. |
+| Avia 7 W surface spot `806DLA7338992` (half landing F37; soffit accents F80–F82) | 7 | 520 (est.) | ≈ 1,060 | 36° (assumed) | >90 (price list) | 3000 K | landing soffit → landing back wall; soffit plates → along the stair wall | Estimate: Avia is not in the 2023 catalogue; 7 W × ~75 lm/W; beam assumed. |
 | Lumelace 24 V 10 W/m `816LS50302420` | 10/m | 900/m raw → **630/m effective** in an opal profile (est.) | Lambertian line | 120° | **not published** | 3000 K | profiles at 11 ft (S10), 6.1 m (S20), TV unit (S11) | Catalogue p.75 lists W/m, CCT, IP, voltage only. 80–110 lm/W is the normal range for 2835 strips; 0.70 diffuser transmission assumed. |
 | Pendant smart bulbs (accepted spec) | 10 × ~8 | 806 each → ×0.75 opal globe | 48 cd per globe (isotropic) | 360° | 80–90 | tunable, set to 3000 K | 2.6–5.3 m | Bulb lumens = manufacturer data (Philips Hue White Ambiance / IKEA Trådfri E27 806 lm); globe transmission estimated. |
 | Spotlit Pro 2 W `806DL23120R` | 2 | 140 (est.) | ≈ 42 | 120° (price list) | n/a | 3000 K | stair wall | Estimate (~70 lm/W). Dimensions only in the 2020 MRP booklet. |
@@ -340,74 +343,82 @@ The fitted shapes reproduce TISVA's published beam averages within +9 to +15 % (
 
 | Receiving point (height) | FULL | EVENING | MOVIE | NIGHT walk | main contributors in FULL |
 |---|---:|---:|---:|---:|---|
-| Living centre (void), floor (0.00 m) | 264 | 78 | 15 | 13 | pendant cluster 71, S10 beam-edge profile 47, S20 pelmet strip 14; indirect 95 |
-| Coffee-table top (0.45 m) | 293 | 86 | 16 | 12 | pendant cluster 95, S10 beam-edge profile 52, S20 pelmet strip 16; indirect 95 |
-| N sofa, seat (0.45 m) | 240 | 67 | 10 | 7 | pendant cluster 75, S10 beam-edge profile 27, S20 pelmet strip 18; indirect 95 |
-| N sofa, book held (reading plane) (0.75 m) | 260 | 73 | 10 | 7 | pendant cluster 91, S10 beam-edge profile 28, S20 pelmet strip 20; indirect 95 |
-| E return sofa, seat (0.45 m) | 236 | 67 | 15 | 15 | S10 beam-edge profile 51, pendant cluster 50, S20 pelmet strip 13; indirect 95 |
-| Accent chairs (south strip), seat (0.45 m) | 644 | 80 | 19 | 64 | F38 182, F39 182, S10 beam-edge profile 71; indirect 95 |
-| TV viewing area, floor (W side) (0.00 m) | 238 | 69 | 15 | 11 | pendant cluster 53, S10 beam-edge profile 39, S11 TV-unit strips 19; indirect 95 |
-| Passage threshold, floor (0.00 m) | 402 | 59 | 14 | 106 | F38 99, F7 55, S10 beam-edge profile 51; indirect 95 |
-| Stair base (tread 1) (0.00 m) | 325 | 53 | 12 | 120 | F8 44, S10 beam-edge profile 39, F31 30; indirect 95 |
-| Flight 1 mid tread (0.93 m) | 285 | 51 | 13 | 85 | S10 beam-edge profile 41, F33 40, pendant cluster 25; indirect 95 |
-| Half landing centre (1.83 m) | 271 | 51 | 13 | 78 | F36 65, S10 beam-edge profile 47, F40 28; indirect 95 |
-| Flight 2 mid tread (seen from living) (2.66 m) | 293 | 83 | 26 | 13 | S10 beam-edge profile 111, pendant cluster 41, F40 38; indirect 95 |
-| NE corner floor (window corner) (0.00 m) | 175 | 49 | 9 | 8 | pendant cluster 33, S10 beam-edge profile 22, S20 pelmet strip 12; indirect 95 |
-| NW corner floor (0.00 m) | 176 | 48 | 8 | 5 | pendant cluster 34, S10 beam-edge profile 16, S20 pelmet strip 13; indirect 95 |
-| W edge, under TV, floor (0.00 m) | 216 | 61 | 13 | 9 | pendant cluster 43, S10 beam-edge profile 33, S11 TV-unit strips 15; indirect 95 |
-| E edge, balustrade line, floor (0.00 m) | 274 | 66 | 16 | 43 | S10 beam-edge profile 57, pendant cluster 35, F7 24; indirect 95 |
-| TV screen centre (wall x=27, 1.1 m) (1.10 m) | 263 | 47 | 8 | 9 | F41 80, pendant cluster 50, S10 beam-edge profile 24; indirect 76 |
-| TV feature panel, 2.5 m (2.50 m) | 507 | 66 | 9 | 8 | F41 259, pendant cluster 100, S10 beam-edge profile 29; indirect 76 |
-| TV feature panel, 4.5 m (4.50 m) | 180 | 40 | 3 | 3 | pendant cluster 41, F41 26, S20 pelmet strip 18; indirect 76 |
-| Curtain, 1.5 m (eye level, seated view) (1.50 m) | 235 | 59 | 10 | 12 | pendant cluster 81, F42 31, S10 beam-edge profile 26; indirect 76 |
-| Curtain, 3.2 m (3.20 m) | 351 | 82 | 8 | 8 | pendant cluster 170, F42 73, S10 beam-edge profile 18; indirect 76 |
-| Curtain, 5.5 m (top, under pelmet) (5.50 m) | 157 | 44 | 3 | 4 | S20 pelmet strip 59, F42 17, floor lamp 1; indirect 76 |
-| Stair feature wall (y=17.5), 1.2 m above tread 6 (2.23 m) | 294 | 51 | 11 | 92 | F37 81, F40 41, pendant cluster 41; indirect 76 |
-| Stair feature wall above flight 1 (x 23 ft, 2.6 m) — Avia pool (2.60 m) | 560 | 48 | 10 | 366 | F37 355, F40 42, pendant cluster 40; indirect 76 |
-| Flight 2 riser face, mid (seen from living) (2.58 m) | 381 | 111 | 26 | 12 | pendant cluster 134, S10 beam-edge profile 105, F40 36; indirect 76 |
+| Living centre (void), floor (0.00 m) | 270 | 85 | 15 | 12 | pendant cluster 71, S10 beam-edge profile 47, S20 pelmet strip 14; indirect 102 |
+| Coffee-table top (0.45 m) | 299 | 94 | 16 | 11 | pendant cluster 95, S10 beam-edge profile 52, S20 pelmet strip 16; indirect 102 |
+| N sofa, seat (0.45 m) | 247 | 75 | 10 | 7 | pendant cluster 75, S10 beam-edge profile 27, S20 pelmet strip 18; indirect 102 |
+| N sofa, book held (reading plane) (0.75 m) | 267 | 80 | 10 | 6 | pendant cluster 91, S10 beam-edge profile 28, S20 pelmet strip 20; indirect 102 |
+| E return sofa, seat (0.45 m) | 243 | 75 | 15 | 15 | S10 beam-edge profile 51, pendant cluster 50, S20 pelmet strip 13; indirect 102 |
+| Accent chairs (south strip), seat (0.45 m) | 650 | 88 | 19 | 62 | F38 182, F39 182, S10 beam-edge profile 71; indirect 102 |
+| TV viewing area, floor (W side) (0.00 m) | 244 | 77 | 15 | 9 | pendant cluster 53, S10 beam-edge profile 39, S11 TV-unit strips 19; indirect 102 |
+| Passage threshold, floor (0.00 m) | 408 | 66 | 14 | 105 | F38 99, F7 55, S10 beam-edge profile 51; indirect 102 |
+| Stair base (tread 1) (0.00 m) | 338 | 79 | 12 | 107 | F8 44, S10 beam-edge profile 39, F31 30; indirect 102 |
+| Flight 1 mid tread (0.93 m) | 362 | 149 | 13 | 65 | F80 52, S10 beam-edge profile 41, F33 40; indirect 102 |
+| Half landing centre (1.83 m) | 240 | 86 | 13 | 13 | S10 beam-edge profile 47, F40 28, pendant cluster 23; indirect 102 |
+| Flight 2 mid tread (seen from living) (2.66 m) | 301 | 92 | 26 | 13 | S10 beam-edge profile 111, pendant cluster 41, F40 38; indirect 102 |
+| NE corner floor (window corner) (0.00 m) | 182 | 56 | 9 | 7 | pendant cluster 33, S10 beam-edge profile 22, S20 pelmet strip 12; indirect 102 |
+| NW corner floor (0.00 m) | 183 | 56 | 8 | 5 | pendant cluster 34, S10 beam-edge profile 16, S20 pelmet strip 13; indirect 102 |
+| W edge, under TV, floor (0.00 m) | 222 | 68 | 13 | 8 | pendant cluster 43, S10 beam-edge profile 33, S11 TV-unit strips 15; indirect 102 |
+| E edge, balustrade line, floor (0.00 m) | 280 | 74 | 16 | 42 | S10 beam-edge profile 57, pendant cluster 35, F7 24; indirect 102 |
+| TV screen centre (wall x=27, 1.1 m) (1.10 m) | 268 | 53 | 8 | 7 | F41 80, pendant cluster 50, S10 beam-edge profile 24; indirect 82 |
+| TV feature panel, 2.5 m (2.50 m) | 512 | 72 | 9 | 7 | F41 259, pendant cluster 100, S10 beam-edge profile 29; indirect 82 |
+| TV feature panel, 4.5 m (4.50 m) | 186 | 46 | 3 | 2 | pendant cluster 41, F41 26, S20 pelmet strip 18; indirect 82 |
+| Curtain, 1.5 m (eye level, seated view) (1.50 m) | 239 | 65 | 10 | 9 | pendant cluster 81, F42 31, S10 beam-edge profile 26; indirect 82 |
+| Curtain, 3.2 m (3.20 m) | 354 | 88 | 8 | 6 | pendant cluster 170, F42 73, S10 beam-edge profile 18; indirect 82 |
+| Curtain, 5.5 m (top, under pelmet) (5.50 m) | 162 | 50 | 3 | 3 | S20 pelmet strip 59, F42 17, floor lamp 1; indirect 82 |
+| Stair feature wall (y=17.5), 1.2 m above tread 6 (2.23 m) | 324 | 163 | 11 | 9 | F80 80, F40 41, pendant cluster 41; indirect 82 |
+| Stair feature wall above flight 1 (x 23 ft, 2.6 m) — Avia pool (2.60 m) | 355 | 155 | 10 | 53 | F81 60, F37 48, F40 42; indirect 82 |
+| Stair wall — soffit accent C1 crown (x 20.2 ft, 2.5 m) (2.50 m) | 393 | 235 | 11 | 7 | F80 155, pendant cluster 44, F40 40; indirect 82 |
+| Stair wall — soffit accent C2 crown (x 22.5 ft, 3.0 m) (3.00 m) | 383 | 237 | 9 | 11 | F81 130, F82 47, F40 38; indirect 82 |
+| Stair wall — between accents (x 21.3 ft, 1.6 m, eye level on flight 1) (1.60 m) | 251 | 100 | 11 | 11 | pendant cluster 35, S10 beam-edge profile 34, F40 34; indirect 82 |
+| Landing back wall (x 25.5 ft, 2.5 m) — F37 pool (2.50 m) | 708 | 80 | 9 | 494 | F37 490, F40 37, pendant cluster 33; indirect 82 |
+| Flight 2 riser face, mid (seen from living) (2.58 m) | 386 | 117 | 26 | 12 | pendant cluster 134, S10 beam-edge profile 105, F40 36; indirect 82 |
 
 #### Floor-grid statistics (living room incl. the south strip; 0.5 ft grid)
 
 | Scene | average lx | min lx | max lx | Uo = min/avg | min/max | indirect term | lumens in play | brightest cell (x, y ft) | darkest cell (x, y ft) | stairs avg / min / max |
 |---|---:|---:|---:|---:|---:|---:|---:|---|---|---|
-| FULL | 277 | 166 | 568 | 0.60 | 0.29 | 95 lx | 19711 lm | 14.4, 23.5 | 26.9, 36.5 | 275 / 115 / 616 |
-| EVENING | 70 | 44 | 103 | 0.64 | 0.43 | 24 lx | 4928 lm | 16.4, 26.0 | 26.9, 36.5 | 63 / 30 / 217 |
+| FULL | 283 | 172 | 573 | 0.61 | 0.30 | 102 lx | 21271 lm | 14.4, 23.5 | 26.9, 36.5 | 317 / 123 / 623 |
+| EVENING | 78 | 52 | 111 | 0.67 | 0.47 | 31 lx | 6488 lm | 16.4, 26.0 | 26.9, 36.5 | 118 / 38 / 322 |
 | MOVIE | 14 | 7 | 19 | 0.50 | 0.37 | 4 lx | 866 lm | 17.4, 26.5 | 26.9, 36.5 | 18 / 4 / 89 |
-| NIGHT | 24 | 5 | 115 | 0.22 | 0.04 | 2 lx | 390 lm | 9.9, 22.0 | 26.9, 36.5 | 53 / 2 / 285 |
+| NIGHT | 22 | 5 | 113 | 0.21 | 0.04 | 2 lx | 390 lm | 9.9, 22.0 | 26.9, 36.5 | 40 / 2 / 250 |
 
-**Brightest and darkest.** FULL: the brightest living cell is under the two Rega downlights in the south strip (≈ 568 lx; the accent-chair seat sees ≈ 644 lx because both fixtures hit it). The brightest *vertical* spot is the Avia pool on the stair feature wall (≈ 560 lx, a deliberate accent). Darkest living cells are the two north corners at ≈ 176 lx. EVENING: 44–103 lx across the room, seating 67–86 lx, corners ≈ 48 lx. MOVIE: 7–19 lx. NIGHT walk: passage 106, stair base 120, seating 7 lx, half landing 78 lx.
+**Brightest and darkest.** FULL: the brightest living cell is under the two Rega downlights in the south strip (≈ 573 lx; the accent-chair seat sees ≈ 650 lx because both fixtures hit it). The brightest *vertical* spot is the Avia pool on the stair feature wall (≈ 355 lx, a deliberate accent). Darkest living cells are the two north corners at ≈ 183 lx. EVENING: 52–111 lx across the room, seating 75–94 lx, corners ≈ 56 lx. MOVIE: 7–19 lx. NIGHT walk: passage 105, stair base 107, seating 7 lx, half landing 13 lx.
 
-**Is the variation intentional?** Yes. A residential layered scheme is *supposed* to have a 2–3× range between the lit task pools (chairs, coffee table, stair wall) and the quiet edges; the min/avg uniformity of 0.60–0.64 in the two main scenes is high for a home (offices aim for ≥ 0.6 on the task area only) and comes from the large bounce component in the void. The min/max of 0.29 in FULL is driven by the deliberately strong reading pool over the accent chairs. NIGHT's 0.22 is by design: the walkway and stairs are lit, the seating is not.
+**Is the variation intentional?** Yes. A residential layered scheme is *supposed* to have a 2–3× range between the lit task pools (chairs, coffee table, stair wall) and the quiet edges; the min/avg uniformity of 0.61–0.67 in the two main scenes is high for a home (offices aim for ≥ 0.6 on the task area only) and comes from the large bounce component in the void. The min/max of 0.30 in FULL is driven by the deliberately strong reading pool over the accent chairs. NIGHT's 0.21 is by design: the walkway and stairs are lit, the seating is not.
 
 #### Sensitivity (FULL scene) — how much the unknowns move the answer
 
 | Case | coffee table | sofa reading plane | accent-chair seat | half landing | curtain 1.5 m / 3.2 m (vertical) | living avg | min | Uo |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| ACCEPTED design (Rega 900 lm, Orrin-13 shape, 806 lm bulbs, Avia 7W on the landing) | 293 | 260 | 644 | 271 | 235 / 351 | 277 | 166 | 0.60 |
-| Rega soft shape (Orrin-7.5 fit, more spill) | 291 | 260 | 583 | 271 | 236 / 351 | 274 | 165 | 0.60 |
-| Rega 800 lm (low estimate) | 291 | 259 | 603 | 270 | 234 / 350 | 271 | 164 | 0.61 |
-| Previous design: Bolt 12W over the landing + 470 lm bulbs | 241 | 210 | 618 | 1174 | 192 / 270 | 247 | 140 | 0.57 |
-| Bulbs 470 lm instead of 806 lm | 241 | 210 | 618 | 249 | 192 / 270 | 244 | 140 | 0.57 |
-| Landing: Bolt 6W downlight instead of the Avia | 293 | 260 | 644 | 733 | 235 / 351 | 278 | 166 | 0.60 |
-| (rejected) + 4th Axios head 24° aimed at the coffee table | 644 | 340 | 652 | 279 | 247 / 357 | 343 | 175 | 0.51 |
-| Pelmet: profile tilted 45° toward the fabric, 150 mm off it (tested — no gain below the top metre) | 285 | 253 | 640 | 266 | 236 / 351 | 271 | 162 | 0.60 |
-| Indirect term halved (ρ or enclosure 40 % lower) | 245 | 213 | 597 | — | — | ≈229 | ≈118 | — |
+| ACCEPTED design (Rega 900 lm, Orrin-13 shape, 806 lm bulbs, Avia 7W on the landing) | 299 | 267 | 650 | 240 | 239 / 354 | 283 | 172 | 0.61 |
+| Rega soft shape (Orrin-7.5 fit, more spill) | 298 | 267 | 589 | 240 | 239 / 354 | 280 | 172 | 0.62 |
+| Rega 800 lm (low estimate) | 297 | 266 | 608 | 239 | 238 / 353 | 277 | 171 | 0.62 |
+| Previous design: Bolt 12W over the landing + 470 lm bulbs | 247 | 217 | 623 | 1143 | 195 / 273 | 253 | 147 | 0.58 |
+| Bulbs 470 lm instead of 806 lm | 247 | 217 | 623 | 219 | 195 / 273 | 250 | 147 | 0.59 |
+| Landing: Bolt 6W downlight instead of the Avia | 299 | 267 | 650 | 702 | 239 / 354 | 284 | 172 | 0.61 |
+| (rejected) + 4th Axios head 24° aimed at the coffee table | 650 | 347 | 658 | 248 | 250 / 360 | 349 | 182 | 0.52 |
+| Pelmet: profile tilted 45° toward the fabric, 150 mm off it (tested — no gain below the top metre) | 292 | 260 | 645 | 235 | 239 / 355 | 277 | 169 | 0.61 |
+| Indirect term halved (ρ or enclosure 40 % lower) | 248 | 216 | 599 | — | — | ≈232 | ≈121 | — |
 
-What the sensitivity table says: the two things nobody can verify yet (Rega Plus lumens and intensity shape) move the *chair pool* by ±10 % and the void seating by < 1 %; halving the indirect estimate still leaves ≈ 210 lx at the coffee table in FULL. The accepted bulb change lifts the void seating by ≈ 52 lx and the mid-curtain by ≈ 81 lx; the accepted landing change takes the half landing from ≈ 1174 lx to ≈ 271 lx. The conclusions do not hinge on the unknowns.
+What the sensitivity table says: the two things nobody can verify yet (Rega Plus lumens and intensity shape) move the *chair pool* by ±10 % and the void seating by < 1 %; halving the indirect estimate still leaves ≈ 214 lx at the coffee table in FULL. The accepted bulb change lifts the void seating by ≈ 52 lx and the mid-curtain by ≈ 81 lx; the accepted landing change takes the half landing from ≈ 1143 lx to ≈ 240 lx. The conclusions do not hinge on the unknowns.
 
 ### 10.6 Vertical surfaces
 
 | Surface | FULL | EVENING | Who lights it |
 |---|---:|---:|---|
-| TV screen centre (1.1 m) | ≈ 263 lx | ≈ 47 | F41 spill 80, pendant 50, beam line, bounce. In MOVIE 8 lx → no contrast loss. |
-| TV feature panel, 2.5 m | ≈ 507 lx | ≈ 66 | **F41 24° head = 259 lx** at 5.3 m throw — a clear 1.7 m pool on the stone; pendant 100. |
-| TV feature panel, 4.5 m | ≈ 180 lx | ≈ 40 | pendant, tail of F41, pelmet spill, bounce. The upper third of the 20 ft panel reads darker than its middle — acceptable (eye is on the TV/console zone). |
-| Curtain, 1.5 m (seated eye level) | ≈ 235 lx | ≈ 59 | pendant 81 (it hangs 1.65 m from the curtain), **F42 60° head 31**, beam line, bounce. |
-| Curtain, 3.2 m | ≈ 351 lx | ≈ 82 | pendant 170, **F42 73**. |
-| Curtain, 5.5 m (under the pelmet) | ≈ 157 lx | ≈ 44 | **S20 pelmet strip 59**, F42 17. |
-| Stair feature wall (grooved plaster), 1.2 m above tread 6 | ≈ 294 lx | ≈ 51 | F37 Avia 81, F40 41, pendant; plus the Spotlit foot-lights graze it strongly near each unit. |
-| Stair feature wall above flight 1 — the Avia aim point (2.6 m) | ≈ 560 lx | ≈ 48 | **F37 Avia 355 lx** — the accepted change turns the landing light into a wall accent. |
-| Flight 2, living-facing side/riser face | ≈ 381 lx | ≈ 111 | pendant 134, **beam line 105**, F40 36 — the stair reads as a lit sculpture from the sofa, mostly from the void frame and pendant, not from the spot. |
+| TV screen centre (1.1 m) | ≈ 268 lx | ≈ 53 | F41 spill 80, pendant 50, beam line, bounce. In MOVIE 8 lx → no contrast loss. |
+| TV feature panel, 2.5 m | ≈ 512 lx | ≈ 72 | **F41 24° head = 259 lx** at 5.3 m throw — a clear 1.7 m pool on the stone; pendant 100. |
+| TV feature panel, 4.5 m | ≈ 186 lx | ≈ 46 | pendant, tail of F41, pelmet spill, bounce. The upper third of the 20 ft panel reads darker than its middle — acceptable (eye is on the TV/console zone). |
+| Curtain, 1.5 m (seated eye level) | ≈ 239 lx | ≈ 65 | pendant 81 (it hangs 1.65 m from the curtain), **F42 60° head 31**, beam line, bounce. |
+| Curtain, 3.2 m | ≈ 354 lx | ≈ 88 | pendant 170, **F42 73**. |
+| Curtain, 5.5 m (under the pelmet) | ≈ 162 lx | ≈ 50 | **S20 pelmet strip 59**, F42 17. |
+| Stair feature wall (grooved plaster), 1.2 m above tread 6 | ≈ 324 lx | ≈ 163 | F37 Avia 2, F40 41, pendant; plus the Spotlit foot-lights graze it strongly near each unit. |
+| Stair wall at x 23 ft, 2.6 m (below accent C3) | ≈ 355 lx | ≈ 155 | F82 28, F40 42, pendant. |
+| Stair wall — accent C1 crown (x 20.2 ft, 2.5 m) | ≈ 393 lx | ≈ 235 | **F80 155 lx** (proposed soffit accent, thrown along the grooves). |
+| Stair wall — accent C2 crown (x 22.5 ft, 3.0 m) | ≈ 383 lx | ≈ 237 | **F81 130 lx**. |
+| Stair wall between accents, eye level on flight 1 (x 21.3 ft, 1.6 m) | ≈ 251 lx | ≈ 100 | tails of C1/C2, foot lamps, bounce — the quiet band between the tongues. |
+| Landing back wall (x 25.5 ft, 2.5 m) — F37 pool | ≈ 708 lx | ≈ 80 | **F37 490 lx** — the bright, calm end of the sofa's view. |
+| Flight 2, living-facing side/riser face | ≈ 386 lx | ≈ 117 | pendant 134, **beam line 105**, F40 36 — the stair reads as a lit sculpture from the sofa, mostly from the void frame and pendant, not from the spot. |
 
 How the track spots and the void frame contribute: the three Axios heads are the only sources that put *directional* light on the vertical surfaces (259 lx on the TV panel, 73 lx on the mid-curtain, ≈ 50 lx raking across the upper treads); the beam-edge profile is a 6.3 m, ≈ 3,900 lm line of soft light at 11 ft that gives ≈ 69 lx on the floor directly below it (≈ 95 for an endless line; the 5 m length loses the tails), 30–50 lx everywhere in the void, and 100+ lx on the stair's living-facing face, i.e. it behaves like four hidden downlights spread into a line. The pelmet strip lights only the top ≈ 1 m of curtain (59 lx at 5.5 m, 2 lx at 3.2 m) because a strip parallel to a plane 76 mm away reaches it at grazing incidence (cos i → 0); tilting the profile toward the fabric was tested and does not change the 3.2 m value (§ 10.5). The curtain's visible glow below the header therefore comes from the pendant and the 60° head, and from pleat ridges catching the grazing light (not captured by a plane-illuminance model).
 
@@ -422,7 +433,7 @@ How the track spots and the void frame contribute: the three Axios heads are the
 
 Why: illuminance from a small source falls with the *square* of distance because the same candela spreads over an area that grows with d². Going from 9 ft to 21 ft is 2.3× the distance → 1/5.4 of the lux (18 %) and a footprint 5.4× larger in area. So a downlight recessed in the void lid would deliver about 40 lx in a 4.4 m pool per 900 lm fixture; matching the 225 lx a 9 ft fixture gives would take five or six of them, 21 ft up, with the LED visible from every seat. That is the quantitative reason the void is lit from the pendant (sources at 2.6–5.3 m), the beam edge (3.35 m) and the wall-wash heads (3.15 m) instead.
 
-Limits of the rule: (1) it is exact only for a point source; a fixture is "point-like" beyond about five times its own size (Rega Ø 90 mm → fine past 0.5 m; a 6.3 m LED line is *not* a point — its illuminance falls roughly with 1/d near the line and only approaches 1/d² far away, which is why the strip is a stronger ambient source than its 630 lm/m suggests); (2) real reflectors and lenses make intensity depend on angle, so off-axis points get I(α), not the on-axis candela — the cos i term matters as much as d² for the wall-aimed heads (incidence 79° on the treads from F40 leaves only 50 lx of 3,000 cd); (3) inter-reflection adds a near-uniform floor (95 lx in FULL here) that the direct formula ignores; (4) lumen depreciation and dirt remove 15–25 % over years.
+Limits of the rule: (1) it is exact only for a point source; a fixture is "point-like" beyond about five times its own size (Rega Ø 90 mm → fine past 0.5 m; a 6.3 m LED line is *not* a point — its illuminance falls roughly with 1/d near the line and only approaches 1/d² far away, which is why the strip is a stronger ambient source than its 630 lm/m suggests); (2) real reflectors and lenses make intensity depend on angle, so off-axis points get I(α), not the on-axis candela — the cos i term matters as much as d² for the wall-aimed heads (incidence 79° on the treads from F40 leaves only 50 lx of 3,000 cd); (3) inter-reflection adds a near-uniform floor (102 lx in FULL here) that the direct formula ignores; (4) lumen depreciation and dirt remove 15–25 % over years.
 
 ### 10.8 Beam angle
 
@@ -439,13 +450,13 @@ The footprint is Ø = 2·d·tan(θ/2): doubling the distance doubles the diamete
 
 ### 10.9 Living-room conclusions
 
-- **A. Sufficient for comfortable living?** Yes. In FULL the whole seating zone sits at ≈ 240–293 lx (centre 264, coffee table 293, sofa 240–260, return 236), the corners at ≈ 176 lx; EVENING gives 67–86 lx at the seats with ≈ 48 lx corners; MOVIE 7–19 lx. Sustained reading on the sofa (300 lx on the page) is met by the table/floor lamp, as intended in a layered scheme, not by the ceiling.
+- **A. Sufficient for comfortable living?** Yes. In FULL the whole seating zone sits at ≈ 247–299 lx (centre 270, coffee table 299, sofa 247–267, return 243), the corners at ≈ 183 lx; EVENING gives 75–94 lx at the seats with ≈ 56 lx corners; MOVIE 7–19 lx. Sustained reading on the sofa (300 lx on the page) is met by the table/floor lamp, as intended in a layered scheme, not by the ceiling.
 - **B. Is 100–150 lx a reasonable ambient target?** Yes, as the *relaxed-ambient* level. The dimmable layers span it: FULL lands above it, EVENING (as defined) below it, and a "guests" setting of coves ≈ 70 % + pendant ≈ 50 % + track on lands inside it. Keep 100–150 as the target for the default evening-with-guests scene, 50–80 for lounging, 200+ for cleaning/bright.
 - **C. Whole floor or selected areas?** Selected areas. Treat it as the target on the seating/coffee-table plane; the floor at the edges should be lower (here ≈ 60 % of centre), otherwise the room loses its hierarchy and the void reads flat. Uniformity 0.4–0.6 is right for a home.
-- **D. Are the two Rega Plus 12 W in the south strip sufficient?** Yes — more than: they put ≈ 360 lx direct on the accent-chair seats (≈ 644 lx total), a proper reading pool, and 402 lx at the passage threshold. They are not meant to light the void and do not (≈ 20 lx at the coffee table). If the FULL scene feels harsh there, the 7 W version (`806DLR733892`) would give ≈ 350 lx at the seat; a dimmable alternative is Orrin 7.5 W DIM with a Zigbee TRIAC dimmer. Not changed.
-- **E. Add general downlights to the 21 ft void?** No. Per § 10.7 each would add ≈ 40 lx in a 4.4 m pool, be visible from every seat, and need a scaffold to clean; the void already reaches 240–293 lx in FULL without them.
-- **F. If more light is ever wanted, what works best?** In order: (1) the pendant bulbs at full (already the 806 lm class); (2) the beam-edge line at 100 % (it is on a dimmer); (3) a fourth Axios head 24° aimed at the coffee table for a games/reading scene — but it adds ≈ 350 lx in a 1.7 m pool (644 lx total), too much for everyday, so only as a switchable extra; (4) wall washing (the three heads) — raises *perceived* brightness most per watt because the eye reads vertical surfaces; (5) more downlights — the worst option here.
-- **G. Glare risks.** (1) **Resolved:** the earlier Bolt 12 W over the half landing (≈ 925 lx direct, a bare 900 lm COB 1.4 m above a climber's head) is replaced by the Avia 7 W aimed at the stair wall; the landing now sits at ≈ 271 lx from the wall pool, the foot-light and bounce, and the LED points away from the climber. (2) F42 (60°) is aimed at the curtain above the N sofa; its aperture is in the periphery of someone on that sofa at ≈ 35–40° above the eye line — keep the aim point at ≥ 2.4 m on the curtain and keep the 60° (lowest-intensity) optic; ask for a honeycomb louvre if TISVA offers one for Axios. (3) The two Rega over the chairs are deep-recessed black-reflector units (the Orrin-class cut-off is > 40°): low glare, bright pool. (4) Pendant globes: ≈ 2,700 cd/m² luminance with 806 lm bulbs in Ø 150 mm opal globes — comfortable (opal globes get uncomfortable above ≈ 5,000); use Ø 150–200 mm globes, not smaller. (5) Beam-edge profile: a thin 10 W/m line in a 20 mm opal profile is ≈ 10,000 cd/m² — bright if stared at; use a 30 mm-wide profile and run it at 60–70 % normally. (6) TV: 263 lx vertical on the screen in FULL would wash out dark scenes — but MOVIE drops it to 8 lx, as designed.
+- **D. Are the two Rega Plus 12 W in the south strip sufficient?** Yes — more than: they put ≈ 360 lx direct on the accent-chair seats (≈ 650 lx total), a proper reading pool, and 408 lx at the passage threshold. They are not meant to light the void and do not (≈ 20 lx at the coffee table). If the FULL scene feels harsh there, the 7 W version (`806DLR733892`) would give ≈ 350 lx at the seat; a dimmable alternative is Orrin 7.5 W DIM with a Zigbee TRIAC dimmer. Not changed.
+- **E. Add general downlights to the 21 ft void?** No. Per § 10.7 each would add ≈ 40 lx in a 4.4 m pool, be visible from every seat, and need a scaffold to clean; the void already reaches 247–299 lx in FULL without them.
+- **F. If more light is ever wanted, what works best?** In order: (1) the pendant bulbs at full (already the 806 lm class); (2) the beam-edge line at 100 % (it is on a dimmer); (3) a fourth Axios head 24° aimed at the coffee table for a games/reading scene — but it adds ≈ 350 lx in a 1.7 m pool (650 lx total), too much for everyday, so only as a switchable extra; (4) wall washing (the three heads) — raises *perceived* brightness most per watt because the eye reads vertical surfaces; (5) more downlights — the worst option here.
+- **G. Glare risks.** (1) **Resolved:** the earlier Bolt 12 W over the half landing (≈ 925 lx direct, a bare 900 lm COB 1.4 m above a climber's head) is replaced by the Avia 7 W aimed at the stair wall; the landing now sits at ≈ 240 lx from the wall pool, the foot-light and bounce, and the LED points away from the climber. (2) F42 (60°) is aimed at the curtain above the N sofa; its aperture is in the periphery of someone on that sofa at ≈ 35–40° above the eye line — keep the aim point at ≥ 2.4 m on the curtain and keep the 60° (lowest-intensity) optic; ask for a honeycomb louvre if TISVA offers one for Axios. (3) The two Rega over the chairs are deep-recessed black-reflector units (the Orrin-class cut-off is > 40°): low glare, bright pool. (4) Pendant globes: ≈ 2,700 cd/m² luminance with 806 lm bulbs in Ø 150 mm opal globes — comfortable (opal globes get uncomfortable above ≈ 5,000); use Ø 150–200 mm globes, not smaller. (5) Beam-edge profile: a thin 10 W/m line in a 20 mm opal profile is ≈ 10,000 cd/m² — bright if stared at; use a 30 mm-wide profile and run it at 60–70 % normally. (6) TV: 268 lx vertical on the screen in FULL would wash out dark scenes — but MOVIE drops it to 8 lx, as designed.
 - **H. Dark zones?** None in FULL/EVENING: the darkest living cells (north corners) are ≈ 60 % of the centre. NIGHT deliberately leaves the seating at 7 lx while the walkway and stairs are at 80–120.
 
 ### 10.10 Limitations
@@ -455,7 +466,7 @@ No IES/LDT file exists for any TISVA product; Rega Plus, Avia, Lumelace and Spot
 ### 10.11 Changes from this check
 
 **Accepted 2026-10-02 and applied to the design, the map and the buy list:**
-1. **F37 half landing: Bolt 12 W → Avia 7 W black surface spot (`806DLA7338992`, ₹850) aimed at the stair feature wall** above the upper treads of flight 1 (aim point ≈ 2.6 m above GF floor). Landing ≈ 1174 → ≈ 271 lx; wall pool ≈ 355 lx; saves ₹1,100.
+1. **F37 half landing: Bolt 12 W → Avia 7 W black surface spot (`806DLA7338992`, ₹850)**, aimed at the stair wall; since 2026-10-11 (proposed) re-aimed at the landing back wall because the three soffit accents now light the wall above flight 1. Landing ≈ 1143 → ≈ 240 lx; landing-back-wall pool ≈ 490 lx; saves ₹1,100.
 2. **Pendant bulbs: 806 lm class, tunable white set to 3000 K** (Philips Hue White Ambiance E27 or IKEA Trådfri E27 806 lm class; ~12 for the living cluster). +52 lx at the coffee table, +81 lx on the mid-curtain.
 3. **Axios optics specified for ordering: F40 38°, F41 24°, F42 60°**, F42 aim point ≥ 2.4 m on the curtain.
 
@@ -470,7 +481,7 @@ No IES/LDT file exists for any TISVA product; Rega Plus, Avia, Lumelace and Spot
 
 ### 10.13 Verify on site (₹1,500 lux meter or a phone app, after dark, curtains drawn)
 
-Measure at: coffee-table top, N sofa seat, accent-chair seat, floor under the TV, half landing, stair base; in FULL and EVENING. Expected (model): 293 / 240 / 644 / 238 / 271 / 325 lx and 86 / 67 / 80 / 69 / 51 / 53 lx. If readings are within ±30 % the model is confirmed; set the EVENING and GUESTS scene levels from the meter, not from the model.
+Measure at: coffee-table top, N sofa seat, accent-chair seat, floor under the TV, half landing, stair base; in FULL and EVENING. Expected (model): 299 / 247 / 650 / 244 / 240 / 338 lx and 94 / 75 / 88 / 77 / 86 / 79 lx. If readings are within ±30 % the model is confirmed; set the EVENING and GUESTS scene levels from the meter, not from the model.
 
 ![N–S section through the void](lighting-plan/photometric/living-section.svg)
 
@@ -482,7 +493,9 @@ Measure at: coffee-table top, N sofa seat, accent-chair seat, floor under the TV
 | F40 Axios 20W → stair | 3.15 m | 20 W | 1600 lm | 2999 cd | 38° optic | flight 2 mid tread | 3.4 m | 79° off-normal, 0° off-axis | 50 lx | lm DOC-CAT; shape CALC |
 | F41 Axios 20W → TV panel | 3.15 m | 20 W | 1600 lm | 7401 cd | 24° optic | TV feature panel 2.5 m (vertical) | 5.3 m | 13° off-normal, 0° off-axis | 259 lx | lm DOC-CAT; shape CALC |
 | F42 Axios 20W → curtain | 3.15 m | 20 W | 1600 lm | 1253 cd | 60° optic | curtain 3.2 m (vertical) | 3.4 m | 46° off-normal, 0° off-axis | 73 lx | lm DOC-CAT; shape CALC |
-| F37 Avia 7W on landing soffit → stair wall | 3.25 m | 7 W | 520 lm | 1083 cd | 36° (assumed) | stair feature wall at the aim point, 2.6 m (vertical) | 1.5 m | 42° off-normal, 0° off-axis | 355 lx | lm EST (520 lm); CRI>90 per price list |
+| F37 Avia 7W on landing soffit → landing back wall | 3.25 m | 7 W | 520 lm | 1083 cd | 36° (assumed) | landing back wall, 2.5 m (vertical) | 1.4 m | 34° off-normal, 0° off-axis | 490 lx | lm EST (520 lm); CRI>90 per price list |
+| F80 Avia 7W soffit accent C1 (over tread 3) | 3.74 m | 7 W | 520 lm | 1083 cd | 36° (assumed) | stair wall, crown of its scallop (x 20.2 ft, 2.5 m, vertical) | 1.4 m | 74° off-normal, 1° off-axis | 155 lx | lm EST (520 lm); CRI>90; core position ASSUMED |
+| F82 Avia 7W soffit accent C3 (over tread 9) | 4.92 m | 7 W | 520 lm | 1083 cd | 36° (assumed) | stair wall below it (x 23 ft, 2.6 m, vertical) | 2.4 m | 81° off-normal, 7° off-axis | 28 lx | lm EST; aimed at the wall only |
 | Pendant cluster (10 globes, x18.7 y31.4) | 2.6–5.3 m | 10 × ~5 W | 6045 lm (after globe) | 96 cd per globe (isotropic) | 360° | coffee-table top | 2.2–4.9 m | 0° | 95 lx | bulb lm DOC-OTH; globe τ EST |
 | S10 beam-edge profile (6.3 m) | 3.35 m | 63 W | 3898 lm eff. | Lambertian line | 120° | floor directly below the beam | 3.35 m | 0° | 69 lx | lm/m EST |
 | S20 pelmet strip (3.4 m) | 6.10 m | 34 W | 2112 lm eff. | Lambertian line | 120° | curtain at 5.5 m (vertical) | 0.6 m | grazing | 59 lx | lm/m EST |
@@ -492,4 +505,4 @@ Measure at: coffee-table top, N sofa seat, accent-chair seat, floor under the TV
 
 #### Indirect-light budget (room-cavity approximation)
 
-Surfaces: floor polished blond-ivory tile 25 m² ρ 0.5; N wall warm ivory + curtains 23 m² ρ 0.6; N wall curtains (greige dim-out) 9 m² ρ 0.45; W wall: greige stone/microcement TV panel + teak flutes 23 m² ρ 0.42; E side: FF-living balustrade + passage openings (part open) 30 m² ρ 0.3; S side: beam face + strip ceiling + stair void 11 m² ρ 0.65; void lid ceiling soft snow 17 m² ρ 0.8. Total area 138 m², area-weighted ρ = 0.51, enclosure factor 0.65. FULL-scene flux into the room 19711 lm → indirect ≈ 95 lx; EVENING 4928 lm → 24 lx; MOVIE → 4 lx.
+Surfaces: floor polished blond-ivory tile 25 m² ρ 0.5; N wall warm ivory + curtains 23 m² ρ 0.6; N wall curtains (greige dim-out) 9 m² ρ 0.45; W wall: greige stone/microcement TV panel + teak flutes 23 m² ρ 0.42; E side: FF-living balustrade + passage openings (part open) 30 m² ρ 0.3; S side: beam face + strip ceiling + stair void 11 m² ρ 0.65; void lid ceiling soft snow 17 m² ρ 0.8. Total area 138 m², area-weighted ρ = 0.51, enclosure factor 0.65. FULL-scene flux into the room 21271 lm → indirect ≈ 102 lx; EVENING 6488 lm → 31 lx; MOVIE → 4 lx.

@@ -197,7 +197,7 @@
 | Point | Type | Location | Height | Circuit | Smart? | Notes |
 |---|---|---|---|---|---|---|
 | Staircase ceiling/wall lights | 3–4× step lights or wall-mounted luminaires | Along staircase wall | Staggered | B7 | Smart 2-way | Toggleable from either GF base or FF landing |
-| Step lights (optional) | LED step nosing strips | Each step riser | Step level | B7 | With main circuit | Decorative; adds safety |
+| ~~Step lights (optional)~~ | ~~LED step nosing strips~~ **DROPPED 2026-10-11 (Ganesh: no strips on the stairs).** Instead: 3× Spotlit Pro foot lamps in the stair wall (treads 2/6/10) + 3× Avia 7 W accents on the terrace-flight soffit on their own ZBMINI channel — see [../interior-design/staircase-feature-wall.md](../interior-design/staircase-feature-wall.md) | — | — | B7 (+ new accent channel) | — | Core cuts already made in the soffit |
 | Switch board GF (bottom) | **3M plate (1 gang + 2M slack)** — Sonoff ZBMINI R2 hidden | Base of stairs, GF | 1200mm | B7 | Smart — full Sonoff module here | L+N+E feed; L OUT to ceiling lights; S1 to bottom rocker; **S2 to top rocker via 2-wire traveler** |
 | Switch board FF (top) | **1M plate** — dumb Schneider Unica rocker, NO module | FF landing | 1200mm | B7 (traveler only) | Dumb signaller | **No 230V** to this box. Only 2 traveler wires returning to bottom Sonoff's S2 input. |
 

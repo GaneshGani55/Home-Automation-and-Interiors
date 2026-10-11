@@ -76,11 +76,11 @@
 <text x="625.0" y="463.112" fill="#8a6a10">9 ft</text>
 <text x="625.0" y="408.248" fill="#8a6a10">11 ft</text>
 <text x="625.0" y="133.928" fill="#8a6a10">21 ft</text>
-<text x="232.8" y="680.0" fill="#1f1a14" font-size="11" text-anchor="start">accent-chair floor ≈ 644 lx (seat)</text>
-<text x="443.4" y="635.0" fill="#1f1a14" font-size="11" text-anchor="start">coffee table ≈ 293 lx</text>
-<text x="537.0" y="608.0" fill="#1f1a14" font-size="11" text-anchor="end">sofa reading plane ≈ 260 lx</text>
-<text x="582.5" y="587.0" fill="#1f1a14" font-size="11" text-anchor="end">curtain 1.5 m ≈ 235 lx (vertical)</text>
-<text x="582.5" y="227.00000000000003" fill="#1f1a14" font-size="11" text-anchor="end">curtain 5.5 m ≈ 157 lx</text>
+<text x="232.8" y="680.0" fill="#1f1a14" font-size="11" text-anchor="start">accent-chair floor ≈ 650 lx (seat)</text>
+<text x="443.4" y="635.0" fill="#1f1a14" font-size="11" text-anchor="start">coffee table ≈ 299 lx</text>
+<text x="537.0" y="608.0" fill="#1f1a14" font-size="11" text-anchor="end">sofa reading plane ≈ 267 lx</text>
+<text x="582.5" y="587.0" fill="#1f1a14" font-size="11" text-anchor="end">curtain 1.5 m ≈ 239 lx (vertical)</text>
+<text x="582.5" y="227.00000000000003" fill="#1f1a14" font-size="11" text-anchor="end">curtain 5.5 m ≈ 162 lx</text>
 <text x="60.0" y="746" fill="#1f1a14" font-size="13" font-weight="bold">N–S section through the void centre line (x = 18.7 ft), looking west · FULL scene values (direct + indirect, modelled)</text>
 <text x="60.0" y="764" fill="#6d6257">Inverse-square at a glance: the same 900 lm downlight gives ≈ 225 lx on the floor from 9 ft, ≈ 151 lx from 11 ft and ≈ 41 lx from 21 ft (nadir, single fixture).</text>
 <text x="60.0" y="780" fill="#6d6257">Only the pendant globes, the pelmet strip and the curtain-motor pelmet sit above 11 ft; every other living-room light is at 9 ft or 11 ft. Nothing is recessed at 21 ft.</text>

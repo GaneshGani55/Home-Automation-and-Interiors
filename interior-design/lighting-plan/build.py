@@ -24,7 +24,7 @@ if rj.exists():
     rows = [("Coffee-table top (0.45 m)", "Coffee-table top"), ("N sofa, book in hand (0.75 m)", "N sofa, book held (reading plane)"),
             ("Accent-chair seat under the 2 Rega (0.45 m)", "Accent chairs (south strip), seat"), ("Floor at TV viewing side", "TV viewing area, floor (W side)"),
             ("North corners, floor", "NW corner floor"), ("Stair base, tread 1", "Stair base (tread 1)"), ("Half landing (Avia 7 W, accepted)", "Half landing centre"),
-            ("Stair feature wall at the Avia aim point (vertical)", "Stair feature wall above flight 1 (x 23 ft, 2.6 m) — Avia pool"),
+            ("Stair wall — soffit accent C1 crown (vertical, proposed)", "Stair wall — soffit accent C1 crown (x 20.2 ft, 2.5 m)"), ("Stair wall — soffit accent C2 crown (vertical)", "Stair wall — soffit accent C2 crown (x 22.5 ft, 3.0 m)"), ("Landing back wall — F37 pool (vertical)", "Landing back wall (x 25.5 ft, 2.5 m) — F37 pool"),
             ("TV feature panel at 2.5 m (vertical)", "TV feature panel, 2.5 m"), ("Curtain at 1.5 m (vertical)", "Curtain, 1.5 m (eye level, seated view)"), ("Curtain at 3.2 m (vertical)", "Curtain, 3.2 m")]
     h = '<table><thead><tr><th>Point</th><th class="num">FULL</th><th class="num">EVENING</th><th class="num">MOVIE</th><th class="num">NIGHT walk</th></tr></thead><tbody>'
     for lab, key in rows:

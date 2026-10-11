@@ -8,6 +8,7 @@ Style direction, mood, palette, and room-by-room interior decisions. Image rende
 - **[../materials-finishes/master-color-palette.md](../materials-finishes/master-color-palette.md)** — colour palette (hex codes + Asian Paints SKUs) for every zone.
 
 ## Per-room files (existing)
+- **[staircase-feature-wall.md](staircase-feature-wall.md)** — GF stair feature wall "Ivory Comb" (PROPOSED 2026-10-11): grooved ivory plaster, walnut-lined Waveshare niche, 3 foot lamps, 3 Avia accents on the terrace-flight soffit core cuts, landing spot; from a 3-concept / 3-judge pass; renders `generated-images/staircase-ivory-comb-*.png`.
 - **★ [lighting-and-false-ceiling-design.md](lighting-and-false-ceiling-design.md)** — whole-house lighting + false-ceiling design from the TISVA catalogue (PROPOSED 2026-09-29; § 10 photometric check of the living room 2026-10-02, its two changes accepted): plain-language primer, room-by-room fixtures with order codes, gang map, buy list. Interactive map: [lighting-plan/lighting-plan.html](lighting-plan/lighting-plan.html) (edit `lighting-plan/lighting-data.js` → `python3 lighting-plan/build.py`).
 - [living-area.md](living-area.md) — full design proposal, layout, palette, lighting
 - [gf-common-bathroom.md](gf-common-bathroom.md) — locked light luxury spa direction
@@ -32,3 +33,7 @@ Style direction, mood, palette, and room-by-room interior decisions. Image rende
 - Budget tier (premium / mid / value) for finishes — drives material spec.
 - Climate constraints (Bangalore? Chennai? Hyderabad?) — affects flooring, AC, materials.
 - Lighting design (2026-09-29) proposes extra false ceilings — MBR perimeter band, Bed 1 band, FF living/corridor, FF toilets, and a lid over the void — plus 3000K instead of 2700K house-wide. Accept/reject → decision-log.
+- **Decor research (2026-10-03):** [decor-research/02-decor-report.md](decor-research/02-decor-report.md) (report with product photos) · browsable page https://claude.ai/artifact/GqqLMK2FGnYLPpcU1DHpM6 · audit + design DNA in [01-…](decor-research/01-house-audit-and-design-dna.md) · 280 raw finds in `decor-research/raw/` · rebuild with `python3 decor-research/build_report.py`. Nothing bought yet; proposals only.
+- **Wall colour is NOT decided** (the Warm Ivory `#F2EBDD` in the palette was a proposal). A floor-matched recommendation is part of the decor research.
+- **Feature-wall materials (travertine / greige stone) still being decided**; Ganesh is considering replacing the foyer welcome **monitor** with a **framed photo/artwork**. If the monitor is dropped: revisit the foyer cavity, Pi, halo LED and the conduit map (`CLAUDE.md` rule).
+- **Room naming:** Ganesh's own room = WEST balcony bedroom; EAST bedroom = guest room (his late brother's memory); GF master = parents. Repo labels "Bedroom 1/2" are the reverse of his usage — prefer compass + use in new docs.

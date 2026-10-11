@@ -11,7 +11,7 @@ Tap-to-detail reflected ceiling plans (GF + FF) with every TISVA product code, p
 
 Published copy: https://claude.ai/artifact/E8pURfRVXApDEXaeP6uM3E (republish after every `build.py` by passing that URL).
 
-Design narrative + primer: [../lighting-and-false-ceiling-design.md](../lighting-and-false-ceiling-design.md). Coordinates: feet, x from the EAST wall (→ west), y from the SOUTH wall (→ north); drawn like the handwritten sheets (top = south).
+Stair wall (3 soffit accents F80–F82, 3 foot lamps): [../staircase-feature-wall.md](../staircase-feature-wall.md). Design narrative + primer: [../lighting-and-false-ceiling-design.md](../lighting-and-false-ceiling-design.md). Coordinates: feet, x from the EAST wall (→ west), y from the SOUTH wall (→ north); drawn like the handwritten sheets (top = south).
 
 ## Photometric check (`photometric/`)
 

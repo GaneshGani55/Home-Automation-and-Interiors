@@ -333,7 +333,7 @@ Each room has 4 layers. Mix appropriately.
 | Kitchen | 24W LED panel 4000K (cool/neutral) | Under-cabinet 24V warm strip | — | — |
 | MBR | Recessed COB 12W centre | Wardrobe LED + bedside reading | Headboard wall wash (optional) | Bedside table lamps with brass shade |
 | Pooja | Soft warm 12W LED panel | — | Niche backlight 2200K | — |
-| Stairs | Wall recessed + step nosings | — | Step lights | — |
+| Stairs | 3 wall foot lamps (Spotlit Pro) + landing spot | — | 3 Avia spots on the terrace-flight soffit grazing the grooved feature wall; **no step strips** (2026-10-11, see staircase-feature-wall.md) | — |
 | BR1 | Recessed COB 12W centre | Study spot 7W 3000K + wardrobe LED | Headboard accent (optional) | Bedside lamp |
 | BR2 | Recessed COB 12W + cove | Study desk pendant + walnut-shelf strips + Aeron-area task light | Travertine wall-grazer on N wall | **Brass desk lamp + bedside walnut lamp** |
 | Toilets (FF) | IP44 recessed 9W 3000K | Mirror LED bar 12W | Niche LED (where present) | — |

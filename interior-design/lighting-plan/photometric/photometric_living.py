@@ -177,14 +177,19 @@ def build(scene, rega_shape="orrin13", fourth_head=False, bulb_lm=None, landing_
     # Stair: Bolt over the half landing (11 ft soffit), Spotlit foot-lights (wall y=17.5 facing N, 0.3 m above tread)
     f = FX["F37"]
     if landing_fix == "AVIA7":     # ACCEPTED 2026-10-02: Avia 7W surface spot on the landing soffit, aimed at the stair feature wall above flight 1
-        pos = ft3(f["x"], f["y"], H_BEAM-0.10); tgt = ft3(23.0, 17.55, 2.6)
+        pos = ft3(f["x"], f["y"], H_BEAM-0.10); tgt = ft3(25.5, 17.55, 2.5)   # re-aimed 2026-10-11 to the landing back wall
         add(Src(pos, 520, beam=36, aim=tgt-pos, peak_factor=0.91, label="F37 AVIA7 -> stair wall"), dim["stair"])
     else:
         add(Src(ft3(f["x"],f["y"],H_BEAM-0.10), P[landing_fix]["lm"], beam=P[landing_fix]["beam"], peak_factor=0.91, label=f"F37 {landing_fix}"), dim["stair"])
-    for fid in ("F31","F32","F33","F34","F35"):
+    for fid in ("F31","F33","F35"):     # three foot lamps (Ganesh 2026-10-11)
         f = FX[fid]; z_tread = tread_z(f["x"], flight=1) + 0.3
         add(Src(ft3(f["x"], 17.55, z_tread), P["SPOTLIT"]["lm"], beam=120, aim=(0,1,0), label=f"{fid} Spotlit"), dim["stair"])
-    f = FX["F36"]; add(Src(ft3(26.95, f["y"], H_LANDING+0.3), P["SPOTLIT"]["lm"], beam=120, aim=(-1,0,0), label="F36 Spotlit"), dim["stair"])
+    # three soffit accents (PROPOSED 2026-10-11): Avia 7W on plates over the core cuts in the terrace-flight underside,
+    # ~3.3 m above GF treads 3/6/9, 0.4 m off the wall; C1/C2 thrown down + west along the wall, C3 to the wall only
+    for fid, west in (("F80", 1.64), ("F81", 1.64), ("F82", 0.0)):
+        f = FX[fid]; z = tread_z(f["x"], flight=1) + 3.3; pos = ft3(f["x"], f["y"], z)
+        tgt = ft3(f["x"] + west, 17.55, z - 1.3)
+        add(Src(pos, 520, beam=36, aim=tgt-pos, peak_factor=0.91, label=f"{fid} Avia soffit accent"), dim["accent"])
     return S
 
 def tread_z(x, flight):
@@ -193,10 +198,10 @@ def tread_z(x, flight):
     return H_LANDING + float(np.clip((24-x)/(24-16.9), 0, 1))*(H_FF-H_LANDING)
 
 SCENES = {
- "FULL":    dict(down=1, walk=1, track=1, cove=1, pelmet=1, tv=1, pendant=1, lamp=1, stair=1),
- "EVENING": dict(down=0, walk=0, track=0, cove=0.4, pelmet=0.4, tv=0.4, pendant=0.3, lamp=1, stair=0),
- "MOVIE":   dict(down=0, walk=0, track=0, cove=0.2, pelmet=0, tv=0.15, pendant=0, lamp=0, stair=0),
- "NIGHT":   dict(down=0, walk=1, track=0, cove=0.1, pelmet=0, tv=0, pendant=0, lamp=0, stair=1),
+ "FULL":    dict(down=1, walk=1, track=1, cove=1, pelmet=1, tv=1, pendant=1, lamp=1, accent=1, stair=1),
+ "EVENING": dict(down=0, walk=0, track=0, cove=0.4, pelmet=0.4, tv=0.4, pendant=0.3, lamp=1, accent=1, stair=0),
+ "MOVIE":   dict(down=0, walk=0, track=0, cove=0.2, pelmet=0, tv=0.15, pendant=0, lamp=0, accent=0, stair=0),
+ "NIGHT":   dict(down=0, walk=1, track=0, cove=0.1, pelmet=0, tv=0, pendant=0, lamp=0, accent=0, stair=1),
 }
 
 # ----------------------------------------------------------------------------- indirect (room-cavity) approximation
@@ -211,7 +216,7 @@ SURF = [  # (name, area m2, reflectance)  — living void + south strip, night (
 ENCLOSURE = 0.65   # fraction of first-bounce flux kept in the living volume (rest escapes to passage, FF living, stair well)
 
 def indirect_lux(sources):
-    phi = sum(s.lm for s in sources if "pendant" in s.label or "lamp" in s.label or "Axios" in s.label or "Rega Plus 12W" in s.label or "S10" in s.label or "S20" in s.label or "S11" in s.label)
+    phi = sum(s.lm for s in sources if "pendant" in s.label or "lamp" in s.label or "Axios" in s.label or "Rega Plus 12W" in s.label or "S10" in s.label or "S20" in s.label or "S11" in s.label or "soffit accent" in s.label)
     A = sum(a for _,a,_ in SURF); rho = sum(a*r for _,a,r in SURF)/A
     return phi*rho*ENCLOSURE/(A*(1-rho)), phi, A, rho
 
@@ -258,6 +263,10 @@ KEYPTS = [  # name, x ft, y ft, z m, normal
  ("Curtain, 5.5 m (top, under pelmet)",     18.3, 36.8, 5.50, (0,-1,0)),
  ("Stair feature wall (y=17.5), 1.2 m above tread 6", 20.9, 17.55, None, (0,1,0)),
  ("Stair feature wall above flight 1 (x 23 ft, 2.6 m) — Avia pool", 23.0, 17.55, 2.60, (0,1,0)),
+ ("Stair wall — soffit accent C1 crown (x 20.2 ft, 2.5 m)", 20.2, 17.55, 2.50, (0,1,0)),
+ ("Stair wall — soffit accent C2 crown (x 22.5 ft, 3.0 m)", 22.5, 17.55, 3.00, (0,1,0)),
+ ("Stair wall — between accents (x 21.3 ft, 1.6 m, eye level on flight 1)", 21.3, 17.55, 1.60, (0,1,0)),
+ ("Landing back wall (x 25.5 ft, 2.5 m) — F37 pool", 25.5, 17.55, 2.50, (0,1,0)),
  ("Flight 2 riser face, mid (seen from living)", 20.5, 25.0, None, (0,1,0)),
 ]
 
@@ -353,7 +362,7 @@ def heatmap(res, fname, title, keypts=True):
         d.text((mL+(x-x0)*S, mT+(y-y0)*S), t, fill=(40,34,28), font=f9, anchor="mm")
     # fixtures
     for f in geo["fixtures"]:
-        if f["id"] in ("F38","F39","F6","F7","F8","F9","F40","F41","F42","F37","F31","F32","F33","F34","F35","F36"):
+        if f["id"] in ("F38","F39","F6","F7","F8","F9","F40","F41","F42","F37","F31","F33","F35","F80","F81","F82"):
             px, py = mL+(f["x"]-x0)*S, mT+(f["y"]-y0)*S
             col = (200,60,30) if f["p"]=="AXSP20" else (30,60,160)
             d.ellipse([px-4,py-4,px+4,py+4], fill=(255,255,255), outline=col, width=2); d.text((px+6,py-5), f["id"], fill=col, font=f9)
@@ -364,7 +373,7 @@ def heatmap(res, fname, title, keypts=True):
                 "TV viewing area, floor (W side)": (-6, 8, "rm"), "W edge, under TV, floor": (-6, -8, "rm"), "Flight 1 mid tread": (6, 10, "lm"), "Flight 2 mid tread (seen from living)": (6, 10, "lm"),
                 "Half landing centre": (-6, 12, "rm"), "Stair base (tread 1)": (-6, 6, "rm")}
         for k in res["keys"]:
-            if k["name"].startswith(("TV screen","TV feature","Curtain","Stair feature","Flight 2 riser")): continue
+            if k["name"].startswith(("TV screen","TV feature","Curtain","Stair feature","Stair wall","Landing back wall","Flight 2 riser")): continue
             px, py = mL+(k["x"]-x0)*S, mT+(k["y"]-y0)*S
             dx, dy, anc = offs.get(k["name"], (5, 2, "lm"))
             d.ellipse([px-3,py-3,px+3,py+3], fill=(0,0,0)); d.text((px+dx,py+dy), f"{k['total']:.0f}", fill=(0,0,0), font=f10, anchor=anc)
@@ -538,7 +547,9 @@ def fixture_table(resFULL):
     rows.append(row("F40 Axios 20W → stair", bysrc["F40 Axios 20W 38°"], "flight 2 mid tread", TARGETS["stair"], (0,0,1), ("20 W", "38° optic", "lm DOC-CAT; shape CALC")))
     rows.append(row("F41 Axios 20W → TV panel", bysrc["F41 Axios 20W 24°"], "TV feature panel 2.5 m (vertical)", TARGETS["tv"], (-1,0,0), ("20 W", "24° optic", "lm DOC-CAT; shape CALC")))
     rows.append(row("F42 Axios 20W → curtain", bysrc["F42 Axios 20W 60°"], "curtain 3.2 m (vertical)", TARGETS["curtain"], (0,-1,0), ("20 W", "60° optic", "lm DOC-CAT; shape CALC")))
-    rows.append(row("F37 Avia 7W on landing soffit → stair wall", bysrc["F37 AVIA7 -> stair wall"], "stair feature wall at the aim point, 2.6 m (vertical)", ft3(23.0,17.55,2.6), (0,1,0), ("7 W", "36° (assumed)", "lm EST (520 lm); CRI>90 per price list")))
+    rows.append(row("F37 Avia 7W on landing soffit → landing back wall", bysrc["F37 AVIA7 -> stair wall"], "landing back wall, 2.5 m (vertical)", ft3(25.5,17.55,2.5), (0,1,0), ("7 W", "36° (assumed)", "lm EST (520 lm); CRI>90 per price list")))
+    rows.append(row("F80 Avia 7W soffit accent C1 (over tread 3)", bysrc["F80 Avia soffit accent"], "stair wall, crown of its scallop (x 20.2 ft, 2.5 m, vertical)", ft3(20.2,17.55,2.5), (0,1,0), ("7 W", "36° (assumed)", "lm EST (520 lm); CRI>90; core position ASSUMED")))
+    rows.append(row("F82 Avia 7W soffit accent C3 (over tread 9)", bysrc["F82 Avia soffit accent"], "stair wall below it (x 23 ft, 2.6 m, vertical)", ft3(23.0,17.55,2.6), (0,1,0), ("7 W", "36° (assumed)", "lm EST; aimed at the wall only")))
     # pendant: sum over globes
     pend = [s for s in S if "pendant" in s.label]; Ecoffee = sum(float(s.E(np.array([TARGETS["coffee"]]), np.array([0,0,1.0]))[0]) for s in pend)
     rows.append(f"| Pendant cluster (10 globes, x18.7 y31.4) | 2.6–5.3 m | 10 × ~5 W | {sum(s.lm for s in pend):.0f} lm (after globe) | {pend[0].I0:.0f} cd per globe (isotropic) | 360° | coffee-table top | 2.2–4.9 m | 0° | {Ecoffee:.0f} lx | bulb lm DOC-OTH; globe τ EST |")
