@@ -401,14 +401,14 @@ const CONDUITS = [
  {ref:"F2",floor:"FF",service:"power_heavy",size:"25mm",status:"live",from:"Riser",to:"BR2 bedside + study sockets at 600mm FFL",contents:"2.5sqmm L + N + E",note:""},
  {ref:"F3",floor:"FF",service:"power_heavy",size:"25mm",status:"live",from:"Riser",to:"BR2 AC socket at 1850mm FFL",contents:"4sqmm L + N + E (20A AC)",note:""},
  {ref:"F4",floor:"FF",service:"power_heavy",size:"25mm",status:"live",from:"Riser",to:"T2 geyser outlet 1850mm FFL + DP switch outside door",contents:"2.5sqmm L + N + E (20A geyser)",note:""},
- {ref:"F5",floor:"FF",service:"power_light",size:"25mm",status:"live",from:"Riser",to:"BR1 ceiling + bedsides + wardrobe driver",contents:"1.5sqmm L + N + E",note:""},
+ {ref:"F5",floor:"FF",service:"power_light",size:"25mm",status:"live",from:"Riser",to:"BR1 ceiling + bedsides + wardrobe driver (E-wall wardrobe) + raider-art halo feed box (S wall ~2000mm) + alcove shelf strip",contents:"1.5sqmm L + N + E",note:"2026-10-24: bed head on the toilet partition; back-lit walnut kabaddi-raider art above it needs a 50mm feed box at ~2000mm centred on that wall (4-inch partition — plumber confirms pipe-free first)."},
  {ref:"F6",floor:"FF",service:"power_heavy",size:"25mm",status:"live",from:"Riser",to:"BR1 bedside + study sockets at 600mm FFL",contents:"2.5sqmm L + N + E",note:""},
  {ref:"F7",floor:"FF",service:"power_heavy",size:"25mm",status:"live",from:"Riser",to:"BR1 AC socket at 1850mm FFL",contents:"4sqmm L + N + E (20A AC)",note:""},
  {ref:"F8",floor:"FF",service:"power_heavy",size:"25mm",status:"live",from:"Riser",to:"T1 geyser + lights bundle",contents:"2.5sqmm L + N + E + 1.5sqmm lights",note:""},
  {ref:"F9",floor:"FF",service:"power_light",size:"25mm",status:"live",from:"Riser",to:"FF Living ceiling + front balcony + corridor lights",contents:"1.5sqmm L + N + E",note:""},
  {ref:"F10",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"FF Living CEILING AP, central JB between BR1 & BR2 doors (R-FF-1)",contents:"2x Cat6 UTP (router uplink + spare) + draw wire",note:"Updated 2026-05-29: moved from 2400mm wall plate to ceiling junction box. PoE-only AP (UniFi U6-Lite); 5A socket dropped."},
  {ref:"F11",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"BR2 study wall, 700mm FFL",contents:"1x Cat6 UTP + draw wire",note:""},
- {ref:"F12",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"BR1 study wall, 700mm FFL",contents:"1x Cat6 UTP + draw wire",note:""},
+ {ref:"F12",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"BR1 study wall = N wall, 700mm FFL (desk centred between the 12M board and the E-wall wardrobe)",contents:"1x Cat6 UTP + draw wire",note:"Study wall fixed 2026-10-24 (Creative Space furniture layout + guest-room design): N wall, not the E window wall."},
  {ref:"F14",floor:"FF",service:"data",size:"25mm",status:"provision",from:"Riser",to:"Front balcony NW corner soffit/parapet (CAM-3)",contents:"PULL STRING + 1x outdoor Cat6",note:"Elevated overview of compound, gate, driveway."},
  {ref:"F15",floor:"FF",service:"data",size:"25mm",status:"provision",from:"Riser",to:"Continue UP to terrace level (CAM-5)",contents:"PULL STRING + 1x outdoor UV-resistant Cat6",note:"Use UV-rated conduit for last 500mm above roof. Parapet mount."}
 ];
@@ -438,7 +438,7 @@ const CO = {
  F1:{o:HUB.RISER,d:[700,400]}, F2:{o:HUB.RISER,d:[560,348]}, F3:{o:HUB.RISER,d:[700,255]},
  F4:{o:HUB.RISER,d:[650,128]}, F5:{o:HUB.RISER,d:[260,400]}, F6:{o:HUB.RISER,d:[440,348]},
  F7:{o:HUB.RISER,d:[260,255]}, F8:{o:HUB.RISER,d:[300,128]}, F9:{o:HUB.RISER,d:[250,770]},
- F10:{o:HUB.RISER,d:[490,648]}, F11:{o:HUB.RISER,d:[700,612]}, F12:{o:HUB.RISER,d:[270,612]},
+ F10:{o:HUB.RISER,d:[490,648]}, F11:{o:HUB.RISER,d:[700,612]}, F12:{o:HUB.RISER,d:[230,612]},
  F14:{o:HUB.RISER,d:[110,1000]}, F15:{o:HUB.RISER,d:[762,730]}
 };
 
@@ -463,8 +463,8 @@ const MMWAVE = [
   mountNote:"Ceiling centre of the west/balcony bedroom. False ceiling planned (cove pocket 100×75mm).",xy:[705,430]},
  {ref:"M5",floor:"FF",room:"FF Bedroom 1 (E side)",mount:"Wall at 7ft FFL",powerShort:"Sonoff SNZB-06PR2 · Method E (buck in 2M GI box)",
   sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
-  power:"Method E: 2M GI MS back box at 2100mm FFL on the wall facing the bed. HLK-PM01 buck inside the box, 230V via Wago 221 connectors. Short USB-C cable exits through hole in blank Schneider plate. Sensor on supplied bracket directly above the plate.",
-  mountNote:"Wall mount at 7ft FFL — NO false ceiling planned (slab cast, direct paint). Wall position: facing the bed for clear sight line.",xy:[265,430]},
+  power:"Method E: 2M GI MS back box at 2100mm FFL on the W wall beside the bed. HLK-PM01 buck inside the box, 230V via Wago 221 connectors. Short USB-C cable exits through hole in blank Schneider plate. Sensor on supplied bracket directly above the plate.",
+  mountNote:"Wall mount at 7ft FFL on the W wall, ~2ft N of the toilet-partition corner, facing E across the bed. Moved 2026-10-24 off the headboard (toilet-partition) wall, which now carries the back-lit kabaddi-raider art. (A 9ft perimeter false-ceiling band is proposed for this room — if built, a ceiling mount near the band is also possible.)",xy:[455,390]},
  {ref:"M6",floor:"FF",room:"FF Toilet 2 (W bedroom's bath)",mount:"Ceiling or Wall (TBD)",powerShort:"Sonoff SNZB-06PR2 · Method 1 / Method E",
   sensor:"Sonoff SNZB-06PR2 (24GHz mmWave + PIR fusion, Zigbee 3.0)",
   power:"Method 1 if ceiling access verified on site (HLK-PM01 inside ceiling JB). Otherwise Method E (2M GI box at 7ft on wall). Slab cast — verify ceiling chase access during plaster prep.",
