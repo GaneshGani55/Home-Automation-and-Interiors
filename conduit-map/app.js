@@ -88,6 +88,8 @@ const CONDUITS = [
  {ref:"F10",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"FF Living CEILING AP, central JB between BR1 & BR2 doors (R-FF-1)",contents:"2x Cat6 UTP (router uplink + spare) + draw wire",note:"Updated 2026-05-29: moved from 2400mm wall plate to ceiling junction box. PoE-only AP (UniFi U6-Lite); 5A socket dropped."},
  {ref:"F11",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"BR2 study wall, 700mm FFL",contents:"1x Cat6 UTP + draw wire",note:""},
  {ref:"F12",floor:"FF",service:"data",size:"25mm",status:"live",from:"Riser",to:"BR1 study wall = N wall, 700mm FFL (desk centred between the 12M board and the E-wall wardrobe)",contents:"1x Cat6 UTP + draw wire",note:"Study wall fixed 2026-10-24 (Creative Space furniture layout + guest-room design): N wall, not the E window wall."},
+ {ref:"F16",floor:"FF",service:"data",size:"size to confirm",status:"live",from:"BR1 low 18M box (N wall, 700mm)",to:"BR1 ceiling PROJECTOR point, S end above the bed head",contents:"1x Cat6 UTP - keystone at the box (label PROJECTOR), RJ45 plug at the ceiling",note:"NEW 2026-11-22 (home theatre). Same colour order both ends (T568B). No joints. Leave 30cm spare at the ceiling. Add a 2-outlet 5A socket at the projector point.",explain:"This Cat6 is NOT internet. It works as a long HDMI cable: a small sender box on the desk plugs into the PROJECTOR keystone, a receiver box at the ceiling plugs into the projector. Keep it one unbroken run and test it with a LAN tester before the ceiling closes. The other keystone in this box (INTERNET, F12) is the normal network port - label both so they are not mixed up."},
+ {ref:"F17",floor:"FF",service:"lv16",size:"size to confirm",status:"provision",from:"BR1 low 18M box (N wall, 700mm)",to:"BR1 ceiling speaker points (the four corners)",contents:"Finolex 1.5sqmm speaker cable - one run per speaker point",note:"NEW 2026-11-22. Not used yet. Label each cable NE / NW / SE / SW at BOTH ends, leave a 1m coil at each ceiling point, cap.",explain:"Speaker wires for a future surround system in the guest room. Today the room uses a soundbar on the desk, which needs none of these - so they are only labelled, coiled and capped. The line on the map shows the four corners; each corner has its own separate cable back to the box. Count and exact positions to be confirmed on site."},
  {ref:"F14",floor:"FF",service:"data",size:"25mm",status:"provision",from:"Riser",to:"Front balcony NW corner soffit/parapet (CAM-3)",contents:"PULL STRING + 1x outdoor Cat6",note:"Elevated overview of compound, gate, driveway."},
  {ref:"F15",floor:"FF",service:"data",size:"25mm",status:"provision",from:"Riser",to:"Continue UP to terrace level (CAM-5)",contents:"PULL STRING + 1x outdoor UV-resistant Cat6",note:"Use UV-rated conduit for last 500mm above roof. Parapet mount."}
 ];
@@ -118,6 +120,7 @@ const CO = {
  F4:{o:HUB.RISER,d:[650,128]}, F5:{o:HUB.RISER,d:[260,400]}, F6:{o:HUB.RISER,d:[440,348]},
  F7:{o:HUB.RISER,d:[260,255]}, F8:{o:HUB.RISER,d:[300,128]}, F9:{o:HUB.RISER,d:[250,770]},
  F10:{o:HUB.RISER,d:[490,648]}, F11:{o:HUB.RISER,d:[700,612]}, F12:{o:HUB.RISER,d:[230,612]},
+ F16:{o:[240,612],d:[290,285]}, F17:{o:[220,612],via:[[100,590],[100,265],[430,265]],d:[430,590]},
  F14:{o:HUB.RISER,d:[110,1000]}, F15:{o:HUB.RISER,d:[762,730]}
 };
 
