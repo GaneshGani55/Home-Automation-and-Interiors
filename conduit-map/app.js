@@ -25,7 +25,7 @@ const DEFAULT_ACTIVE = ["data","lv16","water","presence","components"];
 const CONDUITS = [
  {ref:"P1",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"Foyer Switch Panel (N wall, 1200mm FFL)",contents:"1.5sqmm L + N + E (feeds 6-gang foyer panel)",note:"65mm-deep GI MS box. NEUTRAL must reach the panel - no exceptions."},
  {ref:"P2",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"Foyer Switch Panel",to:"2x foyer ceiling GU10 spotlights",contents:"Switched live Gang 1 + N + E",note:"GU10 7W 2700K, adjustable gimbals to angle 30deg toward stone wall."},
- {ref:"P3",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"Foyer Switch Panel",to:"False-ceiling cove driver + halo driver",contents:"Switched live Gang 2 + N + E",note:"Both drivers above false ceiling. Halo wraps cavity top."},
+ {ref:"P3",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"Foyer Switch Panel",to:"False-ceiling cove driver",contents:"Switched live Gang 2 + N + E",note:"Cove driver above the false ceiling. UPDATED 2026-11-22: the halo strip and its driver are DROPPED with the foyer screen - cove only."},
  {ref:"P4",floor:"GF",service:"power_light",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Walnut shelf 24V driver",contents:"Switched live Gang 3 + N + E",note:"Floor route preferred."},
  {ref:"P5",floor:"GF",service:"power_light",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Outside porch ceiling light",contents:"Switched live Gang 5 + N + E",note:"Through N wall. Outdoor IP44 fitting."},
  {ref:"P6",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"Living false ceiling, 4x recessed COB ceiling boxes (12W 2700K)",contents:"1.5sqmm L + N + E",note:"Stay in solid-slab zone, avoid the void area."},
@@ -37,7 +37,7 @@ const CONDUITS = [
  {ref:"P12",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"Pooja ceiling spotlights + decorative strip",contents:"1.5sqmm L + N + E",note:"Confirm fixture spec on-site."},
  {ref:"P13",floor:"GF",service:"power_light",size:"25mm",status:"live",from:"DB",to:"Step lights + mid-flight wall light + server + landing",contents:"1.5sqmm L + N + E",note:"Step lights (3W each) on each riser left side."},
 
- {ref:"H1",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Foyer screen cavity (back wall) - 2x 5A sockets",contents:"2.5sqmm L + N + E",note:"Sonoff Mini R2 inside socket box switches Monitor only."},
+ {ref:"H1",floor:"GF",service:"power_heavy",size:"25mm",status:"provision",from:"DB",to:"Foyer S wall (old screen cavity spot) - NOT USED",contents:"2.5sqmm L + N + E if already pulled - otherwise nothing",note:"NOT USED - foyer screen DROPPED 2026-11-22. No sockets here. Leave this run DISCONNECTED at the DB, insulate and cap the wall end.",explain:"This was the power feed for the foyer welcome screen. The screen and its cavity are cancelled, so this run feeds nothing. Do not fit sockets. Keep it disconnected at the DB and cap the wall end safely."},
  {ref:"H2",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"TV wall (W wall of Living) - 3 boxes (16A + double 5A + Cat6 keystone)",contents:"2.5sqmm L + N + E",note:"All at 300mm FFL. Keystone box 150mm from power boxes."},
  {ref:"H3",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Living perimeter sockets (multiple boxes)",contents:"2.5sqmm L + N + E",note:"Skirting-level chase. Min 150mm from corners."},
  {ref:"H4",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Kitchen counter - 4x sockets at 1100mm FFL",contents:"2.5sqmm L + N + E",note:"Above counter, behind backsplash. Confirm with kitchen designer."},
@@ -48,7 +48,7 @@ const CONDUITS = [
  {ref:"H9",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"MBR AC socket at 1850mm FFL on N wall above door",contents:"4sqmm L + N + E (20A RCBO)",note:"Confirm AC manual for socket position relative to outdoor unit."},
  {ref:"H10",floor:"GF",service:"power_heavy",size:"25mm",status:"live",from:"DB",to:"Bath geyser outlet at 1850mm FFL inside bathroom",contents:"2.5sqmm L + N + E (20A RCBO)",note:"Geyser SWITCH (DP) outside door at 1050mm FFL."},
 
- {ref:"D1",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Foyer screen cavity (back wall, bottom-RIGHT)",contents:"1x indoor Cat6 (UTP)",note:"FLOOR route under screed (not ceiling). ~12m.",explain:"Cat6 (floor route under the screed) from the server to the foyer screen cavity. It powers (PoE) and feeds the Raspberry Pi behind the welcome monitor. Shares one floor chase with D2 + D3 - no separate break."},
+ {ref:"D1",floor:"GF",service:"data",size:"25mm",status:"provision",from:"Server",to:"Foyer S wall (old screen cavity spot) - SPARE",contents:"1x indoor Cat6 (UTP) - spare, not used",note:"NOT USED - foyer screen DROPPED 2026-11-22. FLOOR route under screed, ~12m. Coil and cap both ends, label SPARE-FOYER.",explain:"This Cat6 was for the foyer welcome screen, which is cancelled. The cable stays in the floor as a spare. Cap both ends and label it. It shares the floor chase with D2 + D3, which are still needed."},
  {ref:"D2",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Main-door outside face (Hikvision DS-KV6113-WPE1(C) video doorbell, PoE)",contents:"1x outdoor LSZH UV-rated Cat6 (PoE)",note:"Doorbell at 1450mm FFL, latch side. Shared floor route with D1+D3. Updated 2026-05-22: Hikvision DS-KV6113-WPE1(C) replaces the earlier Reolink TC541.",explain:"Outdoor Cat6 (PoE) to the video doorbell. ONE cable both powers the doorbell and carries its video back to the server for face detection - no power needed at the door."},
  {ref:"D3",floor:"GF",service:"data",size:"25mm",status:"provision",from:"Server",to:"Porch W wall (future face-detection camera, CAM-1)",contents:"PULL STRING ONLY - capped IP67 back-box, 1650mm FFL",note:"DROPPED from base install (doorbell handles face capture).",explain:"Spare conduit for a future dedicated face camera if the doorbell's face detection ever proves unreliable. Pull-string only now; a Cat6 can be drawn later - no wall break."},
  {ref:"D4",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"Living Hall N wall, MIDDLE (overview camera, CAM-2)",contents:"1x outdoor Cat6 (PoE) - conduit route chosen on site",note:"Moved 2026-05-30: was porch ceiling NE corner; now mid of the Living Hall NORTH wall. Technician picks the conduit route.",explain:"Overview camera relocated to the middle of the Living Hall north (entrance-facing) wall - it watches the porch / main approach. Conduit route is left to the technician: pull from the server, or tap the nearest data run, whatever is cleanest on site."},
@@ -61,7 +61,7 @@ const CONDUITS = [
  {ref:"D12",floor:"GF",service:"data",size:"25mm",status:"live",from:"Server",to:"TV unit (W wall of Living)",contents:"1x Cat6 (UTP)",note:"Wired network point behind the TV unit.",explain:"Cat6 from the server to the TV unit on the W wall of the Living Hall - a wired drop behind the TV for a smart-TV / streaming box / console, so the main screen doesn't depend on Wi-Fi."},
 
  {ref:"L1",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Cove LED driver in false ceiling",contents:"24V DC 2-core",note:"Driver in false ceiling perimeter. Accessible via inspection hatch.",explain:"24V DC from the foyer panel (Gang 2) to the cove LED driver hidden in the false ceiling. The driver converts 230V->24V; this 2-core only carries the low-voltage OUTPUT to the strip. Runs inside the foyer panel's existing ceiling chase - no extra wall break."},
- {ref:"L2",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Halo driver above false ceiling near cavity top",contents:"24V DC 2-core",note:"Halo strip wraps cavity reveal. Amber 2200K.",explain:"24V to the amber halo strip that frames the screen cavity. Driven from the same panel gang as the cove; the driver sits above the false ceiling near the cavity top."},
+ {ref:"L2",floor:"GF",service:"lv16",size:"16mm",status:"provision",from:"Foyer Switch Panel",to:"Old halo driver spot above the false ceiling - NOT USED",contents:"NOTHING TO PULL",note:"NOT USED - the halo strip is DROPPED with the foyer screen (2026-11-22).",explain:"This was the feed for the amber halo strip around the foyer screen cavity. The screen and cavity are cancelled, so there is no halo. Do not pull or connect anything here."},
  {ref:"L3",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Foyer Switch Panel",to:"Walnut shelf 24V driver",contents:"24V DC 2-core",note:"Shelf strip 6W/m, warm white.",explain:"24V DC to the under-strip driver of the walnut floating shelf, switched by foyer panel Gang 3. Floor route preferred so the shelf gets a hidden feed."},
  {ref:"L4",floor:"GF",service:"lv16",size:"16mm",status:"live",from:"Server (amp box)",to:"Foyer ceiling speaker (centre, between the 2 spotlights)",contents:"1x Finolex 1.5sqmm 2-core speaker cable (laid)",note:"UPDATED 2026-11-22: fed from the SERVER, not from the screen cavity. The line drawn here shows only the last stretch - the full route from the server is as laid, confirm on site. Speaker sits in the MIDDLE of the foyer ceiling, between the two GU10 spotlights. Label FOYER at both ends, 1m coil at the ceiling, cap it.",explain:"Speaker cable from the server to the foyer ceiling speaker. One plain 8-ohm ceiling speaker goes here (round, about 24cm across, needs 12cm clear depth above the ceiling board). Its amp box sits beside the server. There is no amp and no speaker inside the screen cavity any more."},
  {ref:"L5",floor:"GF",service:"lv16",size:"16mm",status:"provision",from:"Server",to:"Main door frame TOP (concealed door-contact sensor)",contents:"PULL STRING ONLY",note:"Future provision - pull-string now.",explain:"For a FUTURE hidden magnetic door-contact sensor at the top of the main-door frame. It simply tells Home Assistant whether the door is OPEN or SHUT - two thin wires, one reed switch on the frame + a magnet on the door leaf. HA uses it for the 'Away' alarm and the welcome logic (e.g. only greet when the door actually opens). Just a pull-string today; a thin 2-core can be drawn later through THIS 16mm conduit, or piggy-backed on the adjacent doorbell conduit, so no wall-breaking later."},
@@ -169,7 +169,7 @@ const DEVICES = [
  {id:"JB-SUMP",      floor:"GF",   svc:"water", label:"Sump JB",        xy:[505,1040]},
  {id:"DB-CUPBOARD",  floor:"GF",   svc:"water", label:"DB cupboard",    xy:[150,975]},
  {id:"NICHE-SERVER", floor:"GF",   svc:"data",  label:"Server",         xy:[900,770]},
- {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen",   xy:[205,915]},
+ {id:"FOYER-CAVITY", floor:"GF",   svc:"data",  label:"Foyer screen ✕",   xy:[205,915]},
  {id:"AP-GF",        floor:"GF",   svc:"data",  label:"GF ceiling AP",  xy:[470,705]},
  {id:"WAVESHARE-STAIR",floor:"GF", svc:"data",  label:"Stair panel",    xy:[650,600]},
  {id:"WAVESHARE-DINING",floor:"GF",svc:"data",  label:"Dining panel",   xy:[140,455]},
@@ -226,40 +226,22 @@ const GUIDES = {
   imgs:["staircase-spine.jpg"], pdf:"FOYER_ELECTRICIAN_MASTER_PLAN.pdf", related:["D9","D10","D5","W1","W3","D7","L4"]
  },
  "FOYER-CAVITY":{
-  title:"Foyer welcome screen", sub:"S feature wall · stone cavity 580×380×100mm", glyph:"TV", svc:"data",
-  badge:"Pull cable now",
-  inside:["Samsung LS22F320GAW 21.5\" monitor (VESA 100, no speakers)","Raspberry Pi Zero 2W + PoE splitter (5V)","Pi Camera Module 3 (CAM-0) on the top bezel — CSI ribbon","No speaker and no amp in the cavity now (2026-11-22) - the foyer ceiling speaker is fed straight from the server (see L4)","Sonoff Mini R2 (Wi-Fi) inside the socket box — switches the Monitor socket","Halo 24V amber LED around the cavity reveal"],
-  power:"Cavity has 2× 5A sockets on the BACK wall (C-DB-Cavity-Power / H1, from the DB on the E wall). The Pi is PoE-powered: the cavity Cat6 (D1, floor route from the server) → PoE splitter → 5V to the Pi. Halo 24V from the driver above the false ceiling.",
-  mount:"Monitor on a VESA 100 bracket, centre 1450mm FFL, on the back wall. Socket pocket centre 1346mm; 3\"dia×1\" speaker pocket; matte-black inside; stone wraps the front 30mm of the reveal.",
-  sensor:"Face capture: Hikvision DS-KV6113-WPE1(C) PoE doorbell on the outside N wall at 1450mm → Frigate → CompreFace match → HA wakes the screen. CAM-0 bezel Pi-cam is a secondary close-range check.",
-  steps:["Cut the 580×380×100mm cavity, centred on the 6ft feature wall; paint matte black.","Bring POWER (H1) to bottom-LEFT and DATA (D1) to bottom-RIGHT of the back wall; HALO (16mm) to top-centre.","Mount the VESA bracket at 1450mm; fit the 2× 5A socket plate (Sonoff Mini R2 inside, switching Monitor only).","Behind the monitor: Pi + PoE splitter on the back wall. No amp or speaker here any more - the speaker pocket is not needed.","Run the stone reveal + halo; commission the welcome flow with the doorbell."],
-  imgs:["foyer-stone.jpg","foyer-xray.jpg"], pdf:"FOYER_ELECTRICIAN_MASTER_PLAN.pdf", related:["H1","D1","D2","P1","L2"]
- },
- "AP-GF":{
-  title:"GF ceiling Wi-Fi AP", sub:"False ceiling, dining/living junction · PoE", glyph:"AP", svc:"data",
-  badge:"Pull cable now",
-  inside:["Ubiquiti UniFi U6-Lite (or equivalent) Wi-Fi 6 AP","Fed by 1× Cat6 (R-GF-1 / D10) from the server"],
-  power:"PoE only — the AP draws ~12W over the Cat6 from the server PoE switch. No socket needed.",
-  mount:"Ceiling junction box, flush in the false ceiling, centred above the open dining/living junction. Primary GF Wi-Fi 6 for dining, living, foyer and the master bedroom.",
-  steps:["Run R-GF-1 (D10) from the server, up the server wall, east across the GF false-ceiling void.","Terminate at a capped ceiling JB at the central dining/living position.","After ceiling work, clip the AP to the JB and patch its Cat6 to a PoE port in the server."],
-  imgs:["wifi-ap.jpg"], pdf:"ELECTRICIAN_REFERENCE.pdf", related:["D10"]
- },
- "AP-FF":{
-  title:"FF ceiling Wi-Fi AP", sub:"FF Living false ceiling, central · PoE", glyph:"AP", svc:"data",
-  badge:"Pull cable now",
-  inside:["Ubiquiti UniFi U6-Lite (or equivalent) Wi-Fi 6 AP","Fed by 2× Cat6 (R-FF-1 / F10) — uplink + spare"],
-  power:"PoE only (R-FF-1). The old 2400mm wall plate + 5A socket are dropped — ceiling-mount, PoE-fed.",
-  mount:"Ceiling JB in the FF Living false ceiling, central between the BR1 and BR2 doors for balanced coverage.",
-  steps:["Carry R-FF-1 up the staircase riser, then east to the central FF Living ceiling.","Terminate 2× Cat6 at a ceiling JB.","Mount the AP after ceiling work; patch one Cat6 to a server PoE port (keep the 2nd as spare)."],
-  imgs:["wifi-ap.jpg"], pdf:"ELECTRICIAN_REFERENCE.pdf", related:["F10","F11","F12"]
+  title:"Foyer screen - DROPPED", sub:"S feature wall · cancelled 2026-11-22 · do NOT build", glyph:"TV", svc:"data",
+  badge:"Do not build", live:false,
+  note:"⛔ The foyer welcome screen and its wall cavity are CANCELLED (Ganesh, 2026-11-22). The pictures and the PDF below show the OLD plan - do not follow them for the screen.",
+  inside:["Nothing goes here now: no monitor, no Raspberry Pi, no camera on the bezel, no sockets, no halo strip, no speaker"],
+  power:"None. H1 (power from the DB) stays DISCONNECTED at the DB with the wall end insulated and capped. D1 (Cat6 from the server) stays in the floor as a capped spare. L2 (halo feed) is not used.",
+  mount:"No cavity in the feature wall. If the cavity is already cut, confirm with Ganesh before the mason closes it.",
+  steps:["Do NOT cut the 580×380×100mm cavity. If it is already cut, stop and confirm with Ganesh.","H1: leave disconnected at the DB; insulate and cap the wall end. No socket plate.","D1: coil and cap the Cat6 at both ends, label it SPARE-FOYER.","L2 / halo: nothing to pull, nothing to fit.","The foyer ceiling speaker is still wanted - it is fed from the server (see L4).","The doorbell (D2) and the foyer switch panel are unchanged."],
+  imgs:["foyer-stone.jpg","foyer-xray.jpg"], pdf:"FOYER_ELECTRICIAN_MASTER_PLAN.pdf", related:["H1","D1","L2","L4"]
  },
  "CAM-DOORBELL":{
   title:"Video doorbell (face capture)", sub:"Outside N wall · 1450mm FFL · PoE", glyph:"DR", svc:"data",
   badge:"Pull cable now",
   inside:["Hikvision DS-KV6113-WPE1(C) PoE video doorbell (doorbell + camera + 2-way intercom)","3\"×3\"×2.5\" GI back box, recessed so it hides behind the bracket"],
-  power:"PoE via D2 (outdoor LSZH UV Cat6), floor route shared with the cavity Cat6 (D1).",
+  power:"PoE via D2 (outdoor LSZH UV Cat6), floor route shared with the spare foyer Cat6 (D1).",
   mount:"Latch side of the main door, 1450mm FFL, 150–200mm from the frame.",
-  sensor:"RTSP stream → Frigate → CompreFace face match → Home Assistant → foyer welcome screen. Replaces the earlier Reolink TC541 (updated 2026-05-22).",
+  sensor:"RTSP stream → Frigate → face match → Home Assistant → shows on the staircase screen and can play a welcome on the foyer ceiling speaker. (The foyer welcome screen is dropped, 2026-11-22.) Replaces the earlier Reolink TC541.",
   steps:["Recess the small GI box on the outside N wall at 1450mm.","Pull D2 outdoor Cat6 (floor route) to the box; weatherproof the entry with silicone.","Mount the doorbell bracket over the box; patch its Cat6 to a server PoE port.","Add it to Frigate; train CompreFace on family faces."],
   imgs:["foyer-xray.jpg"], pdf:"FOYER_ELECTRICIAN_MASTER_PLAN.pdf", related:["D2","D3"]
  },
